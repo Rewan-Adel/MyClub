@@ -1,7 +1,47 @@
 ﻿
 @{
     ViewBag.Title = "login";
+    Layout = null;
 }
 
-<h2>Login</h2>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Login</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="~/Content/login.css">
+    <link rel="icon" href="~/images/freepik-export-20240715061812u1zF.png">
+</head>
+
+<body>
+    <div class="background">
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+    <div class="container">
+        <div class="welcome">
+            <div class="bg"></div>
+            <h1>Welcome Back</h1>
+        </div>
+        <form>
+            <h3>Login</h3>
+            <label for="username"><i class="fa-regular fa-envelope"></i>  Email</label>
+            <input type="text" placeholder="info@example.com" id="username" required>
+            <label for="password"><i class="fa-solid fa-lock"></i>  Password</label>
+            <input type="password" placeholder="Password" id="password" required>
+            <button>Login</button>
+            <span>Did you forget your password? <a href="https://localhost:44399/Account/forpass"> Reset!</a></span>
+            <br />
+            <span>Don't you have account?<a href="https://localhost:44399/Account/Signup"> sign up</a></span>
+        </form>
+    </div>
+</body>
+<footer>
+    <p>All rights reserved &copy; 2024 ICEAlex.</p>
+</footer>
+</html>
+
 

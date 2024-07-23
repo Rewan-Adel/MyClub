@@ -2,96 +2,182 @@
 
 @{
     ViewBag.Title = "Signup";
+    Layout = null;
 }
 
-<h2>My Club</h2>
-
-
-@using (Html.BeginForm("Signup", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-{
-    @Html.AntiForgeryToken()
-
-    <div class="form-horizontal">
-        <h4>Person</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.PersonName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.PersonName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.PersonName, "", new { @class = "text-danger" })
+<title>Registration</title>
+<link rel="icon" href="~/images/freepik-export-20240715061812u1zF.png" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<script src="https://kit.fontawesome.com/a076d05399.js"></script>
+<link rel="stylesheet" href="~/Content/signup.css" />
+<body>
+    <div class="container">
+        <header>Sign up</header>
+        <div class="progress-bar">
+            <div class="step">
+                <p>Name</p>
+                <div class="bullet">
+                    <span><i class="fa-solid fa-user" style="position:relative;top:3px"></i></span>
+                </div>
+                <div class="check fas fa-check" style="position:relative;top:-14px"></div>
+            </div>
+            <div class="step">
+                <p>Contact</p>
+                <div class="bullet">
+                    <span><i class="fa-solid fa-id-card" style="position:relative;top:3px"></i></span>
+                </div>
+                <div class="check fas fa-check" style="position:relative;top:-14px"></div>
+            </div>
+            <div class="step">
+                <p>Birth</p>
+                <div class="bullet">
+                    <span><i class="fa-solid fa-cake-candles" style="position:relative;top:3px"></i></span>
+                </div>
+                <div class="check fas fa-check" style="position:relative;top:-14px"></div>
+            </div>
+            <div class="step">
+                <p>Submit</p>
+                <div class="bullet">
+                    <span><i class="fa-solid fa-clipboard-check" style="position:relative;top:3px"></i></span>
+                </div>
+                <div class="check fas fa-check" style="position:relative;top:-14px"></div>
             </div>
         </div>
+        <div class="form-outer">
+            @using (Html.BeginForm("Signup", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Gender, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Gender, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                <div class="page slide-page">
+                    <div class="title">Basic Info:</div>
+                    <div class="field">
+                        @Html.LabelFor(model => model.PersonName, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.PersonName, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.PersonName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.BirthDate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.BirthDate, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.BirthDate, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                    <div class="field">
+                        @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.MobileNumber, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.MobileNumber, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.MobileNumber, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                    <div class="field">
+                        @Html.LabelFor(model => model.Nationality, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Nationality, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Nationality, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.HomePhoneNumber, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.HomePhoneNumber, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.HomePhoneNumber, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                    <div class="field">
+                        <button class="firstNext next">
+                            Next
+                        </button>
+                    </div>
+                    <span>Already have an account? <a href="https://localhost:44399/Account/login">login</a></span>
+                </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                <div class="page">
+                    <div class="title">Contact Info:</div>
+                    <div class="field">
+                        @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                    <div class="field">
+                        @Html.LabelFor(model => model.MobileNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.MobileNumber, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.MobileNumber, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Nationality, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Nationality, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Nationality, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                    <div class="field">
+                        @Html.LabelFor(model => model.HomePhoneNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.HomePhoneNumber, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.HomePhoneNumber, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
 
+                    <div class="field btns">
+                        <button class="prev-1 prev">Previous</button>
+                        <button class="next-1 next">Next</button>
+                    </div>
+                </div>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Signup" class="btn btn-default" />
-            </div>
+                <div class="page">
+                    <div class="title">Date of Birth:</div>
+                    <div class="field">
+                        @Html.LabelFor(model => model.BirthDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.BirthDate, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.BirthDate, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        @Html.LabelFor(model => model.Gender, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Gender, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="field btns">
+                        <button class="prev-2 prev">Previous</button>
+                        <button class="next-2 next">Next</button>
+                    </div>
+                </div>
+
+                <div class="page">
+                    <div class="title">Login Details:</div>
+                    <div class="field">
+                        <button class="prev-3 prev">Previous</button>
+                        <input type="submit" value="Signup" class="btn btn-default submit" />
+                    </div>
+                </div>
+            }
         </div>
     </div>
-}
+    <script src="~/Scripts/signup.js"></script>
+</body>
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+<footer style="display:flex; justify-content:center;color:grey; margin-top:5px;">
+    <p>All rights reserved &copy; @DateTime.Now.Year ICEAlex.</p>
+</footer>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $(document).ready(function() {
+            $('#signupForm').submit(function(event) {
+                event.preventDefault();
+                $.ajax({
+                    url: '@Url.Action("Signup", "Account")',
+                    type: 'POST',
+                    data: $(this).serialize(),
+                    success: function (response) {
+                        console.log(response);
+                        if (response.success) {
+                            alert(response.message);
+                        } else {
+                            alert(response.message);
+                        }
+                    },
+                    error: function() {
+                        alert('An error occurred. Please try again.');
+                    }
+                });
+            });
+        });
+    </script>
 }

@@ -1,0 +1,17 @@
+﻿body {
+    background-image: url(../images/freepik-export-20240718164554cFM6.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    color: white;
+}
+
+h1 {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 70px;
+}
+
+.about-section {
+    width: 500px;
+    height: 370px;
+}

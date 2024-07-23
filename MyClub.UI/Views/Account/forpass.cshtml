@@ -1,0 +1,40 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Forgot the password</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="~/Content/forpass.css">
+    <link rel="icon" href="~/images/freepik-export-20240715061812u1zF.png">
+</head>
+
+<body>
+    <div class="background">
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+    <div class="container">
+        <div class="welcome">
+            <div class="bg"></div>
+            <h1></h1>
+        </div>
+        <form method="post" action="@Url.Action("SendVerificationCode", "Account")">
+            <h3>Forgot your password?</h3>
+            <label for="email"><i class="fa-solid fa-envelope" style="margin-right:5px;"></i>Enter your email</label>
+            <input type="email" placeholder="Email@example.com" id="email" name="email" required>
+            <button type="submit"><i class="fa-solid fa-paper-plane" style="margin-right:5px;color:black"></i>Send verification code</button>
+            <a href="https://localhost:44399/Account/Login" class="back">Back to login page</a>
+        </form>
+    </div>
+</body>
+<footer>
+    <p>All rights reserved &copy; @DateTime.Now.Year ICEAlex.</p>
+</footer>
+</html>
