@@ -1,0 +1,2067 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="MyClubModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Action">
+          <Key>
+            <PropertyRef Name="ActionId" />
+          </Key>
+          <Property Name="ActionId" Type="int" Nullable="false" />
+          <Property Name="ActionName" Type="varchar" MaxLength="255" />
+          <Property Name="DisplayName" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="ActionType">
+          <Key>
+            <PropertyRef Name="ActionTypeId" />
+          </Key>
+          <Property Name="ActionTypeId" Type="int" Nullable="false" />
+          <Property Name="ActionTypeName" Type="varchar" MaxLength="255" />
+          <Property Name="DisplayName" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="aspnet_Applications">
+          <Key>
+            <PropertyRef Name="ApplicationId" />
+          </Key>
+          <Property Name="ApplicationName" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="LoweredApplicationName" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="ApplicationId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="256" />
+        </EntityType>
+        <EntityType Name="aspnet_Membership">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="ApplicationId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="PasswordFormat" Type="int" Nullable="false" />
+          <Property Name="PasswordSalt" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="MobilePIN" Type="nvarchar" MaxLength="16" />
+          <Property Name="Email" Type="nvarchar" MaxLength="256" />
+          <Property Name="LoweredEmail" Type="nvarchar" MaxLength="256" />
+          <Property Name="PasswordQuestion" Type="nvarchar" MaxLength="256" />
+          <Property Name="PasswordAnswer" Type="nvarchar" MaxLength="128" />
+          <Property Name="IsApproved" Type="bit" Nullable="false" />
+          <Property Name="IsLockedOut" Type="bit" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="LastLoginDate" Type="datetime" Nullable="false" />
+          <Property Name="LastPasswordChangedDate" Type="datetime" Nullable="false" />
+          <Property Name="LastLockoutDate" Type="datetime" Nullable="false" />
+          <Property Name="FailedPasswordAttemptCount" Type="int" Nullable="false" />
+          <Property Name="FailedPasswordAttemptWindowStart" Type="datetime" Nullable="false" />
+          <Property Name="FailedPasswordAnswerAttemptCount" Type="int" Nullable="false" />
+          <Property Name="FailedPasswordAnswerAttemptWindowStart" Type="datetime" Nullable="false" />
+          <Property Name="Comment" Type="ntext" />
+        </EntityType>
+        <EntityType Name="aspnet_Paths">
+          <Key>
+            <PropertyRef Name="PathId" />
+          </Key>
+          <Property Name="ApplicationId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PathId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Path" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="LoweredPath" Type="nvarchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <EntityType Name="aspnet_PersonalizationAllUsers">
+          <Key>
+            <PropertyRef Name="PathId" />
+          </Key>
+          <Property Name="PathId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PageSettings" Type="image" Nullable="false" />
+          <Property Name="LastUpdatedDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="aspnet_PersonalizationPerUser">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PathId" Type="uniqueidentifier" />
+          <Property Name="UserId" Type="uniqueidentifier" />
+          <Property Name="PageSettings" Type="image" Nullable="false" />
+          <Property Name="LastUpdatedDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="aspnet_Profile">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PropertyNames" Type="ntext" Nullable="false" />
+          <Property Name="PropertyValuesString" Type="ntext" Nullable="false" />
+          <Property Name="PropertyValuesBinary" Type="image" Nullable="false" />
+          <Property Name="LastUpdatedDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="aspnet_Roles">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="ApplicationId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="RoleId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="RoleName" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="LoweredRoleName" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="256" />
+        </EntityType>
+        <EntityType Name="aspnet_SchemaVersions">
+          <Key>
+            <PropertyRef Name="Feature" />
+            <PropertyRef Name="CompatibleSchemaVersion" />
+          </Key>
+          <Property Name="Feature" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="CompatibleSchemaVersion" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="IsCurrentVersion" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="aspnet_Users">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="ApplicationId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="LoweredUserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="MobileAlias" Type="nvarchar" MaxLength="16" />
+          <Property Name="IsAnonymous" Type="bit" Nullable="false" />
+          <Property Name="LastActivityDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="aspnet_UsersInRoles">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="RoleId" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="aspnet_WebEvent_Events">
+          <Key>
+            <PropertyRef Name="EventId" />
+          </Key>
+          <Property Name="EventId" Type="char" MaxLength="32" Nullable="false" />
+          <Property Name="EventTimeUtc" Type="datetime" Nullable="false" />
+          <Property Name="EventTime" Type="datetime" Nullable="false" />
+          <Property Name="EventType" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="EventSequence" Type="decimal" Precision="19" Scale="0" Nullable="false" />
+          <Property Name="EventOccurrence" Type="decimal" Precision="19" Scale="0" Nullable="false" />
+          <Property Name="EventCode" Type="int" Nullable="false" />
+          <Property Name="EventDetailCode" Type="int" Nullable="false" />
+          <Property Name="Message" Type="nvarchar" MaxLength="1024" />
+          <Property Name="ApplicationPath" Type="nvarchar" MaxLength="256" />
+          <Property Name="ApplicationVirtualPath" Type="nvarchar" MaxLength="256" />
+          <Property Name="MachineName" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="RequestUrl" Type="nvarchar" MaxLength="1024" />
+          <Property Name="ExceptionType" Type="nvarchar" MaxLength="256" />
+          <Property Name="Details" Type="ntext" />
+        </EntityType>
+        <EntityType Name="AuditTrail">
+          <Key>
+            <PropertyRef Name="AuditId" />
+          </Key>
+          <Property Name="AuditId" Type="int" Nullable="false" />
+          <Property Name="ActionTypeId" Type="int" />
+          <Property Name="ActionId" Type="int" />
+          <Property Name="UserId" Type="int" />
+          <Property Name="IPAddress" Type="varchar" MaxLength="255" />
+          <Property Name="TransactionTime" Type="datetime" />
+          <Property Name="EntityId" Type="int" />
+          <Property Name="EntityRecord" Type="text" />
+        </EntityType>
+        <EntityType Name="MasterEntity">
+          <Key>
+            <PropertyRef Name="EntityId" />
+          </Key>
+          <Property Name="EntityId" Type="int" Nullable="false" />
+          <Property Name="EntityName" Type="varchar" MaxLength="255" />
+          <Property Name="DisplayName" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Member">
+          <Key>
+            <PropertyRef Name="MemberId" />
+          </Key>
+          <Property Name="MemberId" Type="int" Nullable="false" />
+          <Property Name="MemberName" Type="varchar" MaxLength="255" />
+          <Property Name="PersonId" Type="int" />
+          <Property Name="UserId" Type="int" />
+          <Property Name="RegisteredById" Type="int" />
+          <Property Name="RegistrationDate" Type="date" />
+          <Property Name="LastModifiedDate" Type="date" />
+        </EntityType>
+        <EntityType Name="MemberAttendance">
+          <Key>
+            <PropertyRef Name="AttendanceId" />
+          </Key>
+          <Property Name="AttendanceId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MemberOfferId" Type="int" />
+          <Property Name="ServiceId" Type="int" />
+          <Property Name="AttendanceDate" Type="date" />
+          <Property Name="ReplacedBy" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="MemberOffer">
+          <Key>
+            <PropertyRef Name="MemberOfferId" />
+          </Key>
+          <Property Name="MemberOfferId" Type="int" Nullable="false" />
+          <Property Name="MemberId" Type="int" />
+          <Property Name="OfferPriceId" Type="int" />
+          <Property Name="PaymentAmount" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="PaymentDate" Type="date" />
+          <Property Name="CurrentStatusId" Type="int" />
+          <Property Name="CreatedById" Type="int" />
+          <Property Name="CreationDate" Type="datetime" />
+          <Property Name="LastModifiedDate" Type="datetime" />
+          <Property Name="MemberPrice" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="DiscountPercent" Type="decimal" Precision="5" Scale="2" />
+          <Property Name="DiscountValue" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="DiscountById" Type="int" />
+          <Property Name="EndDate" Type="date" />
+          <Property Name="Note" Type="nvarchar(max)" />
+          <Property Name="TrainerId" Type="int" />
+        </EntityType>
+        <EntityType Name="OfferDetail">
+          <Key>
+            <PropertyRef Name="OfferDetailId" />
+          </Key>
+          <Property Name="OfferDetailId" Type="int" Nullable="false" />
+          <Property Name="OfferPriceId" Type="int" Nullable="false" />
+          <Property Name="ServiceId" Type="int" Nullable="false" />
+          <Property Name="ServiceLimitNumber" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="OfferDuration">
+          <Key>
+            <PropertyRef Name="OfferDurationId" />
+          </Key>
+          <Property Name="OfferDurationId" Type="int" Nullable="false" />
+          <Property Name="OfferDurationName" Type="nvarchar" MaxLength="255" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="IsVisible" Type="bit" />
+          <Property Name="Days" Type="int" />
+        </EntityType>
+        <EntityType Name="OfferPrice">
+          <Key>
+            <PropertyRef Name="OfferPriceId" />
+          </Key>
+          <Property Name="OfferPriceId" Type="int" Nullable="false" />
+          <Property Name="OfferId" Type="int" />
+          <Property Name="Price" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="StartDate" Type="date" />
+          <Property Name="EndDate" Type="date" />
+          <Property Name="OfferDurationId" Type="int" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="MaxFreezingDays" Type="int" />
+          <Property Name="IsSeparated" Type="bit" />
+          <Property Name="CreationDate" Type="datetime" />
+          <Property Name="LastModifiedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="OfferPricelid">
+          <Key>
+            <PropertyRef Name="OfferPricelidId" />
+          </Key>
+          <Property Name="OfferPricelidId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OfferPriceId" Type="int" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <EntityType Name="Person">
+          <Key>
+            <PropertyRef Name="PersonId" />
+          </Key>
+          <Property Name="PersonId" Type="int" Nullable="false" />
+          <Property Name="PersonName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Gender" Type="char" MaxLength="10" Nullable="false" />
+          <Property Name="BirthDate" Type="date" Nullable="false" />
+          <Property Name="MobileNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="HomePhoneNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Address" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Nationality" Type="nvarchar" MaxLength="50" />
+          <Property Name="UserId" Type="int" />
+          <Property Name="RegistrationDate" Type="date" />
+          <Property Name="isExpected" Type="bit" />
+          <Property Name="MemberOfferId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="service">
+          <Key>
+            <PropertyRef Name="ServiceId" />
+          </Key>
+          <Property Name="ServiceId" Type="int" Nullable="false" />
+          <Property Name="ServiceName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="ServicePrice" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="CreationDate" Type="datetime" />
+          <Property Name="LastModifiedDate" Type="datetime" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+          <Property Name="IsDefault" Type="bit" />
+        </EntityType>
+        <EntityType Name="Trainer">
+          <Key>
+            <PropertyRef Name="TrainerId" />
+          </Key>
+          <Property Name="TrainerId" Type="int" Nullable="false" />
+          <Property Name="PersonId" Type="int" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <EntityType Name="User Profile">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="IsAdmin" Type="bit" Nullable="false" />
+          <Property Name="Enable" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="WebPages_Pages">
+          <Key>
+            <PropertyRef Name="PageID" />
+          </Key>
+          <Property Name="PageID" Type="int" Nullable="false" />
+          <Property Name="PageName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PageTitle" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="RelatedTo" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="webpages_Roles">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="int" Nullable="false" />
+          <Property Name="RoleName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="webPages_UserPermessions">
+          <Key>
+            <PropertyRef Name="UserPageID" />
+          </Key>
+          <Property Name="UserPageID" Type="int" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="Pageid" Type="int" Nullable="false" />
+          <Property Name="CanRead" Type="bit" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'MyClub.dbo.webpages_UsersInRoles' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="webpages_UsersInRoles">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="RoleId" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__aspnet_Me__Appli__04E4BC85">
+          <End Role="aspnet_Applications" Type="Self.aspnet_Applications" Multiplicity="1" />
+          <End Role="aspnet_Membership" Type="Self.aspnet_Membership" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnet_Applications">
+              <PropertyRef Name="ApplicationId" />
+            </Principal>
+            <Dependent Role="aspnet_Membership">
+              <PropertyRef Name="ApplicationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__aspnet_Me__UserI__05D8E0BE">
+          <End Role="aspnet_Users" Type="Self.aspnet_Users" Multiplicity="1" />
+          <End Role="aspnet_Membership" Type="Self.aspnet_Membership" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="aspnet_Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="aspnet_Membership">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__aspnet_Pa__Appli__367C1819">
+          <End Role="aspnet_Applications" Type="Self.aspnet_Applications" Multiplicity="1" />
+          <End Role="aspnet_Paths" Type="Self.aspnet_Paths" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnet_Applications">
+              <PropertyRef Name="ApplicationId" />
+            </Principal>
+            <Dependent Role="aspnet_Paths">
+              <PropertyRef Name="ApplicationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__aspnet_Pe__PathI__3C34F16F">
+          <End Role="aspnet_Paths" Type="Self.aspnet_Paths" Multiplicity="1" />
+          <End Role="aspnet_PersonalizationAllUsers" Type="Self.aspnet_PersonalizationAllUsers" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="aspnet_Paths">
+              <PropertyRef Name="PathId" />
+            </Principal>
+            <Dependent Role="aspnet_PersonalizationAllUsers">
+              <PropertyRef Name="PathId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__aspnet_Pe__PathI__40058253">
+          <End Role="aspnet_Paths" Type="Self.aspnet_Paths" Multiplicity="0..1" />
+          <End Role="aspnet_PersonalizationPerUser" Type="Self.aspnet_PersonalizationPerUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnet_Paths">
+              <PropertyRef Name="PathId" />
+            </Principal>
+            <Dependent Role="aspnet_PersonalizationPerUser">
+              <PropertyRef Name="PathId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__aspnet_Pe__UserI__40F9A68C">
+          <End Role="aspnet_Users" Type="Self.aspnet_Users" Multiplicity="0..1" />
+          <End Role="aspnet_PersonalizationPerUser" Type="Self.aspnet_PersonalizationPerUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnet_Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="aspnet_PersonalizationPerUser">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__aspnet_Pr__UserI__19DFD96B">
+          <End Role="aspnet_Users" Type="Self.aspnet_Users" Multiplicity="1" />
+          <End Role="aspnet_Profile" Type="Self.aspnet_Profile" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="aspnet_Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="aspnet_Profile">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__aspnet_Ro__Appli__236943A5">
+          <End Role="aspnet_Applications" Type="Self.aspnet_Applications" Multiplicity="1" />
+          <End Role="aspnet_Roles" Type="Self.aspnet_Roles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnet_Applications">
+              <PropertyRef Name="ApplicationId" />
+            </Principal>
+            <Dependent Role="aspnet_Roles">
+              <PropertyRef Name="ApplicationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__aspnet_Us__Appli__74AE54BC">
+          <End Role="aspnet_Applications" Type="Self.aspnet_Applications" Multiplicity="1" />
+          <End Role="aspnet_Users" Type="Self.aspnet_Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnet_Applications">
+              <PropertyRef Name="ApplicationId" />
+            </Principal>
+            <Dependent Role="aspnet_Users">
+              <PropertyRef Name="ApplicationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__aspnet_Us__RoleI__282DF8C2">
+          <End Role="aspnet_Roles" Type="Self.aspnet_Roles" Multiplicity="1" />
+          <End Role="aspnet_UsersInRoles" Type="Self.aspnet_UsersInRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnet_Roles">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="aspnet_UsersInRoles">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__aspnet_Us__UserI__2739D489">
+          <End Role="aspnet_Users" Type="Self.aspnet_Users" Multiplicity="1" />
+          <End Role="aspnet_UsersInRoles" Type="Self.aspnet_UsersInRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnet_Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="aspnet_UsersInRoles">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__AuditTrai__Actio__5AEE82B9">
+          <End Role="ActionType" Type="Self.ActionType" Multiplicity="0..1" />
+          <End Role="AuditTrail" Type="Self.AuditTrail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ActionType">
+              <PropertyRef Name="ActionTypeId" />
+            </Principal>
+            <Dependent Role="AuditTrail">
+              <PropertyRef Name="ActionTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__AuditTrai__Actio__5BE2A6F2">
+          <End Role="Action" Type="Self.Action" Multiplicity="0..1" />
+          <End Role="AuditTrail" Type="Self.AuditTrail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Action">
+              <PropertyRef Name="ActionId" />
+            </Principal>
+            <Dependent Role="AuditTrail">
+              <PropertyRef Name="ActionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__AuditTrai__Entit__5CD6CB2B">
+          <End Role="MasterEntity" Type="Self.MasterEntity" Multiplicity="0..1" />
+          <End Role="AuditTrail" Type="Self.AuditTrail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MasterEntity">
+              <PropertyRef Name="EntityId" />
+            </Principal>
+            <Dependent Role="AuditTrail">
+              <PropertyRef Name="EntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__OfferPric__Offer__6477ECF3">
+          <End Role="OfferDuration" Type="Self.OfferDuration" Multiplicity="0..1" />
+          <End Role="OfferPrice" Type="Self.OfferPrice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OfferDuration">
+              <PropertyRef Name="OfferDurationId" />
+            </Principal>
+            <Dependent Role="OfferPrice">
+              <PropertyRef Name="OfferDurationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MemberAttendance_MemberOffer">
+          <End Role="MemberOffer" Type="Self.MemberOffer" Multiplicity="0..1" />
+          <End Role="MemberAttendance" Type="Self.MemberAttendance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MemberOffer">
+              <PropertyRef Name="MemberOfferId" />
+            </Principal>
+            <Dependent Role="MemberAttendance">
+              <PropertyRef Name="MemberOfferId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MemberAttendance_service">
+          <End Role="service" Type="Self.service" Multiplicity="0..1" />
+          <End Role="MemberAttendance" Type="Self.MemberAttendance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="service">
+              <PropertyRef Name="ServiceId" />
+            </Principal>
+            <Dependent Role="MemberAttendance">
+              <PropertyRef Name="ServiceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MemberOffer_Member">
+          <End Role="Member" Type="Self.Member" Multiplicity="0..1" />
+          <End Role="MemberOffer" Type="Self.MemberOffer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Member">
+              <PropertyRef Name="MemberId" />
+            </Principal>
+            <Dependent Role="MemberOffer">
+              <PropertyRef Name="MemberId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MemberOffer_OfferPrice">
+          <End Role="OfferPrice" Type="Self.OfferPrice" Multiplicity="0..1" />
+          <End Role="MemberOffer" Type="Self.MemberOffer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OfferPrice">
+              <PropertyRef Name="OfferPriceId" />
+            </Principal>
+            <Dependent Role="MemberOffer">
+              <PropertyRef Name="OfferPriceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OfferDetail_OfferPrice">
+          <End Role="OfferPrice" Type="Self.OfferPrice" Multiplicity="1" />
+          <End Role="OfferDetail" Type="Self.OfferDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OfferPrice">
+              <PropertyRef Name="OfferPriceId" />
+            </Principal>
+            <Dependent Role="OfferDetail">
+              <PropertyRef Name="OfferPriceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OfferDetail_OfferPrice1">
+          <End Role="OfferPrice" Type="Self.OfferPrice" Multiplicity="1" />
+          <End Role="OfferDetail" Type="Self.OfferDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OfferPrice">
+              <PropertyRef Name="OfferPriceId" />
+            </Principal>
+            <Dependent Role="OfferDetail">
+              <PropertyRef Name="OfferPriceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OfferDetail_service">
+          <End Role="service" Type="Self.service" Multiplicity="1" />
+          <End Role="OfferDetail" Type="Self.OfferDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="service">
+              <PropertyRef Name="ServiceId" />
+            </Principal>
+            <Dependent Role="OfferDetail">
+              <PropertyRef Name="ServiceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OfferPricelid_OfferPrice">
+          <End Role="OfferPrice" Type="Self.OfferPrice" Multiplicity="0..1" />
+          <End Role="OfferPricelid" Type="Self.OfferPricelid" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OfferPrice">
+              <PropertyRef Name="OfferPriceId" />
+            </Principal>
+            <Dependent Role="OfferPricelid">
+              <PropertyRef Name="OfferPriceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Person_Member">
+          <End Role="Member" Type="Self.Member" Multiplicity="1" />
+          <End Role="Person" Type="Self.Person" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Member">
+              <PropertyRef Name="MemberId" />
+            </Principal>
+            <Dependent Role="Person">
+              <PropertyRef Name="PersonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Trainer_Person">
+          <End Role="Person" Type="Self.Person" Multiplicity="0..1" />
+          <End Role="Trainer" Type="Self.Trainer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="PersonId" />
+            </Principal>
+            <Dependent Role="Trainer">
+              <PropertyRef Name="PersonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WebPages_Pages_webPages_UserPermessions">
+          <End Role="webPages_UserPermessions" Type="Self.webPages_UserPermessions" Multiplicity="1" />
+          <End Role="WebPages_Pages" Type="Self.WebPages_Pages" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="webPages_UserPermessions">
+              <PropertyRef Name="UserPageID" />
+            </Principal>
+            <Dependent Role="WebPages_Pages">
+              <PropertyRef Name="PageID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_webPages_UserPermessions_User Profile">
+          <End Role="User Profile" Type="Self.User Profile" Multiplicity="1" />
+          <End Role="webPages_UserPermessions" Type="Self.webPages_UserPermessions" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="User Profile">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="webPages_UserPermessions">
+              <PropertyRef Name="UserPageID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_webpages_UsersInRoles_User Profile">
+          <End Role="User Profile" Type="Self.User Profile" Multiplicity="1" />
+          <End Role="webpages_UsersInRoles" Type="Self.webpages_UsersInRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User Profile">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="webpages_UsersInRoles">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_webpages_UsersInRoles_webpages_Roles">
+          <End Role="webpages_Roles" Type="Self.webpages_Roles" Multiplicity="1" />
+          <End Role="webpages_UsersInRoles" Type="Self.webpages_UsersInRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="webpages_Roles">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="webpages_UsersInRoles">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MyClubModelStoreContainer">
+          <EntitySet Name="Action" EntityType="Self.Action" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ActionType" EntityType="Self.ActionType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="aspnet_Applications" EntityType="Self.aspnet_Applications" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="aspnet_Membership" EntityType="Self.aspnet_Membership" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="aspnet_Paths" EntityType="Self.aspnet_Paths" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="aspnet_PersonalizationAllUsers" EntityType="Self.aspnet_PersonalizationAllUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="aspnet_PersonalizationPerUser" EntityType="Self.aspnet_PersonalizationPerUser" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="aspnet_Profile" EntityType="Self.aspnet_Profile" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="aspnet_Roles" EntityType="Self.aspnet_Roles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="aspnet_SchemaVersions" EntityType="Self.aspnet_SchemaVersions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="aspnet_Users" EntityType="Self.aspnet_Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="aspnet_UsersInRoles" EntityType="Self.aspnet_UsersInRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="aspnet_WebEvent_Events" EntityType="Self.aspnet_WebEvent_Events" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AuditTrail" EntityType="Self.AuditTrail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MasterEntity" EntityType="Self.MasterEntity" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Member" EntityType="Self.Member" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MemberAttendance" EntityType="Self.MemberAttendance" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MemberOffer" EntityType="Self.MemberOffer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OfferDetail" EntityType="Self.OfferDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OfferDuration" EntityType="Self.OfferDuration" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OfferPrice" EntityType="Self.OfferPrice" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OfferPricelid" EntityType="Self.OfferPricelid" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Person" EntityType="Self.Person" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="service" EntityType="Self.service" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Trainer" EntityType="Self.Trainer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User Profile" EntityType="Self.User Profile" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WebPages_Pages" EntityType="Self.WebPages_Pages" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="webpages_Roles" EntityType="Self.webpages_Roles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="webPages_UserPermessions" EntityType="Self.webPages_UserPermessions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="webpages_UsersInRoles" EntityType="Self.webpages_UsersInRoles" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [webpages_UsersInRoles].[UserId] AS [UserId], 
+    [webpages_UsersInRoles].[RoleId] AS [RoleId]
+    FROM [dbo].[webpages_UsersInRoles] AS [webpages_UsersInRoles]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK__aspnet_Me__Appli__04E4BC85" Association="Self.FK__aspnet_Me__Appli__04E4BC85">
+            <End Role="aspnet_Applications" EntitySet="aspnet_Applications" />
+            <End Role="aspnet_Membership" EntitySet="aspnet_Membership" />
+          </AssociationSet>
+          <AssociationSet Name="FK__aspnet_Me__UserI__05D8E0BE" Association="Self.FK__aspnet_Me__UserI__05D8E0BE">
+            <End Role="aspnet_Users" EntitySet="aspnet_Users" />
+            <End Role="aspnet_Membership" EntitySet="aspnet_Membership" />
+          </AssociationSet>
+          <AssociationSet Name="FK__aspnet_Pa__Appli__367C1819" Association="Self.FK__aspnet_Pa__Appli__367C1819">
+            <End Role="aspnet_Applications" EntitySet="aspnet_Applications" />
+            <End Role="aspnet_Paths" EntitySet="aspnet_Paths" />
+          </AssociationSet>
+          <AssociationSet Name="FK__aspnet_Pe__PathI__3C34F16F" Association="Self.FK__aspnet_Pe__PathI__3C34F16F">
+            <End Role="aspnet_Paths" EntitySet="aspnet_Paths" />
+            <End Role="aspnet_PersonalizationAllUsers" EntitySet="aspnet_PersonalizationAllUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__aspnet_Pe__PathI__40058253" Association="Self.FK__aspnet_Pe__PathI__40058253">
+            <End Role="aspnet_Paths" EntitySet="aspnet_Paths" />
+            <End Role="aspnet_PersonalizationPerUser" EntitySet="aspnet_PersonalizationPerUser" />
+          </AssociationSet>
+          <AssociationSet Name="FK__aspnet_Pe__UserI__40F9A68C" Association="Self.FK__aspnet_Pe__UserI__40F9A68C">
+            <End Role="aspnet_Users" EntitySet="aspnet_Users" />
+            <End Role="aspnet_PersonalizationPerUser" EntitySet="aspnet_PersonalizationPerUser" />
+          </AssociationSet>
+          <AssociationSet Name="FK__aspnet_Pr__UserI__19DFD96B" Association="Self.FK__aspnet_Pr__UserI__19DFD96B">
+            <End Role="aspnet_Users" EntitySet="aspnet_Users" />
+            <End Role="aspnet_Profile" EntitySet="aspnet_Profile" />
+          </AssociationSet>
+          <AssociationSet Name="FK__aspnet_Ro__Appli__236943A5" Association="Self.FK__aspnet_Ro__Appli__236943A5">
+            <End Role="aspnet_Applications" EntitySet="aspnet_Applications" />
+            <End Role="aspnet_Roles" EntitySet="aspnet_Roles" />
+          </AssociationSet>
+          <AssociationSet Name="FK__aspnet_Us__Appli__74AE54BC" Association="Self.FK__aspnet_Us__Appli__74AE54BC">
+            <End Role="aspnet_Applications" EntitySet="aspnet_Applications" />
+            <End Role="aspnet_Users" EntitySet="aspnet_Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK__aspnet_Us__RoleI__282DF8C2" Association="Self.FK__aspnet_Us__RoleI__282DF8C2">
+            <End Role="aspnet_Roles" EntitySet="aspnet_Roles" />
+            <End Role="aspnet_UsersInRoles" EntitySet="aspnet_UsersInRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK__aspnet_Us__UserI__2739D489" Association="Self.FK__aspnet_Us__UserI__2739D489">
+            <End Role="aspnet_Users" EntitySet="aspnet_Users" />
+            <End Role="aspnet_UsersInRoles" EntitySet="aspnet_UsersInRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK__AuditTrai__Actio__5AEE82B9" Association="Self.FK__AuditTrai__Actio__5AEE82B9">
+            <End Role="ActionType" EntitySet="ActionType" />
+            <End Role="AuditTrail" EntitySet="AuditTrail" />
+          </AssociationSet>
+          <AssociationSet Name="FK__AuditTrai__Actio__5BE2A6F2" Association="Self.FK__AuditTrai__Actio__5BE2A6F2">
+            <End Role="Action" EntitySet="Action" />
+            <End Role="AuditTrail" EntitySet="AuditTrail" />
+          </AssociationSet>
+          <AssociationSet Name="FK__AuditTrai__Entit__5CD6CB2B" Association="Self.FK__AuditTrai__Entit__5CD6CB2B">
+            <End Role="MasterEntity" EntitySet="MasterEntity" />
+            <End Role="AuditTrail" EntitySet="AuditTrail" />
+          </AssociationSet>
+          <AssociationSet Name="FK__OfferPric__Offer__6477ECF3" Association="Self.FK__OfferPric__Offer__6477ECF3">
+            <End Role="OfferDuration" EntitySet="OfferDuration" />
+            <End Role="OfferPrice" EntitySet="OfferPrice" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MemberAttendance_MemberOffer" Association="Self.FK_MemberAttendance_MemberOffer">
+            <End Role="MemberOffer" EntitySet="MemberOffer" />
+            <End Role="MemberAttendance" EntitySet="MemberAttendance" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MemberAttendance_service" Association="Self.FK_MemberAttendance_service">
+            <End Role="service" EntitySet="service" />
+            <End Role="MemberAttendance" EntitySet="MemberAttendance" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MemberOffer_Member" Association="Self.FK_MemberOffer_Member">
+            <End Role="Member" EntitySet="Member" />
+            <End Role="MemberOffer" EntitySet="MemberOffer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MemberOffer_OfferPrice" Association="Self.FK_MemberOffer_OfferPrice">
+            <End Role="OfferPrice" EntitySet="OfferPrice" />
+            <End Role="MemberOffer" EntitySet="MemberOffer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OfferDetail_OfferPrice" Association="Self.FK_OfferDetail_OfferPrice">
+            <End Role="OfferPrice" EntitySet="OfferPrice" />
+            <End Role="OfferDetail" EntitySet="OfferDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OfferDetail_OfferPrice1" Association="Self.FK_OfferDetail_OfferPrice1">
+            <End Role="OfferPrice" EntitySet="OfferPrice" />
+            <End Role="OfferDetail" EntitySet="OfferDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OfferDetail_service" Association="Self.FK_OfferDetail_service">
+            <End Role="service" EntitySet="service" />
+            <End Role="OfferDetail" EntitySet="OfferDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OfferPricelid_OfferPrice" Association="Self.FK_OfferPricelid_OfferPrice">
+            <End Role="OfferPrice" EntitySet="OfferPrice" />
+            <End Role="OfferPricelid" EntitySet="OfferPricelid" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Person_Member" Association="Self.FK_Person_Member">
+            <End Role="Member" EntitySet="Member" />
+            <End Role="Person" EntitySet="Person" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Trainer_Person" Association="Self.FK_Trainer_Person">
+            <End Role="Person" EntitySet="Person" />
+            <End Role="Trainer" EntitySet="Trainer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WebPages_Pages_webPages_UserPermessions" Association="Self.FK_WebPages_Pages_webPages_UserPermessions">
+            <End Role="webPages_UserPermessions" EntitySet="webPages_UserPermessions" />
+            <End Role="WebPages_Pages" EntitySet="WebPages_Pages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_webPages_UserPermessions_User Profile" Association="Self.FK_webPages_UserPermessions_User Profile">
+            <End Role="User Profile" EntitySet="User Profile" />
+            <End Role="webPages_UserPermessions" EntitySet="webPages_UserPermessions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_webpages_UsersInRoles_User Profile" Association="Self.FK_webpages_UsersInRoles_User Profile">
+            <End Role="User Profile" EntitySet="User Profile" />
+            <End Role="webpages_UsersInRoles" EntitySet="webpages_UsersInRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_webpages_UsersInRoles_webpages_Roles" Association="Self.FK_webpages_UsersInRoles_webpages_Roles">
+            <End Role="webpages_Roles" EntitySet="webpages_Roles" />
+            <End Role="webpages_UsersInRoles" EntitySet="webpages_UsersInRoles" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MyClubModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Action">
+          <Key>
+            <PropertyRef Name="ActionId" />
+          </Key>
+          <Property Name="ActionId" Type="Int32" Nullable="false" />
+          <Property Name="ActionName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="DisplayName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="AuditTrails" Relationship="Self.FK__AuditTrai__Actio__5BE2A6F2" FromRole="Action" ToRole="AuditTrail" />
+        </EntityType>
+        <EntityType Name="ActionType">
+          <Key>
+            <PropertyRef Name="ActionTypeId" />
+          </Key>
+          <Property Name="ActionTypeId" Type="Int32" Nullable="false" />
+          <Property Name="ActionTypeName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="DisplayName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="AuditTrails" Relationship="Self.FK__AuditTrai__Actio__5AEE82B9" FromRole="ActionType" ToRole="AuditTrail" />
+        </EntityType>
+        <EntityType Name="aspnet_Applications">
+          <Key>
+            <PropertyRef Name="ApplicationId" />
+          </Key>
+          <Property Name="ApplicationName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LoweredApplicationName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ApplicationId" Type="Guid" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="aspnet_Membership" Relationship="Self.FK__aspnet_Me__Appli__04E4BC85" FromRole="aspnet_Applications" ToRole="aspnet_Membership" />
+          <NavigationProperty Name="aspnet_Paths" Relationship="Self.FK__aspnet_Pa__Appli__367C1819" FromRole="aspnet_Applications" ToRole="aspnet_Paths" />
+          <NavigationProperty Name="aspnet_Roles" Relationship="Self.FK__aspnet_Ro__Appli__236943A5" FromRole="aspnet_Applications" ToRole="aspnet_Roles" />
+          <NavigationProperty Name="aspnet_Users" Relationship="Self.FK__aspnet_Us__Appli__74AE54BC" FromRole="aspnet_Applications" ToRole="aspnet_Users" />
+        </EntityType>
+        <EntityType Name="aspnet_Membership">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="ApplicationId" Type="Guid" Nullable="false" />
+          <Property Name="UserId" Type="Guid" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PasswordFormat" Type="Int32" Nullable="false" />
+          <Property Name="PasswordSalt" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MobilePIN" Type="String" MaxLength="16" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="LoweredEmail" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="PasswordQuestion" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="PasswordAnswer" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="IsApproved" Type="Boolean" Nullable="false" />
+          <Property Name="IsLockedOut" Type="Boolean" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="LastLoginDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="LastPasswordChangedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="LastLockoutDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="FailedPasswordAttemptCount" Type="Int32" Nullable="false" />
+          <Property Name="FailedPasswordAttemptWindowStart" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="FailedPasswordAnswerAttemptCount" Type="Int32" Nullable="false" />
+          <Property Name="FailedPasswordAnswerAttemptWindowStart" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="aspnet_Applications" Relationship="Self.FK__aspnet_Me__Appli__04E4BC85" FromRole="aspnet_Membership" ToRole="aspnet_Applications" />
+          <NavigationProperty Name="aspnet_Users" Relationship="Self.FK__aspnet_Me__UserI__05D8E0BE" FromRole="aspnet_Membership" ToRole="aspnet_Users" />
+        </EntityType>
+        <EntityType Name="aspnet_Paths">
+          <Key>
+            <PropertyRef Name="PathId" />
+          </Key>
+          <Property Name="ApplicationId" Type="Guid" Nullable="false" />
+          <Property Name="PathId" Type="Guid" Nullable="false" />
+          <Property Name="Path" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LoweredPath" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="aspnet_Applications" Relationship="Self.FK__aspnet_Pa__Appli__367C1819" FromRole="aspnet_Paths" ToRole="aspnet_Applications" />
+          <NavigationProperty Name="aspnet_PersonalizationAllUsers" Relationship="Self.FK__aspnet_Pe__PathI__3C34F16F" FromRole="aspnet_Paths" ToRole="aspnet_PersonalizationAllUsers" />
+          <NavigationProperty Name="aspnet_PersonalizationPerUser" Relationship="Self.FK__aspnet_Pe__PathI__40058253" FromRole="aspnet_Paths" ToRole="aspnet_PersonalizationPerUser" />
+        </EntityType>
+        <EntityType Name="aspnet_PersonalizationAllUsers">
+          <Key>
+            <PropertyRef Name="PathId" />
+          </Key>
+          <Property Name="PathId" Type="Guid" Nullable="false" />
+          <Property Name="PageSettings" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+          <Property Name="LastUpdatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="aspnet_Paths" Relationship="Self.FK__aspnet_Pe__PathI__3C34F16F" FromRole="aspnet_PersonalizationAllUsers" ToRole="aspnet_Paths" />
+        </EntityType>
+        <EntityType Name="aspnet_PersonalizationPerUser">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="PathId" Type="Guid" />
+          <Property Name="UserId" Type="Guid" />
+          <Property Name="PageSettings" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+          <Property Name="LastUpdatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="aspnet_Paths" Relationship="Self.FK__aspnet_Pe__PathI__40058253" FromRole="aspnet_PersonalizationPerUser" ToRole="aspnet_Paths" />
+          <NavigationProperty Name="aspnet_Users" Relationship="Self.FK__aspnet_Pe__UserI__40F9A68C" FromRole="aspnet_PersonalizationPerUser" ToRole="aspnet_Users" />
+        </EntityType>
+        <EntityType Name="aspnet_Profile">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Guid" Nullable="false" />
+          <Property Name="PropertyNames" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PropertyValuesString" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PropertyValuesBinary" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+          <Property Name="LastUpdatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="aspnet_Users" Relationship="Self.FK__aspnet_Pr__UserI__19DFD96B" FromRole="aspnet_Profile" ToRole="aspnet_Users" />
+        </EntityType>
+        <EntityType Name="aspnet_Roles">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="ApplicationId" Type="Guid" Nullable="false" />
+          <Property Name="RoleId" Type="Guid" Nullable="false" />
+          <Property Name="RoleName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LoweredRoleName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="aspnet_Applications" Relationship="Self.FK__aspnet_Ro__Appli__236943A5" FromRole="aspnet_Roles" ToRole="aspnet_Applications" />
+          <NavigationProperty Name="aspnet_Users" Relationship="Self.aspnet_UsersInRoles" FromRole="aspnet_Roles" ToRole="aspnet_Users" />
+        </EntityType>
+        <EntityType Name="aspnet_SchemaVersions">
+          <Key>
+            <PropertyRef Name="Feature" />
+            <PropertyRef Name="CompatibleSchemaVersion" />
+          </Key>
+          <Property Name="Feature" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CompatibleSchemaVersion" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IsCurrentVersion" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="aspnet_Users">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="ApplicationId" Type="Guid" Nullable="false" />
+          <Property Name="UserId" Type="Guid" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LoweredUserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MobileAlias" Type="String" MaxLength="16" FixedLength="false" Unicode="true" />
+          <Property Name="IsAnonymous" Type="Boolean" Nullable="false" />
+          <Property Name="LastActivityDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="aspnet_Applications" Relationship="Self.FK__aspnet_Us__Appli__74AE54BC" FromRole="aspnet_Users" ToRole="aspnet_Applications" />
+          <NavigationProperty Name="aspnet_Membership" Relationship="Self.FK__aspnet_Me__UserI__05D8E0BE" FromRole="aspnet_Users" ToRole="aspnet_Membership" />
+          <NavigationProperty Name="aspnet_PersonalizationPerUser" Relationship="Self.FK__aspnet_Pe__UserI__40F9A68C" FromRole="aspnet_Users" ToRole="aspnet_PersonalizationPerUser" />
+          <NavigationProperty Name="aspnet_Profile" Relationship="Self.FK__aspnet_Pr__UserI__19DFD96B" FromRole="aspnet_Users" ToRole="aspnet_Profile" />
+          <NavigationProperty Name="aspnet_Roles" Relationship="Self.aspnet_UsersInRoles" FromRole="aspnet_Users" ToRole="aspnet_Roles" />
+        </EntityType>
+        <EntityType Name="aspnet_WebEvent_Events">
+          <Key>
+            <PropertyRef Name="EventId" />
+          </Key>
+          <Property Name="EventId" Type="String" MaxLength="32" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="EventTimeUtc" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EventTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EventType" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="EventSequence" Type="Decimal" Precision="19" Scale="0" Nullable="false" />
+          <Property Name="EventOccurrence" Type="Decimal" Precision="19" Scale="0" Nullable="false" />
+          <Property Name="EventCode" Type="Int32" Nullable="false" />
+          <Property Name="EventDetailCode" Type="Int32" Nullable="false" />
+          <Property Name="Message" Type="String" MaxLength="1024" FixedLength="false" Unicode="true" />
+          <Property Name="ApplicationPath" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="ApplicationVirtualPath" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="MachineName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="RequestUrl" Type="String" MaxLength="1024" FixedLength="false" Unicode="true" />
+          <Property Name="ExceptionType" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="Details" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="AuditTrail">
+          <Key>
+            <PropertyRef Name="AuditId" />
+          </Key>
+          <Property Name="AuditId" Type="Int32" Nullable="false" />
+          <Property Name="ActionTypeId" Type="Int32" />
+          <Property Name="ActionId" Type="Int32" />
+          <Property Name="UserId" Type="Int32" />
+          <Property Name="IPAddress" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="TransactionTime" Type="DateTime" Precision="3" />
+          <Property Name="EntityId" Type="Int32" />
+          <Property Name="EntityRecord" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Action" Relationship="Self.FK__AuditTrai__Actio__5BE2A6F2" FromRole="AuditTrail" ToRole="Action" />
+          <NavigationProperty Name="ActionType" Relationship="Self.FK__AuditTrai__Actio__5AEE82B9" FromRole="AuditTrail" ToRole="ActionType" />
+          <NavigationProperty Name="MasterEntity" Relationship="Self.FK__AuditTrai__Entit__5CD6CB2B" FromRole="AuditTrail" ToRole="MasterEntity" />
+        </EntityType>
+        <EntityType Name="MasterEntity">
+          <Key>
+            <PropertyRef Name="EntityId" />
+          </Key>
+          <Property Name="EntityId" Type="Int32" Nullable="false" />
+          <Property Name="EntityName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="DisplayName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="AuditTrails" Relationship="Self.FK__AuditTrai__Entit__5CD6CB2B" FromRole="MasterEntity" ToRole="AuditTrail" />
+        </EntityType>
+        <EntityType Name="Member">
+          <Key>
+            <PropertyRef Name="MemberId" />
+          </Key>
+          <Property Name="MemberId" Type="Int32" Nullable="false" />
+          <Property Name="MemberName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="PersonId" Type="Int32" />
+          <Property Name="UserId" Type="Int32" />
+          <Property Name="RegisteredById" Type="Int32" />
+          <Property Name="RegistrationDate" Type="DateTime" Precision="0" />
+          <Property Name="LastModifiedDate" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="MemberOffers" Relationship="Self.FK_MemberOffer_Member" FromRole="Member" ToRole="MemberOffer" />
+          <NavigationProperty Name="Person" Relationship="Self.FK_Person_Member" FromRole="Member" ToRole="Person" />
+        </EntityType>
+        <EntityType Name="MemberAttendance">
+          <Key>
+            <PropertyRef Name="AttendanceId" />
+          </Key>
+          <Property Name="AttendanceId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MemberOfferId" Type="Int32" />
+          <Property Name="ServiceId" Type="Int32" />
+          <Property Name="AttendanceDate" Type="DateTime" Precision="0" />
+          <Property Name="ReplacedBy" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="MemberOffer" Relationship="Self.FK_MemberAttendance_MemberOffer" FromRole="MemberAttendance" ToRole="MemberOffer" />
+          <NavigationProperty Name="service" Relationship="Self.FK_MemberAttendance_service" FromRole="MemberAttendance" ToRole="service" />
+        </EntityType>
+        <EntityType Name="MemberOffer">
+          <Key>
+            <PropertyRef Name="MemberOfferId" />
+          </Key>
+          <Property Name="MemberOfferId" Type="Int32" Nullable="false" />
+          <Property Name="MemberId" Type="Int32" />
+          <Property Name="OfferPriceId" Type="Int32" />
+          <Property Name="PaymentAmount" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="PaymentDate" Type="DateTime" Precision="0" />
+          <Property Name="CurrentStatusId" Type="Int32" />
+          <Property Name="CreatedById" Type="Int32" />
+          <Property Name="CreationDate" Type="DateTime" Precision="3" />
+          <Property Name="LastModifiedDate" Type="DateTime" Precision="3" />
+          <Property Name="MemberPrice" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="DiscountPercent" Type="Decimal" Precision="5" Scale="2" />
+          <Property Name="DiscountValue" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="DiscountById" Type="Int32" />
+          <Property Name="EndDate" Type="DateTime" Precision="0" />
+          <Property Name="Note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TrainerId" Type="Int32" />
+          <NavigationProperty Name="Member" Relationship="Self.FK_MemberOffer_Member" FromRole="MemberOffer" ToRole="Member" />
+          <NavigationProperty Name="MemberAttendances" Relationship="Self.FK_MemberAttendance_MemberOffer" FromRole="MemberOffer" ToRole="MemberAttendance" />
+          <NavigationProperty Name="OfferPrice" Relationship="Self.FK_MemberOffer_OfferPrice" FromRole="MemberOffer" ToRole="OfferPrice" />
+        </EntityType>
+        <EntityType Name="OfferDetail">
+          <Key>
+            <PropertyRef Name="OfferDetailId" />
+          </Key>
+          <Property Name="OfferDetailId" Type="Int32" Nullable="false" />
+          <Property Name="OfferPriceId" Type="Int32" Nullable="false" />
+          <Property Name="ServiceId" Type="Int32" Nullable="false" />
+          <Property Name="ServiceLimitNumber" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="OfferPrice" Relationship="Self.FK_OfferDetail_OfferPrice" FromRole="OfferDetail" ToRole="OfferPrice" />
+          <NavigationProperty Name="OfferPrice1" Relationship="Self.FK_OfferDetail_OfferPrice1" FromRole="OfferDetail" ToRole="OfferPrice" />
+          <NavigationProperty Name="service" Relationship="Self.FK_OfferDetail_service" FromRole="OfferDetail" ToRole="service" />
+        </EntityType>
+        <EntityType Name="OfferDuration">
+          <Key>
+            <PropertyRef Name="OfferDurationId" />
+          </Key>
+          <Property Name="OfferDurationId" Type="Int32" Nullable="false" />
+          <Property Name="OfferDurationName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsVisible" Type="Boolean" />
+          <Property Name="Days" Type="Int32" />
+          <NavigationProperty Name="OfferPrices" Relationship="Self.FK__OfferPric__Offer__6477ECF3" FromRole="OfferDuration" ToRole="OfferPrice" />
+        </EntityType>
+        <EntityType Name="OfferPrice">
+          <Key>
+            <PropertyRef Name="OfferPriceId" />
+          </Key>
+          <Property Name="OfferPriceId" Type="Int32" Nullable="false" />
+          <Property Name="OfferId" Type="Int32" />
+          <Property Name="Price" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="StartDate" Type="DateTime" Precision="0" />
+          <Property Name="EndDate" Type="DateTime" Precision="0" />
+          <Property Name="OfferDurationId" Type="Int32" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="MaxFreezingDays" Type="Int32" />
+          <Property Name="IsSeparated" Type="Boolean" />
+          <Property Name="CreationDate" Type="DateTime" Precision="3" />
+          <Property Name="LastModifiedDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="MemberOffers" Relationship="Self.FK_MemberOffer_OfferPrice" FromRole="OfferPrice" ToRole="MemberOffer" />
+          <NavigationProperty Name="OfferDetails" Relationship="Self.FK_OfferDetail_OfferPrice" FromRole="OfferPrice" ToRole="OfferDetail" />
+          <NavigationProperty Name="OfferDetails1" Relationship="Self.FK_OfferDetail_OfferPrice1" FromRole="OfferPrice" ToRole="OfferDetail" />
+          <NavigationProperty Name="OfferDuration" Relationship="Self.FK__OfferPric__Offer__6477ECF3" FromRole="OfferPrice" ToRole="OfferDuration" />
+          <NavigationProperty Name="OfferPricelids" Relationship="Self.FK_OfferPricelid_OfferPrice" FromRole="OfferPrice" ToRole="OfferPricelid" />
+        </EntityType>
+        <EntityType Name="OfferPricelid">
+          <Key>
+            <PropertyRef Name="OfferPricelidId" />
+          </Key>
+          <Property Name="OfferPricelidId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OfferPriceId" Type="Int32" />
+          <Property Name="IsActive" Type="Boolean" />
+          <NavigationProperty Name="OfferPrice" Relationship="Self.FK_OfferPricelid_OfferPrice" FromRole="OfferPricelid" ToRole="OfferPrice" />
+        </EntityType>
+        <EntityType Name="Person">
+          <Key>
+            <PropertyRef Name="PersonId" />
+          </Key>
+          <Property Name="PersonId" Type="Int32" Nullable="false" />
+          <Property Name="PersonName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Gender" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="BirthDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="MobileNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="HomePhoneNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Nationality" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UserId" Type="Int32" />
+          <Property Name="RegistrationDate" Type="DateTime" Precision="0" />
+          <Property Name="isExpected" Type="Boolean" />
+          <Property Name="MemberOfferId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Member" Relationship="Self.FK_Person_Member" FromRole="Person" ToRole="Member" />
+          <NavigationProperty Name="Trainers" Relationship="Self.FK_Trainer_Person" FromRole="Person" ToRole="Trainer" />
+        </EntityType>
+        <EntityType Name="service">
+          <Key>
+            <PropertyRef Name="ServiceId" />
+          </Key>
+          <Property Name="ServiceId" Type="Int32" Nullable="false" />
+          <Property Name="ServiceName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ServicePrice" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="CreationDate" Type="DateTime" Precision="3" />
+          <Property Name="LastModifiedDate" Type="DateTime" Precision="3" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <Property Name="IsDefault" Type="Boolean" />
+          <NavigationProperty Name="MemberAttendances" Relationship="Self.FK_MemberAttendance_service" FromRole="service" ToRole="MemberAttendance" />
+          <NavigationProperty Name="OfferDetails" Relationship="Self.FK_OfferDetail_service" FromRole="service" ToRole="OfferDetail" />
+        </EntityType>
+        <EntityType Name="Trainer">
+          <Key>
+            <PropertyRef Name="TrainerId" />
+          </Key>
+          <Property Name="TrainerId" Type="Int32" Nullable="false" />
+          <Property Name="PersonId" Type="Int32" />
+          <Property Name="IsActive" Type="Boolean" />
+          <NavigationProperty Name="Person" Relationship="Self.FK_Trainer_Person" FromRole="Trainer" ToRole="Person" />
+        </EntityType>
+        <EntityType Name="User_Profile">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="IsAdmin" Type="Boolean" Nullable="false" />
+          <Property Name="Enable" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="webPages_UserPermessions" Relationship="Self.FK_webPages_UserPermessions_User_Profile" FromRole="User_Profile" ToRole="webPages_UserPermessions" />
+          <NavigationProperty Name="webpages_Roles" Relationship="Self.webpages_UsersInRoles" FromRole="User_Profile" ToRole="webpages_Roles" />
+        </EntityType>
+        <EntityType Name="WebPages_Pages">
+          <Key>
+            <PropertyRef Name="PageID" />
+          </Key>
+          <Property Name="PageID" Type="Int32" Nullable="false" />
+          <Property Name="PageName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PageTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="RelatedTo" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="webPages_UserPermessions" Relationship="Self.FK_WebPages_Pages_webPages_UserPermessions" FromRole="WebPages_Pages" ToRole="webPages_UserPermessions" />
+        </EntityType>
+        <EntityType Name="webpages_Roles">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="Int32" Nullable="false" />
+          <Property Name="RoleName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="User_Profile" Relationship="Self.webpages_UsersInRoles" FromRole="webpages_Roles" ToRole="User_Profile" />
+        </EntityType>
+        <EntityType Name="webPages_UserPermessions">
+          <Key>
+            <PropertyRef Name="UserPageID" />
+          </Key>
+          <Property Name="UserPageID" Type="Int32" Nullable="false" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="Pageid" Type="Int32" Nullable="false" />
+          <Property Name="CanRead" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="User_Profile" Relationship="Self.FK_webPages_UserPermessions_User_Profile" FromRole="webPages_UserPermessions" ToRole="User_Profile" />
+          <NavigationProperty Name="WebPages_Pages" Relationship="Self.FK_WebPages_Pages_webPages_UserPermessions" FromRole="webPages_UserPermessions" ToRole="WebPages_Pages" />
+        </EntityType>
+        <Association Name="FK__AuditTrai__Actio__5BE2A6F2">
+          <End Role="Action" Type="Self.Action" Multiplicity="0..1" />
+          <End Role="AuditTrail" Type="Self.AuditTrail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Action">
+              <PropertyRef Name="ActionId" />
+            </Principal>
+            <Dependent Role="AuditTrail">
+              <PropertyRef Name="ActionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__AuditTrai__Actio__5AEE82B9">
+          <End Role="ActionType" Type="Self.ActionType" Multiplicity="0..1" />
+          <End Role="AuditTrail" Type="Self.AuditTrail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ActionType">
+              <PropertyRef Name="ActionTypeId" />
+            </Principal>
+            <Dependent Role="AuditTrail">
+              <PropertyRef Name="ActionTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__aspnet_Me__Appli__04E4BC85">
+          <End Role="aspnet_Applications" Type="Self.aspnet_Applications" Multiplicity="1" />
+          <End Role="aspnet_Membership" Type="Self.aspnet_Membership" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnet_Applications">
+              <PropertyRef Name="ApplicationId" />
+            </Principal>
+            <Dependent Role="aspnet_Membership">
+              <PropertyRef Name="ApplicationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__aspnet_Pa__Appli__367C1819">
+          <End Role="aspnet_Applications" Type="Self.aspnet_Applications" Multiplicity="1" />
+          <End Role="aspnet_Paths" Type="Self.aspnet_Paths" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnet_Applications">
+              <PropertyRef Name="ApplicationId" />
+            </Principal>
+            <Dependent Role="aspnet_Paths">
+              <PropertyRef Name="ApplicationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__aspnet_Ro__Appli__236943A5">
+          <End Role="aspnet_Applications" Type="Self.aspnet_Applications" Multiplicity="1" />
+          <End Role="aspnet_Roles" Type="Self.aspnet_Roles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnet_Applications">
+              <PropertyRef Name="ApplicationId" />
+            </Principal>
+            <Dependent Role="aspnet_Roles">
+              <PropertyRef Name="ApplicationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__aspnet_Us__Appli__74AE54BC">
+          <End Role="aspnet_Applications" Type="Self.aspnet_Applications" Multiplicity="1" />
+          <End Role="aspnet_Users" Type="Self.aspnet_Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnet_Applications">
+              <PropertyRef Name="ApplicationId" />
+            </Principal>
+            <Dependent Role="aspnet_Users">
+              <PropertyRef Name="ApplicationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__aspnet_Me__UserI__05D8E0BE">
+          <End Role="aspnet_Users" Type="Self.aspnet_Users" Multiplicity="1" />
+          <End Role="aspnet_Membership" Type="Self.aspnet_Membership" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="aspnet_Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="aspnet_Membership">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__aspnet_Pe__PathI__3C34F16F">
+          <End Role="aspnet_Paths" Type="Self.aspnet_Paths" Multiplicity="1" />
+          <End Role="aspnet_PersonalizationAllUsers" Type="Self.aspnet_PersonalizationAllUsers" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="aspnet_Paths">
+              <PropertyRef Name="PathId" />
+            </Principal>
+            <Dependent Role="aspnet_PersonalizationAllUsers">
+              <PropertyRef Name="PathId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__aspnet_Pe__PathI__40058253">
+          <End Role="aspnet_Paths" Type="Self.aspnet_Paths" Multiplicity="0..1" />
+          <End Role="aspnet_PersonalizationPerUser" Type="Self.aspnet_PersonalizationPerUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnet_Paths">
+              <PropertyRef Name="PathId" />
+            </Principal>
+            <Dependent Role="aspnet_PersonalizationPerUser">
+              <PropertyRef Name="PathId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__aspnet_Pe__UserI__40F9A68C">
+          <End Role="aspnet_Users" Type="Self.aspnet_Users" Multiplicity="0..1" />
+          <End Role="aspnet_PersonalizationPerUser" Type="Self.aspnet_PersonalizationPerUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="aspnet_Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="aspnet_PersonalizationPerUser">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__aspnet_Pr__UserI__19DFD96B">
+          <End Role="aspnet_Users" Type="Self.aspnet_Users" Multiplicity="1" />
+          <End Role="aspnet_Profile" Type="Self.aspnet_Profile" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="aspnet_Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="aspnet_Profile">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__AuditTrai__Entit__5CD6CB2B">
+          <End Role="MasterEntity" Type="Self.MasterEntity" Multiplicity="0..1" />
+          <End Role="AuditTrail" Type="Self.AuditTrail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MasterEntity">
+              <PropertyRef Name="EntityId" />
+            </Principal>
+            <Dependent Role="AuditTrail">
+              <PropertyRef Name="EntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MemberOffer_Member">
+          <End Role="Member" Type="Self.Member" Multiplicity="0..1" />
+          <End Role="MemberOffer" Type="Self.MemberOffer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Member">
+              <PropertyRef Name="MemberId" />
+            </Principal>
+            <Dependent Role="MemberOffer">
+              <PropertyRef Name="MemberId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Person_Member">
+          <End Role="Member" Type="Self.Member" Multiplicity="1" />
+          <End Role="Person" Type="Self.Person" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Member">
+              <PropertyRef Name="MemberId" />
+            </Principal>
+            <Dependent Role="Person">
+              <PropertyRef Name="PersonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MemberAttendance_MemberOffer">
+          <End Role="MemberOffer" Type="Self.MemberOffer" Multiplicity="0..1" />
+          <End Role="MemberAttendance" Type="Self.MemberAttendance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MemberOffer">
+              <PropertyRef Name="MemberOfferId" />
+            </Principal>
+            <Dependent Role="MemberAttendance">
+              <PropertyRef Name="MemberOfferId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MemberAttendance_service">
+          <End Role="service" Type="Self.service" Multiplicity="0..1" />
+          <End Role="MemberAttendance" Type="Self.MemberAttendance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="service">
+              <PropertyRef Name="ServiceId" />
+            </Principal>
+            <Dependent Role="MemberAttendance">
+              <PropertyRef Name="ServiceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MemberOffer_OfferPrice">
+          <End Role="OfferPrice" Type="Self.OfferPrice" Multiplicity="0..1" />
+          <End Role="MemberOffer" Type="Self.MemberOffer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OfferPrice">
+              <PropertyRef Name="OfferPriceId" />
+            </Principal>
+            <Dependent Role="MemberOffer">
+              <PropertyRef Name="OfferPriceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OfferDetail_OfferPrice">
+          <End Role="OfferPrice" Type="Self.OfferPrice" Multiplicity="1" />
+          <End Role="OfferDetail" Type="Self.OfferDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OfferPrice">
+              <PropertyRef Name="OfferPriceId" />
+            </Principal>
+            <Dependent Role="OfferDetail">
+              <PropertyRef Name="OfferPriceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OfferDetail_OfferPrice1">
+          <End Role="OfferPrice" Type="Self.OfferPrice" Multiplicity="1" />
+          <End Role="OfferDetail" Type="Self.OfferDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OfferPrice">
+              <PropertyRef Name="OfferPriceId" />
+            </Principal>
+            <Dependent Role="OfferDetail">
+              <PropertyRef Name="OfferPriceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OfferDetail_service">
+          <End Role="service" Type="Self.service" Multiplicity="1" />
+          <End Role="OfferDetail" Type="Self.OfferDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="service">
+              <PropertyRef Name="ServiceId" />
+            </Principal>
+            <Dependent Role="OfferDetail">
+              <PropertyRef Name="ServiceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__OfferPric__Offer__6477ECF3">
+          <End Role="OfferDuration" Type="Self.OfferDuration" Multiplicity="0..1" />
+          <End Role="OfferPrice" Type="Self.OfferPrice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OfferDuration">
+              <PropertyRef Name="OfferDurationId" />
+            </Principal>
+            <Dependent Role="OfferPrice">
+              <PropertyRef Name="OfferDurationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OfferPricelid_OfferPrice">
+          <End Role="OfferPrice" Type="Self.OfferPrice" Multiplicity="0..1" />
+          <End Role="OfferPricelid" Type="Self.OfferPricelid" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OfferPrice">
+              <PropertyRef Name="OfferPriceId" />
+            </Principal>
+            <Dependent Role="OfferPricelid">
+              <PropertyRef Name="OfferPriceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Trainer_Person">
+          <End Role="Person" Type="Self.Person" Multiplicity="0..1" />
+          <End Role="Trainer" Type="Self.Trainer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="PersonId" />
+            </Principal>
+            <Dependent Role="Trainer">
+              <PropertyRef Name="PersonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_webPages_UserPermessions_User_Profile">
+          <End Role="User_Profile" Type="Self.User_Profile" Multiplicity="1" />
+          <End Role="webPages_UserPermessions" Type="Self.webPages_UserPermessions" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="User_Profile">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="webPages_UserPermessions">
+              <PropertyRef Name="UserPageID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WebPages_Pages_webPages_UserPermessions">
+          <End Role="webPages_UserPermessions" Type="Self.webPages_UserPermessions" Multiplicity="1" />
+          <End Role="WebPages_Pages" Type="Self.WebPages_Pages" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="webPages_UserPermessions">
+              <PropertyRef Name="UserPageID" />
+            </Principal>
+            <Dependent Role="WebPages_Pages">
+              <PropertyRef Name="PageID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="aspnet_UsersInRoles">
+          <End Role="aspnet_Roles" Type="Self.aspnet_Roles" Multiplicity="*" />
+          <End Role="aspnet_Users" Type="Self.aspnet_Users" Multiplicity="*" />
+        </Association>
+        <Association Name="webpages_UsersInRoles">
+          <End Role="User_Profile" Type="Self.User_Profile" Multiplicity="*" />
+          <End Role="webpages_Roles" Type="Self.webpages_Roles" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="MyClubEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Actions" EntityType="Self.Action" />
+          <EntitySet Name="ActionTypes" EntityType="Self.ActionType" />
+          <EntitySet Name="aspnet_Applications" EntityType="Self.aspnet_Applications" />
+          <EntitySet Name="aspnet_Membership" EntityType="Self.aspnet_Membership" />
+          <EntitySet Name="aspnet_Paths" EntityType="Self.aspnet_Paths" />
+          <EntitySet Name="aspnet_PersonalizationAllUsers" EntityType="Self.aspnet_PersonalizationAllUsers" />
+          <EntitySet Name="aspnet_PersonalizationPerUser" EntityType="Self.aspnet_PersonalizationPerUser" />
+          <EntitySet Name="aspnet_Profile" EntityType="Self.aspnet_Profile" />
+          <EntitySet Name="aspnet_Roles" EntityType="Self.aspnet_Roles" />
+          <EntitySet Name="aspnet_SchemaVersions" EntityType="Self.aspnet_SchemaVersions" />
+          <EntitySet Name="aspnet_Users" EntityType="Self.aspnet_Users" />
+          <EntitySet Name="aspnet_WebEvent_Events" EntityType="Self.aspnet_WebEvent_Events" />
+          <EntitySet Name="AuditTrails" EntityType="Self.AuditTrail" />
+          <EntitySet Name="MasterEntities" EntityType="Self.MasterEntity" />
+          <EntitySet Name="Members" EntityType="Self.Member" />
+          <EntitySet Name="MemberAttendances" EntityType="Self.MemberAttendance" />
+          <EntitySet Name="MemberOffers" EntityType="Self.MemberOffer" />
+          <EntitySet Name="OfferDetails" EntityType="Self.OfferDetail" />
+          <EntitySet Name="OfferDurations" EntityType="Self.OfferDuration" />
+          <EntitySet Name="OfferPrices" EntityType="Self.OfferPrice" />
+          <EntitySet Name="OfferPricelids" EntityType="Self.OfferPricelid" />
+          <EntitySet Name="People" EntityType="Self.Person" />
+          <EntitySet Name="services" EntityType="Self.service" />
+          <EntitySet Name="Trainers" EntityType="Self.Trainer" />
+          <EntitySet Name="User_Profiles" EntityType="Self.User_Profile" />
+          <EntitySet Name="WebPages_Pages" EntityType="Self.WebPages_Pages" />
+          <EntitySet Name="webpages_Roles" EntityType="Self.webpages_Roles" />
+          <EntitySet Name="webPages_UserPermessions" EntityType="Self.webPages_UserPermessions" />
+          <AssociationSet Name="FK__AuditTrai__Actio__5BE2A6F2" Association="Self.FK__AuditTrai__Actio__5BE2A6F2">
+            <End Role="Action" EntitySet="Actions" />
+            <End Role="AuditTrail" EntitySet="AuditTrails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__AuditTrai__Actio__5AEE82B9" Association="Self.FK__AuditTrai__Actio__5AEE82B9">
+            <End Role="ActionType" EntitySet="ActionTypes" />
+            <End Role="AuditTrail" EntitySet="AuditTrails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__aspnet_Me__Appli__04E4BC85" Association="Self.FK__aspnet_Me__Appli__04E4BC85">
+            <End Role="aspnet_Applications" EntitySet="aspnet_Applications" />
+            <End Role="aspnet_Membership" EntitySet="aspnet_Membership" />
+          </AssociationSet>
+          <AssociationSet Name="FK__aspnet_Pa__Appli__367C1819" Association="Self.FK__aspnet_Pa__Appli__367C1819">
+            <End Role="aspnet_Applications" EntitySet="aspnet_Applications" />
+            <End Role="aspnet_Paths" EntitySet="aspnet_Paths" />
+          </AssociationSet>
+          <AssociationSet Name="FK__aspnet_Ro__Appli__236943A5" Association="Self.FK__aspnet_Ro__Appli__236943A5">
+            <End Role="aspnet_Applications" EntitySet="aspnet_Applications" />
+            <End Role="aspnet_Roles" EntitySet="aspnet_Roles" />
+          </AssociationSet>
+          <AssociationSet Name="FK__aspnet_Us__Appli__74AE54BC" Association="Self.FK__aspnet_Us__Appli__74AE54BC">
+            <End Role="aspnet_Applications" EntitySet="aspnet_Applications" />
+            <End Role="aspnet_Users" EntitySet="aspnet_Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK__aspnet_Me__UserI__05D8E0BE" Association="Self.FK__aspnet_Me__UserI__05D8E0BE">
+            <End Role="aspnet_Users" EntitySet="aspnet_Users" />
+            <End Role="aspnet_Membership" EntitySet="aspnet_Membership" />
+          </AssociationSet>
+          <AssociationSet Name="FK__aspnet_Pe__PathI__3C34F16F" Association="Self.FK__aspnet_Pe__PathI__3C34F16F">
+            <End Role="aspnet_Paths" EntitySet="aspnet_Paths" />
+            <End Role="aspnet_PersonalizationAllUsers" EntitySet="aspnet_PersonalizationAllUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__aspnet_Pe__PathI__40058253" Association="Self.FK__aspnet_Pe__PathI__40058253">
+            <End Role="aspnet_Paths" EntitySet="aspnet_Paths" />
+            <End Role="aspnet_PersonalizationPerUser" EntitySet="aspnet_PersonalizationPerUser" />
+          </AssociationSet>
+          <AssociationSet Name="FK__aspnet_Pe__UserI__40F9A68C" Association="Self.FK__aspnet_Pe__UserI__40F9A68C">
+            <End Role="aspnet_Users" EntitySet="aspnet_Users" />
+            <End Role="aspnet_PersonalizationPerUser" EntitySet="aspnet_PersonalizationPerUser" />
+          </AssociationSet>
+          <AssociationSet Name="FK__aspnet_Pr__UserI__19DFD96B" Association="Self.FK__aspnet_Pr__UserI__19DFD96B">
+            <End Role="aspnet_Users" EntitySet="aspnet_Users" />
+            <End Role="aspnet_Profile" EntitySet="aspnet_Profile" />
+          </AssociationSet>
+          <AssociationSet Name="FK__AuditTrai__Entit__5CD6CB2B" Association="Self.FK__AuditTrai__Entit__5CD6CB2B">
+            <End Role="MasterEntity" EntitySet="MasterEntities" />
+            <End Role="AuditTrail" EntitySet="AuditTrails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MemberOffer_Member" Association="Self.FK_MemberOffer_Member">
+            <End Role="Member" EntitySet="Members" />
+            <End Role="MemberOffer" EntitySet="MemberOffers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Person_Member" Association="Self.FK_Person_Member">
+            <End Role="Member" EntitySet="Members" />
+            <End Role="Person" EntitySet="People" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MemberAttendance_MemberOffer" Association="Self.FK_MemberAttendance_MemberOffer">
+            <End Role="MemberOffer" EntitySet="MemberOffers" />
+            <End Role="MemberAttendance" EntitySet="MemberAttendances" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MemberAttendance_service" Association="Self.FK_MemberAttendance_service">
+            <End Role="service" EntitySet="services" />
+            <End Role="MemberAttendance" EntitySet="MemberAttendances" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MemberOffer_OfferPrice" Association="Self.FK_MemberOffer_OfferPrice">
+            <End Role="OfferPrice" EntitySet="OfferPrices" />
+            <End Role="MemberOffer" EntitySet="MemberOffers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OfferDetail_OfferPrice" Association="Self.FK_OfferDetail_OfferPrice">
+            <End Role="OfferPrice" EntitySet="OfferPrices" />
+            <End Role="OfferDetail" EntitySet="OfferDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OfferDetail_OfferPrice1" Association="Self.FK_OfferDetail_OfferPrice1">
+            <End Role="OfferPrice" EntitySet="OfferPrices" />
+            <End Role="OfferDetail" EntitySet="OfferDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OfferDetail_service" Association="Self.FK_OfferDetail_service">
+            <End Role="service" EntitySet="services" />
+            <End Role="OfferDetail" EntitySet="OfferDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__OfferPric__Offer__6477ECF3" Association="Self.FK__OfferPric__Offer__6477ECF3">
+            <End Role="OfferDuration" EntitySet="OfferDurations" />
+            <End Role="OfferPrice" EntitySet="OfferPrices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OfferPricelid_OfferPrice" Association="Self.FK_OfferPricelid_OfferPrice">
+            <End Role="OfferPrice" EntitySet="OfferPrices" />
+            <End Role="OfferPricelid" EntitySet="OfferPricelids" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Trainer_Person" Association="Self.FK_Trainer_Person">
+            <End Role="Person" EntitySet="People" />
+            <End Role="Trainer" EntitySet="Trainers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_webPages_UserPermessions_User_Profile" Association="Self.FK_webPages_UserPermessions_User_Profile">
+            <End Role="User_Profile" EntitySet="User_Profiles" />
+            <End Role="webPages_UserPermessions" EntitySet="webPages_UserPermessions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WebPages_Pages_webPages_UserPermessions" Association="Self.FK_WebPages_Pages_webPages_UserPermessions">
+            <End Role="webPages_UserPermessions" EntitySet="webPages_UserPermessions" />
+            <End Role="WebPages_Pages" EntitySet="WebPages_Pages" />
+          </AssociationSet>
+          <AssociationSet Name="aspnet_UsersInRoles" Association="Self.aspnet_UsersInRoles">
+            <End Role="aspnet_Roles" EntitySet="aspnet_Roles" />
+            <End Role="aspnet_Users" EntitySet="aspnet_Users" />
+          </AssociationSet>
+          <AssociationSet Name="webpages_UsersInRoles" Association="Self.webpages_UsersInRoles">
+            <End Role="User_Profile" EntitySet="User_Profiles" />
+            <End Role="webpages_Roles" EntitySet="webpages_Roles" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MyClubModelStoreContainer" CdmEntityContainer="MyClubEntities">
+          <EntitySetMapping Name="Actions">
+            <EntityTypeMapping TypeName="MyClubModel.Action">
+              <MappingFragment StoreEntitySet="Action">
+                <ScalarProperty Name="ActionId" ColumnName="ActionId" />
+                <ScalarProperty Name="ActionName" ColumnName="ActionName" />
+                <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ActionTypes">
+            <EntityTypeMapping TypeName="MyClubModel.ActionType">
+              <MappingFragment StoreEntitySet="ActionType">
+                <ScalarProperty Name="ActionTypeId" ColumnName="ActionTypeId" />
+                <ScalarProperty Name="ActionTypeName" ColumnName="ActionTypeName" />
+                <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="aspnet_Applications">
+            <EntityTypeMapping TypeName="MyClubModel.aspnet_Applications">
+              <MappingFragment StoreEntitySet="aspnet_Applications">
+                <ScalarProperty Name="ApplicationName" ColumnName="ApplicationName" />
+                <ScalarProperty Name="LoweredApplicationName" ColumnName="LoweredApplicationName" />
+                <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="aspnet_Membership">
+            <EntityTypeMapping TypeName="MyClubModel.aspnet_Membership">
+              <MappingFragment StoreEntitySet="aspnet_Membership">
+                <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="PasswordFormat" ColumnName="PasswordFormat" />
+                <ScalarProperty Name="PasswordSalt" ColumnName="PasswordSalt" />
+                <ScalarProperty Name="MobilePIN" ColumnName="MobilePIN" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="LoweredEmail" ColumnName="LoweredEmail" />
+                <ScalarProperty Name="PasswordQuestion" ColumnName="PasswordQuestion" />
+                <ScalarProperty Name="PasswordAnswer" ColumnName="PasswordAnswer" />
+                <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
+                <ScalarProperty Name="IsLockedOut" ColumnName="IsLockedOut" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="LastLoginDate" ColumnName="LastLoginDate" />
+                <ScalarProperty Name="LastPasswordChangedDate" ColumnName="LastPasswordChangedDate" />
+                <ScalarProperty Name="LastLockoutDate" ColumnName="LastLockoutDate" />
+                <ScalarProperty Name="FailedPasswordAttemptCount" ColumnName="FailedPasswordAttemptCount" />
+                <ScalarProperty Name="FailedPasswordAttemptWindowStart" ColumnName="FailedPasswordAttemptWindowStart" />
+                <ScalarProperty Name="FailedPasswordAnswerAttemptCount" ColumnName="FailedPasswordAnswerAttemptCount" />
+                <ScalarProperty Name="FailedPasswordAnswerAttemptWindowStart" ColumnName="FailedPasswordAnswerAttemptWindowStart" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="aspnet_Paths">
+            <EntityTypeMapping TypeName="MyClubModel.aspnet_Paths">
+              <MappingFragment StoreEntitySet="aspnet_Paths">
+                <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+                <ScalarProperty Name="PathId" ColumnName="PathId" />
+                <ScalarProperty Name="Path" ColumnName="Path" />
+                <ScalarProperty Name="LoweredPath" ColumnName="LoweredPath" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="aspnet_PersonalizationAllUsers">
+            <EntityTypeMapping TypeName="MyClubModel.aspnet_PersonalizationAllUsers">
+              <MappingFragment StoreEntitySet="aspnet_PersonalizationAllUsers">
+                <ScalarProperty Name="PathId" ColumnName="PathId" />
+                <ScalarProperty Name="PageSettings" ColumnName="PageSettings" />
+                <ScalarProperty Name="LastUpdatedDate" ColumnName="LastUpdatedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="aspnet_PersonalizationPerUser">
+            <EntityTypeMapping TypeName="MyClubModel.aspnet_PersonalizationPerUser">
+              <MappingFragment StoreEntitySet="aspnet_PersonalizationPerUser">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="PathId" ColumnName="PathId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="PageSettings" ColumnName="PageSettings" />
+                <ScalarProperty Name="LastUpdatedDate" ColumnName="LastUpdatedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="aspnet_Profile">
+            <EntityTypeMapping TypeName="MyClubModel.aspnet_Profile">
+              <MappingFragment StoreEntitySet="aspnet_Profile">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="PropertyNames" ColumnName="PropertyNames" />
+                <ScalarProperty Name="PropertyValuesString" ColumnName="PropertyValuesString" />
+                <ScalarProperty Name="PropertyValuesBinary" ColumnName="PropertyValuesBinary" />
+                <ScalarProperty Name="LastUpdatedDate" ColumnName="LastUpdatedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="aspnet_Roles">
+            <EntityTypeMapping TypeName="MyClubModel.aspnet_Roles">
+              <MappingFragment StoreEntitySet="aspnet_Roles">
+                <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+                <ScalarProperty Name="LoweredRoleName" ColumnName="LoweredRoleName" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="aspnet_SchemaVersions">
+            <EntityTypeMapping TypeName="MyClubModel.aspnet_SchemaVersions">
+              <MappingFragment StoreEntitySet="aspnet_SchemaVersions">
+                <ScalarProperty Name="Feature" ColumnName="Feature" />
+                <ScalarProperty Name="CompatibleSchemaVersion" ColumnName="CompatibleSchemaVersion" />
+                <ScalarProperty Name="IsCurrentVersion" ColumnName="IsCurrentVersion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="aspnet_Users">
+            <EntityTypeMapping TypeName="MyClubModel.aspnet_Users">
+              <MappingFragment StoreEntitySet="aspnet_Users">
+                <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="LoweredUserName" ColumnName="LoweredUserName" />
+                <ScalarProperty Name="MobileAlias" ColumnName="MobileAlias" />
+                <ScalarProperty Name="IsAnonymous" ColumnName="IsAnonymous" />
+                <ScalarProperty Name="LastActivityDate" ColumnName="LastActivityDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="aspnet_WebEvent_Events">
+            <EntityTypeMapping TypeName="MyClubModel.aspnet_WebEvent_Events">
+              <MappingFragment StoreEntitySet="aspnet_WebEvent_Events">
+                <ScalarProperty Name="EventId" ColumnName="EventId" />
+                <ScalarProperty Name="EventTimeUtc" ColumnName="EventTimeUtc" />
+                <ScalarProperty Name="EventTime" ColumnName="EventTime" />
+                <ScalarProperty Name="EventType" ColumnName="EventType" />
+                <ScalarProperty Name="EventSequence" ColumnName="EventSequence" />
+                <ScalarProperty Name="EventOccurrence" ColumnName="EventOccurrence" />
+                <ScalarProperty Name="EventCode" ColumnName="EventCode" />
+                <ScalarProperty Name="EventDetailCode" ColumnName="EventDetailCode" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="ApplicationPath" ColumnName="ApplicationPath" />
+                <ScalarProperty Name="ApplicationVirtualPath" ColumnName="ApplicationVirtualPath" />
+                <ScalarProperty Name="MachineName" ColumnName="MachineName" />
+                <ScalarProperty Name="RequestUrl" ColumnName="RequestUrl" />
+                <ScalarProperty Name="ExceptionType" ColumnName="ExceptionType" />
+                <ScalarProperty Name="Details" ColumnName="Details" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AuditTrails">
+            <EntityTypeMapping TypeName="MyClubModel.AuditTrail">
+              <MappingFragment StoreEntitySet="AuditTrail">
+                <ScalarProperty Name="AuditId" ColumnName="AuditId" />
+                <ScalarProperty Name="ActionTypeId" ColumnName="ActionTypeId" />
+                <ScalarProperty Name="ActionId" ColumnName="ActionId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="IPAddress" ColumnName="IPAddress" />
+                <ScalarProperty Name="TransactionTime" ColumnName="TransactionTime" />
+                <ScalarProperty Name="EntityId" ColumnName="EntityId" />
+                <ScalarProperty Name="EntityRecord" ColumnName="EntityRecord" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MasterEntities">
+            <EntityTypeMapping TypeName="MyClubModel.MasterEntity">
+              <MappingFragment StoreEntitySet="MasterEntity">
+                <ScalarProperty Name="EntityId" ColumnName="EntityId" />
+                <ScalarProperty Name="EntityName" ColumnName="EntityName" />
+                <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Members">
+            <EntityTypeMapping TypeName="MyClubModel.Member">
+              <MappingFragment StoreEntitySet="Member">
+                <ScalarProperty Name="MemberId" ColumnName="MemberId" />
+                <ScalarProperty Name="MemberName" ColumnName="MemberName" />
+                <ScalarProperty Name="PersonId" ColumnName="PersonId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="RegisteredById" ColumnName="RegisteredById" />
+                <ScalarProperty Name="RegistrationDate" ColumnName="RegistrationDate" />
+                <ScalarProperty Name="LastModifiedDate" ColumnName="LastModifiedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MemberAttendances">
+            <EntityTypeMapping TypeName="MyClubModel.MemberAttendance">
+              <MappingFragment StoreEntitySet="MemberAttendance">
+                <ScalarProperty Name="AttendanceId" ColumnName="AttendanceId" />
+                <ScalarProperty Name="MemberOfferId" ColumnName="MemberOfferId" />
+                <ScalarProperty Name="ServiceId" ColumnName="ServiceId" />
+                <ScalarProperty Name="AttendanceDate" ColumnName="AttendanceDate" />
+                <ScalarProperty Name="ReplacedBy" ColumnName="ReplacedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MemberOffers">
+            <EntityTypeMapping TypeName="MyClubModel.MemberOffer">
+              <MappingFragment StoreEntitySet="MemberOffer">
+                <ScalarProperty Name="MemberOfferId" ColumnName="MemberOfferId" />
+                <ScalarProperty Name="MemberId" ColumnName="MemberId" />
+                <ScalarProperty Name="OfferPriceId" ColumnName="OfferPriceId" />
+                <ScalarProperty Name="PaymentAmount" ColumnName="PaymentAmount" />
+                <ScalarProperty Name="PaymentDate" ColumnName="PaymentDate" />
+                <ScalarProperty Name="CurrentStatusId" ColumnName="CurrentStatusId" />
+                <ScalarProperty Name="CreatedById" ColumnName="CreatedById" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="LastModifiedDate" ColumnName="LastModifiedDate" />
+                <ScalarProperty Name="MemberPrice" ColumnName="MemberPrice" />
+                <ScalarProperty Name="DiscountPercent" ColumnName="DiscountPercent" />
+                <ScalarProperty Name="DiscountValue" ColumnName="DiscountValue" />
+                <ScalarProperty Name="DiscountById" ColumnName="DiscountById" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="TrainerId" ColumnName="TrainerId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OfferDetails">
+            <EntityTypeMapping TypeName="MyClubModel.OfferDetail">
+              <MappingFragment StoreEntitySet="OfferDetail">
+                <ScalarProperty Name="OfferDetailId" ColumnName="OfferDetailId" />
+                <ScalarProperty Name="OfferPriceId" ColumnName="OfferPriceId" />
+                <ScalarProperty Name="ServiceId" ColumnName="ServiceId" />
+                <ScalarProperty Name="ServiceLimitNumber" ColumnName="ServiceLimitNumber" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OfferDurations">
+            <EntityTypeMapping TypeName="MyClubModel.OfferDuration">
+              <MappingFragment StoreEntitySet="OfferDuration">
+                <ScalarProperty Name="OfferDurationId" ColumnName="OfferDurationId" />
+                <ScalarProperty Name="OfferDurationName" ColumnName="OfferDurationName" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="IsVisible" ColumnName="IsVisible" />
+                <ScalarProperty Name="Days" ColumnName="Days" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OfferPrices">
+            <EntityTypeMapping TypeName="MyClubModel.OfferPrice">
+              <MappingFragment StoreEntitySet="OfferPrice">
+                <ScalarProperty Name="OfferPriceId" ColumnName="OfferPriceId" />
+                <ScalarProperty Name="OfferId" ColumnName="OfferId" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="OfferDurationId" ColumnName="OfferDurationId" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="MaxFreezingDays" ColumnName="MaxFreezingDays" />
+                <ScalarProperty Name="IsSeparated" ColumnName="IsSeparated" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="LastModifiedDate" ColumnName="LastModifiedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OfferPricelids">
+            <EntityTypeMapping TypeName="MyClubModel.OfferPricelid">
+              <MappingFragment StoreEntitySet="OfferPricelid">
+                <ScalarProperty Name="OfferPricelidId" ColumnName="OfferPricelidId" />
+                <ScalarProperty Name="OfferPriceId" ColumnName="OfferPriceId" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="People">
+            <EntityTypeMapping TypeName="MyClubModel.Person">
+              <MappingFragment StoreEntitySet="Person">
+                <ScalarProperty Name="PersonId" ColumnName="PersonId" />
+                <ScalarProperty Name="PersonName" ColumnName="PersonName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
+                <ScalarProperty Name="MobileNumber" ColumnName="MobileNumber" />
+                <ScalarProperty Name="HomePhoneNumber" ColumnName="HomePhoneNumber" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Nationality" ColumnName="Nationality" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="RegistrationDate" ColumnName="RegistrationDate" />
+                <ScalarProperty Name="isExpected" ColumnName="isExpected" />
+                <ScalarProperty Name="MemberOfferId" ColumnName="MemberOfferId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="services">
+            <EntityTypeMapping TypeName="MyClubModel.service">
+              <MappingFragment StoreEntitySet="service">
+                <ScalarProperty Name="ServiceId" ColumnName="ServiceId" />
+                <ScalarProperty Name="ServiceName" ColumnName="ServiceName" />
+                <ScalarProperty Name="ServicePrice" ColumnName="ServicePrice" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="LastModifiedDate" ColumnName="LastModifiedDate" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="IsDefault" ColumnName="IsDefault" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Trainers">
+            <EntityTypeMapping TypeName="MyClubModel.Trainer">
+              <MappingFragment StoreEntitySet="Trainer">
+                <ScalarProperty Name="TrainerId" ColumnName="TrainerId" />
+                <ScalarProperty Name="PersonId" ColumnName="PersonId" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="User_Profiles">
+            <EntityTypeMapping TypeName="MyClubModel.User_Profile">
+              <MappingFragment StoreEntitySet="User Profile">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="IsAdmin" ColumnName="IsAdmin" />
+                <ScalarProperty Name="Enable" ColumnName="Enable" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WebPages_Pages">
+            <EntityTypeMapping TypeName="MyClubModel.WebPages_Pages">
+              <MappingFragment StoreEntitySet="WebPages_Pages">
+                <ScalarProperty Name="PageID" ColumnName="PageID" />
+                <ScalarProperty Name="PageName" ColumnName="PageName" />
+                <ScalarProperty Name="PageTitle" ColumnName="PageTitle" />
+                <ScalarProperty Name="RelatedTo" ColumnName="RelatedTo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="webpages_Roles">
+            <EntityTypeMapping TypeName="MyClubModel.webpages_Roles">
+              <MappingFragment StoreEntitySet="webpages_Roles">
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="webPages_UserPermessions">
+            <EntityTypeMapping TypeName="MyClubModel.webPages_UserPermessions">
+              <MappingFragment StoreEntitySet="webPages_UserPermessions">
+                <ScalarProperty Name="UserPageID" ColumnName="UserPageID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="Pageid" ColumnName="Pageid" />
+                <ScalarProperty Name="CanRead" ColumnName="CanRead" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="aspnet_UsersInRoles" TypeName="MyClubModel.aspnet_UsersInRoles" StoreEntitySet="aspnet_UsersInRoles">
+            <EndProperty Name="aspnet_Roles">
+              <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+            </EndProperty>
+            <EndProperty Name="aspnet_Users">
+              <ScalarProperty Name="UserId" ColumnName="UserId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="webpages_UsersInRoles" TypeName="MyClubModel.webpages_UsersInRoles" StoreEntitySet="webpages_UsersInRoles">
+            <EndProperty Name="User_Profile">
+              <ScalarProperty Name="UserID" ColumnName="UserId" />
+            </EndProperty>
+            <EndProperty Name="webpages_Roles">
+              <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

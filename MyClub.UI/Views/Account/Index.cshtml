@@ -1,0 +1,47 @@
+﻿@model IEnumerable<MyClubLib.Models.Person>
+
+    @{
+        ViewBag.Title = "Index";
+    }
+
+    <h2>@ViewBag.Title</h2>
+
+    <p>
+        @Html.ActionLink("Signup", "Account")
+    </p>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.First().PersonName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.First().Email)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.First().IsActive)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PersonName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Email)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IsActive)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Login", "Login") |
+                        @Html.ActionLink("ChangePassword", "ChangePassword")
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>

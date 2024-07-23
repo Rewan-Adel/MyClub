@@ -1,0 +1,207 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="MyClubModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="User Profile">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="IsAdmin" Type="bit" Nullable="false" />
+          <Property Name="Enable" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="WebPages_Pages">
+          <Key>
+            <PropertyRef Name="PageID" />
+          </Key>
+          <Property Name="PageID" Type="int" Nullable="false" />
+          <Property Name="PageName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PageTitle" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="RelatedTo" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="webPages_UserPermessions">
+          <Key>
+            <PropertyRef Name="UserPageID" />
+          </Key>
+          <Property Name="UserPageID" Type="int" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="Pageid" Type="int" Nullable="false" />
+          <Property Name="CanRead" Type="bit" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_WebPages_Pages_webPages_UserPermessions">
+          <End Role="webPages_UserPermessions" Type="Self.webPages_UserPermessions" Multiplicity="1" />
+          <End Role="WebPages_Pages" Type="Self.WebPages_Pages" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="webPages_UserPermessions">
+              <PropertyRef Name="UserPageID" />
+            </Principal>
+            <Dependent Role="WebPages_Pages">
+              <PropertyRef Name="PageID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_webPages_UserPermessions_User Profile">
+          <End Role="User Profile" Type="Self.User Profile" Multiplicity="1" />
+          <End Role="webPages_UserPermessions" Type="Self.webPages_UserPermessions" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="User Profile">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="webPages_UserPermessions">
+              <PropertyRef Name="UserPageID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MyClubModelStoreContainer">
+          <EntitySet Name="User Profile" EntityType="Self.User Profile" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WebPages_Pages" EntityType="Self.WebPages_Pages" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="webPages_UserPermessions" EntityType="Self.webPages_UserPermessions" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_WebPages_Pages_webPages_UserPermessions" Association="Self.FK_WebPages_Pages_webPages_UserPermessions">
+            <End Role="webPages_UserPermessions" EntitySet="webPages_UserPermessions" />
+            <End Role="WebPages_Pages" EntitySet="WebPages_Pages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_webPages_UserPermessions_User Profile" Association="Self.FK_webPages_UserPermessions_User Profile">
+            <End Role="User Profile" EntitySet="User Profile" />
+            <End Role="webPages_UserPermessions" EntitySet="webPages_UserPermessions" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MyClubModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="User_Profile">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="IsAdmin" Type="Boolean" Nullable="false" />
+          <Property Name="Enable" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="webPages_UserPermessions" Relationship="Self.FK_webPages_UserPermessions_User_Profile" FromRole="User_Profile" ToRole="webPages_UserPermessions" />
+        </EntityType>
+        <EntityType Name="WebPages_Pages">
+          <Key>
+            <PropertyRef Name="PageID" />
+          </Key>
+          <Property Name="PageID" Type="Int32" Nullable="false" />
+          <Property Name="PageName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PageTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="RelatedTo" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="webPages_UserPermessions" Relationship="Self.FK_WebPages_Pages_webPages_UserPermessions" FromRole="WebPages_Pages" ToRole="webPages_UserPermessions" />
+        </EntityType>
+        <EntityType Name="webPages_UserPermessions">
+          <Key>
+            <PropertyRef Name="UserPageID" />
+          </Key>
+          <Property Name="UserPageID" Type="Int32" Nullable="false" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="Pageid" Type="Int32" Nullable="false" />
+          <Property Name="CanRead" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="User_Profile" Relationship="Self.FK_webPages_UserPermessions_User_Profile" FromRole="webPages_UserPermessions" ToRole="User_Profile" />
+          <NavigationProperty Name="WebPages_Pages" Relationship="Self.FK_WebPages_Pages_webPages_UserPermessions" FromRole="webPages_UserPermessions" ToRole="WebPages_Pages" />
+        </EntityType>
+        <Association Name="FK_webPages_UserPermessions_User_Profile">
+          <End Role="User_Profile" Type="Self.User_Profile" Multiplicity="1" />
+          <End Role="webPages_UserPermessions" Type="Self.webPages_UserPermessions" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="User_Profile">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="webPages_UserPermessions">
+              <PropertyRef Name="UserPageID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WebPages_Pages_webPages_UserPermessions">
+          <End Role="webPages_UserPermessions" Type="Self.webPages_UserPermessions" Multiplicity="1" />
+          <End Role="WebPages_Pages" Type="Self.WebPages_Pages" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="webPages_UserPermessions">
+              <PropertyRef Name="UserPageID" />
+            </Principal>
+            <Dependent Role="WebPages_Pages">
+              <PropertyRef Name="PageID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MyClubSecurity" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="User_Profiles" EntityType="Self.User_Profile" />
+          <EntitySet Name="WebPages_Pages" EntityType="Self.WebPages_Pages" />
+          <EntitySet Name="webPages_UserPermessions" EntityType="Self.webPages_UserPermessions" />
+          <AssociationSet Name="FK_webPages_UserPermessions_User_Profile" Association="Self.FK_webPages_UserPermessions_User_Profile">
+            <End Role="User_Profile" EntitySet="User_Profiles" />
+            <End Role="webPages_UserPermessions" EntitySet="webPages_UserPermessions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WebPages_Pages_webPages_UserPermessions" Association="Self.FK_WebPages_Pages_webPages_UserPermessions">
+            <End Role="webPages_UserPermessions" EntitySet="webPages_UserPermessions" />
+            <End Role="WebPages_Pages" EntitySet="WebPages_Pages" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MyClubModelStoreContainer" CdmEntityContainer="MyClubSecurity">
+          <EntitySetMapping Name="User_Profiles">
+            <EntityTypeMapping TypeName="MyClubModel.User_Profile">
+              <MappingFragment StoreEntitySet="User Profile">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="IsAdmin" ColumnName="IsAdmin" />
+                <ScalarProperty Name="Enable" ColumnName="Enable" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WebPages_Pages">
+            <EntityTypeMapping TypeName="MyClubModel.WebPages_Pages">
+              <MappingFragment StoreEntitySet="WebPages_Pages">
+                <ScalarProperty Name="PageID" ColumnName="PageID" />
+                <ScalarProperty Name="PageName" ColumnName="PageName" />
+                <ScalarProperty Name="PageTitle" ColumnName="PageTitle" />
+                <ScalarProperty Name="RelatedTo" ColumnName="RelatedTo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="webPages_UserPermessions">
+            <EntityTypeMapping TypeName="MyClubModel.webPages_UserPermessions">
+              <MappingFragment StoreEntitySet="webPages_UserPermessions">
+                <ScalarProperty Name="UserPageID" ColumnName="UserPageID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="Pageid" ColumnName="Pageid" />
+                <ScalarProperty Name="CanRead" ColumnName="CanRead" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
