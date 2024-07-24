@@ -11,9 +11,7 @@ namespace MyClubLib.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel;
-
+    
     public partial class Person
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -23,15 +21,12 @@ namespace MyClubLib.Models
         }
     
         public int PersonId { get; set; }
-
-        [DisplayName("User Name")]
         public string PersonName { get; set; }
         public string Password { get; set; }
         public string Gender { get; set; }
         public System.DateTime BirthDate { get; set; }
         public string MobileNumber { get; set; }
         public string HomePhoneNumber { get; set; }
-        [DisplayName("Email")]
         public string Email { get; set; }
         public string Address { get; set; }
         public string Nationality { get; set; }

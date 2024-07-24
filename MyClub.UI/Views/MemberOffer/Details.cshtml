@@ -1,0 +1,146 @@
+﻿@model MyClubLib.Models.MemberOffer
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+    <div>
+        <h4>MemberOffer</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.PaymentAmount)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.PaymentAmount)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.PaymentDate)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.PaymentDate)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.CurrentStatusId)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.CurrentStatusId)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.CreatedById)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.CreatedById)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.CreationDate)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.CreationDate)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.LastModifiedDate)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.LastModifiedDate)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.MemberPrice)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.MemberPrice)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.DiscountPercent)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.DiscountPercent)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.DiscountValue)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.DiscountValue)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.DiscountById)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.DiscountById)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.EndDate)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.EndDate)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Note)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Note)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.TrainerId)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.TrainerId)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Member.MemberName)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Member.MemberName)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.OfferPrice.OfferPriceId)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.OfferPrice.OfferPriceId)
+            </dd>
+    
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.MemberOfferId }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</body>
+</html>

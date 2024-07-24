@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="MyClubModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="MyClubSecurityModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="User Profile">
           <Key>
             <PropertyRef Name="UserID" />
@@ -57,7 +57,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="MyClubModelStoreContainer">
+        <EntityContainer Name="MyClubSecurityModelStoreContainer">
           <EntitySet Name="User Profile" EntityType="Self.User Profile" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WebPages_Pages" EntityType="Self.WebPages_Pages" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="webPages_UserPermessions" EntityType="Self.webPages_UserPermessions" Schema="dbo" store:Type="Tables" />
@@ -74,7 +74,7 @@
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="MyClubModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="MyClubSecurityModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="User_Profile">
           <Key>
             <PropertyRef Name="UserID" />
@@ -131,7 +131,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="MyClubSecurity" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="MyclubSecurity" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="User_Profiles" EntityType="Self.User_Profile" />
           <EntitySet Name="WebPages_Pages" EntityType="Self.WebPages_Pages" />
           <EntitySet Name="webPages_UserPermessions" EntityType="Self.webPages_UserPermessions" />
@@ -149,9 +149,9 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="MyClubModelStoreContainer" CdmEntityContainer="MyClubSecurity">
+        <EntityContainerMapping StorageEntityContainer="MyClubSecurityModelStoreContainer" CdmEntityContainer="MyclubSecurity">
           <EntitySetMapping Name="User_Profiles">
-            <EntityTypeMapping TypeName="MyClubModel.User_Profile">
+            <EntityTypeMapping TypeName="MyClubSecurityModel.User_Profile">
               <MappingFragment StoreEntitySet="User Profile">
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
@@ -162,7 +162,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="WebPages_Pages">
-            <EntityTypeMapping TypeName="MyClubModel.WebPages_Pages">
+            <EntityTypeMapping TypeName="MyClubSecurityModel.WebPages_Pages">
               <MappingFragment StoreEntitySet="WebPages_Pages">
                 <ScalarProperty Name="PageID" ColumnName="PageID" />
                 <ScalarProperty Name="PageName" ColumnName="PageName" />
@@ -172,7 +172,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="webPages_UserPermessions">
-            <EntityTypeMapping TypeName="MyClubModel.webPages_UserPermessions">
+            <EntityTypeMapping TypeName="MyClubSecurityModel.webPages_UserPermessions">
               <MappingFragment StoreEntitySet="webPages_UserPermessions">
                 <ScalarProperty Name="UserPageID" ColumnName="UserPageID" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />

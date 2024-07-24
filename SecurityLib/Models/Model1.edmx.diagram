@@ -4,12 +4,12 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="01005c1cdd3e497a969598c3ef399cc6" Name="Diagram1">
-        <EntityTypeShape EntityType="MyClubModel.User_Profile" Width="1.5" PointX="0.75" PointY="0.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="MyClubModel.WebPages_Pages" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="MyClubModel.webPages_UserPermessions" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
-        <AssociationConnector Association="MyClubModel.FK_webPages_UserPermessions_User_Profile" ManuallyRouted="false" />
-        <AssociationConnector Association="MyClubModel.FK_WebPages_Pages_webPages_UserPermessions" ManuallyRouted="false" />
+      <Diagram DiagramId="3ae1af8f1b44406c9d644ce601c1a33e" Name="Diagram1">
+        <EntityTypeShape EntityType="MyClubSecurityModel.User_Profile" Width="1.5" PointX="0.75" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="MyClubSecurityModel.WebPages_Pages" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="MyClubSecurityModel.webPages_UserPermessions" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
+        <AssociationConnector Association="MyClubSecurityModel.FK_webPages_UserPermessions_User_Profile" ManuallyRouted="false" />
+        <AssociationConnector Association="MyClubSecurityModel.FK_WebPages_Pages_webPages_UserPermessions" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

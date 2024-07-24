@@ -12,13 +12,11 @@ namespace MyClubLib.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class WebPages_Pages
+    public partial class webpages_UsersInRoles
     {
-        public int PageID { get; set; }
-        public string PageName { get; set; }
-        public string PageTitle { get; set; }
-        public bool RelatedTo { get; set; }
+        public int UserId { get; set; }
+        public int RoleId { get; set; }
     
-        public virtual webPages_UserPermessions webPages_UserPermessions { get; set; }
+        public virtual webpages_Roles webpages_Roles { get; set; }
     }
 }

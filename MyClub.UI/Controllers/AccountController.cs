@@ -10,23 +10,22 @@ namespace MyClub.UI.Controllers
     public class AccountController : Controller
     {
         private readonly SecurityRepository _security;
-        //private readonly int _userId;
+        private readonly int _userId;
         public AccountController()
         {
             _security = new SecurityRepository();
-            //_userId   = WebSecurity.CurrentUserId;
+            _userId   = WebSecurity.CurrentUserId;
         }
         public ActionResult Index()
         {
+
             ViewBag.Title = "Index";
 
             return View();
         }
 
-        [AllowAnonymous]
-        public ActionResult Login(string returnUrl)
+        public ActionResult Signup()
         {
-            ViewBag.ReturnUrl = returnUrl;
             return View();
         }
 
@@ -35,6 +34,43 @@ namespace MyClub.UI.Controllers
             return View();
         }
 
+
+
+        [HttpGet]
+        [AllowAnonymous]
+        public ActionResult Login()
+        {
+            ViewBag.Title = "Login";
+            return View();
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public ActionResult Login(string Email, string password)
+        {
+            bool IsUser = _security.IsUserExist(Email, password);
+            if (IsUser)
+            {
+                if (!_security.IsActiveUser(Email))
+                {
+                    ViewBag.Error = "This account is stopped.";
+                    return View();
+                }
+                else
+                {
+                    Session["login"] = true;
+                    return RedirectToAction("Index", "Home");
+                }
+            }
+            else
+            {
+                ViewBag.Error = "Invalid Email or Password";
+                return View();
+            }
+        }
+
+
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Signup(string PersonName, string Gender, string Password, DateTime BirthDay, string MobileNumber, string HomePhoneNumber,
@@ -42,11 +78,15 @@ namespace MyClub.UI.Controllers
         {
             try
             {
+                if (_security.IsUserExist(Email, null))
+                {
+                    return Json(new { success = false, message = "This email is already exist." }, JsonRequestBehavior.AllowGet);
+                }
                 _security.Register(null, PersonName, Password, Gender, Address, BirthDay, MobileNumber, HomePhoneNumber, Email, Address, Nationality);      
 
                 Session["login"] = true;
                 
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Home");
                // return Json(new { success = true, message = "Signup successfully." }, JsonRequestBehavior.AllowGet);
 
             }
@@ -55,27 +95,7 @@ namespace MyClub.UI.Controllers
                 return Json(new { success = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
-      
-      //  [HttpPost]
-      //  [AllowAnonymous]
-        //public ActionResult Login(LoginModel model)
-       // {
-       //     if(ModelState.IsValid && WebSecurity.Login(model.userName, model.password))
-        //    {
-        //        if(!_security.checkUserStatus(model.userName))
-           //     {
-           //         ModelState.AddModelError("", "This account is stopped.");
-           //     }
-           //     else
-          //      {
-           //         Session["login"] = true;
-          //          return RedirectToAction("Index" , "Member");
-          //      }
-         //   }else
-          //  {
-          //      return View();
-          //  }
-       // }
+
         public ActionResult Logout()
         {
             WebSecurity.Logout();

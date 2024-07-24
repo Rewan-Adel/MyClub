@@ -299,40 +299,12 @@
           <Property Name="PersonId" Type="int" />
           <Property Name="IsActive" Type="bit" />
         </EntityType>
-        <EntityType Name="User Profile">
-          <Key>
-            <PropertyRef Name="UserID" />
-          </Key>
-          <Property Name="UserID" Type="int" Nullable="false" />
-          <Property Name="UserName" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="IsActive" Type="bit" Nullable="false" />
-          <Property Name="IsAdmin" Type="bit" Nullable="false" />
-          <Property Name="Enable" Type="bit" Nullable="false" />
-        </EntityType>
-        <EntityType Name="WebPages_Pages">
-          <Key>
-            <PropertyRef Name="PageID" />
-          </Key>
-          <Property Name="PageID" Type="int" Nullable="false" />
-          <Property Name="PageName" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="PageTitle" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="RelatedTo" Type="bit" Nullable="false" />
-        </EntityType>
         <EntityType Name="webpages_Roles">
           <Key>
             <PropertyRef Name="RoleId" />
           </Key>
           <Property Name="RoleId" Type="int" Nullable="false" />
           <Property Name="RoleName" Type="nvarchar" MaxLength="50" Nullable="false" />
-        </EntityType>
-        <EntityType Name="webPages_UserPermessions">
-          <Key>
-            <PropertyRef Name="UserPageID" />
-          </Key>
-          <Property Name="UserPageID" Type="int" Nullable="false" />
-          <Property Name="UserID" Type="int" Nullable="false" />
-          <Property Name="Pageid" Type="int" Nullable="false" />
-          <Property Name="CanRead" Type="bit" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'MyClub.dbo.webpages_UsersInRoles' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -644,42 +616,6 @@ warning 6002: The table/view 'MyClub.dbo.webpages_UsersInRoles' does not have a 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_WebPages_Pages_webPages_UserPermessions">
-          <End Role="webPages_UserPermessions" Type="Self.webPages_UserPermessions" Multiplicity="1" />
-          <End Role="WebPages_Pages" Type="Self.WebPages_Pages" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="webPages_UserPermessions">
-              <PropertyRef Name="UserPageID" />
-            </Principal>
-            <Dependent Role="WebPages_Pages">
-              <PropertyRef Name="PageID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_webPages_UserPermessions_User Profile">
-          <End Role="User Profile" Type="Self.User Profile" Multiplicity="1" />
-          <End Role="webPages_UserPermessions" Type="Self.webPages_UserPermessions" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="User Profile">
-              <PropertyRef Name="UserID" />
-            </Principal>
-            <Dependent Role="webPages_UserPermessions">
-              <PropertyRef Name="UserPageID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_webpages_UsersInRoles_User Profile">
-          <End Role="User Profile" Type="Self.User Profile" Multiplicity="1" />
-          <End Role="webpages_UsersInRoles" Type="Self.webpages_UsersInRoles" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User Profile">
-              <PropertyRef Name="UserID" />
-            </Principal>
-            <Dependent Role="webpages_UsersInRoles">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_webpages_UsersInRoles_webpages_Roles">
           <End Role="webpages_Roles" Type="Self.webpages_Roles" Multiplicity="1" />
           <End Role="webpages_UsersInRoles" Type="Self.webpages_UsersInRoles" Multiplicity="*" />
@@ -718,10 +654,7 @@ warning 6002: The table/view 'MyClub.dbo.webpages_UsersInRoles' does not have a 
           <EntitySet Name="Person" EntityType="Self.Person" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="service" EntityType="Self.service" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Trainer" EntityType="Self.Trainer" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="User Profile" EntityType="Self.User Profile" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="WebPages_Pages" EntityType="Self.WebPages_Pages" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="webpages_Roles" EntityType="Self.webpages_Roles" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="webPages_UserPermessions" EntityType="Self.webPages_UserPermessions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="webpages_UsersInRoles" EntityType="Self.webpages_UsersInRoles" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [webpages_UsersInRoles].[UserId] AS [UserId], 
@@ -827,18 +760,6 @@ warning 6002: The table/view 'MyClub.dbo.webpages_UsersInRoles' does not have a 
           <AssociationSet Name="FK_Trainer_Person" Association="Self.FK_Trainer_Person">
             <End Role="Person" EntitySet="Person" />
             <End Role="Trainer" EntitySet="Trainer" />
-          </AssociationSet>
-          <AssociationSet Name="FK_WebPages_Pages_webPages_UserPermessions" Association="Self.FK_WebPages_Pages_webPages_UserPermessions">
-            <End Role="webPages_UserPermessions" EntitySet="webPages_UserPermessions" />
-            <End Role="WebPages_Pages" EntitySet="WebPages_Pages" />
-          </AssociationSet>
-          <AssociationSet Name="FK_webPages_UserPermessions_User Profile" Association="Self.FK_webPages_UserPermessions_User Profile">
-            <End Role="User Profile" EntitySet="User Profile" />
-            <End Role="webPages_UserPermessions" EntitySet="webPages_UserPermessions" />
-          </AssociationSet>
-          <AssociationSet Name="FK_webpages_UsersInRoles_User Profile" Association="Self.FK_webpages_UsersInRoles_User Profile">
-            <End Role="User Profile" EntitySet="User Profile" />
-            <End Role="webpages_UsersInRoles" EntitySet="webpages_UsersInRoles" />
           </AssociationSet>
           <AssociationSet Name="FK_webpages_UsersInRoles_webpages_Roles" Association="Self.FK_webpages_UsersInRoles_webpages_Roles">
             <End Role="webpages_Roles" EntitySet="webpages_Roles" />
@@ -1184,46 +1105,22 @@ warning 6002: The table/view 'MyClub.dbo.webpages_UsersInRoles' does not have a 
           <Property Name="IsActive" Type="Boolean" />
           <NavigationProperty Name="Person" Relationship="Self.FK_Trainer_Person" FromRole="Trainer" ToRole="Person" />
         </EntityType>
-        <EntityType Name="User_Profile">
-          <Key>
-            <PropertyRef Name="UserID" />
-          </Key>
-          <Property Name="UserID" Type="Int32" Nullable="false" />
-          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="IsActive" Type="Boolean" Nullable="false" />
-          <Property Name="IsAdmin" Type="Boolean" Nullable="false" />
-          <Property Name="Enable" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="webPages_UserPermessions" Relationship="Self.FK_webPages_UserPermessions_User_Profile" FromRole="User_Profile" ToRole="webPages_UserPermessions" />
-          <NavigationProperty Name="webpages_Roles" Relationship="Self.webpages_UsersInRoles" FromRole="User_Profile" ToRole="webpages_Roles" />
-        </EntityType>
-        <EntityType Name="WebPages_Pages">
-          <Key>
-            <PropertyRef Name="PageID" />
-          </Key>
-          <Property Name="PageID" Type="Int32" Nullable="false" />
-          <Property Name="PageName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="PageTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="RelatedTo" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="webPages_UserPermessions" Relationship="Self.FK_WebPages_Pages_webPages_UserPermessions" FromRole="WebPages_Pages" ToRole="webPages_UserPermessions" />
-        </EntityType>
         <EntityType Name="webpages_Roles">
           <Key>
             <PropertyRef Name="RoleId" />
           </Key>
           <Property Name="RoleId" Type="Int32" Nullable="false" />
           <Property Name="RoleName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="User_Profile" Relationship="Self.webpages_UsersInRoles" FromRole="webpages_Roles" ToRole="User_Profile" />
+          <NavigationProperty Name="webpages_UsersInRoles" Relationship="Self.FK_webpages_UsersInRoles_webpages_Roles" FromRole="webpages_Roles" ToRole="webpages_UsersInRoles" />
         </EntityType>
-        <EntityType Name="webPages_UserPermessions">
+        <EntityType Name="webpages_UsersInRoles">
           <Key>
-            <PropertyRef Name="UserPageID" />
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="RoleId" />
           </Key>
-          <Property Name="UserPageID" Type="Int32" Nullable="false" />
-          <Property Name="UserID" Type="Int32" Nullable="false" />
-          <Property Name="Pageid" Type="Int32" Nullable="false" />
-          <Property Name="CanRead" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="User_Profile" Relationship="Self.FK_webPages_UserPermessions_User_Profile" FromRole="webPages_UserPermessions" ToRole="User_Profile" />
-          <NavigationProperty Name="WebPages_Pages" Relationship="Self.FK_WebPages_Pages_webPages_UserPermessions" FromRole="webPages_UserPermessions" ToRole="WebPages_Pages" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="RoleId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="webpages_Roles" Relationship="Self.FK_webpages_UsersInRoles_webpages_Roles" FromRole="webpages_UsersInRoles" ToRole="webpages_Roles" />
         </EntityType>
         <Association Name="FK__AuditTrai__Actio__5BE2A6F2">
           <End Role="Action" Type="Self.Action" Multiplicity="0..1" />
@@ -1501,37 +1398,21 @@ warning 6002: The table/view 'MyClub.dbo.webpages_UsersInRoles' does not have a 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_webPages_UserPermessions_User_Profile">
-          <End Role="User_Profile" Type="Self.User_Profile" Multiplicity="1" />
-          <End Role="webPages_UserPermessions" Type="Self.webPages_UserPermessions" Multiplicity="0..1" />
+        <Association Name="FK_webpages_UsersInRoles_webpages_Roles">
+          <End Role="webpages_Roles" Type="Self.webpages_Roles" Multiplicity="1" />
+          <End Role="webpages_UsersInRoles" Type="Self.webpages_UsersInRoles" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="User_Profile">
-              <PropertyRef Name="UserID" />
+            <Principal Role="webpages_Roles">
+              <PropertyRef Name="RoleId" />
             </Principal>
-            <Dependent Role="webPages_UserPermessions">
-              <PropertyRef Name="UserPageID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_WebPages_Pages_webPages_UserPermessions">
-          <End Role="webPages_UserPermessions" Type="Self.webPages_UserPermessions" Multiplicity="1" />
-          <End Role="WebPages_Pages" Type="Self.WebPages_Pages" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="webPages_UserPermessions">
-              <PropertyRef Name="UserPageID" />
-            </Principal>
-            <Dependent Role="WebPages_Pages">
-              <PropertyRef Name="PageID" />
+            <Dependent Role="webpages_UsersInRoles">
+              <PropertyRef Name="RoleId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="aspnet_UsersInRoles">
           <End Role="aspnet_Roles" Type="Self.aspnet_Roles" Multiplicity="*" />
           <End Role="aspnet_Users" Type="Self.aspnet_Users" Multiplicity="*" />
-        </Association>
-        <Association Name="webpages_UsersInRoles">
-          <End Role="User_Profile" Type="Self.User_Profile" Multiplicity="*" />
-          <End Role="webpages_Roles" Type="Self.webpages_Roles" Multiplicity="*" />
         </Association>
         <EntityContainer Name="MyClubEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Actions" EntityType="Self.Action" />
@@ -1558,10 +1439,8 @@ warning 6002: The table/view 'MyClub.dbo.webpages_UsersInRoles' does not have a 
           <EntitySet Name="People" EntityType="Self.Person" />
           <EntitySet Name="services" EntityType="Self.service" />
           <EntitySet Name="Trainers" EntityType="Self.Trainer" />
-          <EntitySet Name="User_Profiles" EntityType="Self.User_Profile" />
-          <EntitySet Name="WebPages_Pages" EntityType="Self.WebPages_Pages" />
           <EntitySet Name="webpages_Roles" EntityType="Self.webpages_Roles" />
-          <EntitySet Name="webPages_UserPermessions" EntityType="Self.webPages_UserPermessions" />
+          <EntitySet Name="webpages_UsersInRoles" EntityType="Self.webpages_UsersInRoles" />
           <AssociationSet Name="FK__AuditTrai__Actio__5BE2A6F2" Association="Self.FK__AuditTrai__Actio__5BE2A6F2">
             <End Role="Action" EntitySet="Actions" />
             <End Role="AuditTrail" EntitySet="AuditTrails" />
@@ -1654,21 +1533,13 @@ warning 6002: The table/view 'MyClub.dbo.webpages_UsersInRoles' does not have a 
             <End Role="Person" EntitySet="People" />
             <End Role="Trainer" EntitySet="Trainers" />
           </AssociationSet>
-          <AssociationSet Name="FK_webPages_UserPermessions_User_Profile" Association="Self.FK_webPages_UserPermessions_User_Profile">
-            <End Role="User_Profile" EntitySet="User_Profiles" />
-            <End Role="webPages_UserPermessions" EntitySet="webPages_UserPermessions" />
-          </AssociationSet>
-          <AssociationSet Name="FK_WebPages_Pages_webPages_UserPermessions" Association="Self.FK_WebPages_Pages_webPages_UserPermessions">
-            <End Role="webPages_UserPermessions" EntitySet="webPages_UserPermessions" />
-            <End Role="WebPages_Pages" EntitySet="WebPages_Pages" />
+          <AssociationSet Name="FK_webpages_UsersInRoles_webpages_Roles" Association="Self.FK_webpages_UsersInRoles_webpages_Roles">
+            <End Role="webpages_Roles" EntitySet="webpages_Roles" />
+            <End Role="webpages_UsersInRoles" EntitySet="webpages_UsersInRoles" />
           </AssociationSet>
           <AssociationSet Name="aspnet_UsersInRoles" Association="Self.aspnet_UsersInRoles">
             <End Role="aspnet_Roles" EntitySet="aspnet_Roles" />
             <End Role="aspnet_Users" EntitySet="aspnet_Users" />
-          </AssociationSet>
-          <AssociationSet Name="webpages_UsersInRoles" Association="Self.webpages_UsersInRoles">
-            <End Role="User_Profile" EntitySet="User_Profiles" />
-            <End Role="webpages_Roles" EntitySet="webpages_Roles" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -1986,27 +1857,6 @@ warning 6002: The table/view 'MyClub.dbo.webpages_UsersInRoles' does not have a 
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="User_Profiles">
-            <EntityTypeMapping TypeName="MyClubModel.User_Profile">
-              <MappingFragment StoreEntitySet="User Profile">
-                <ScalarProperty Name="UserID" ColumnName="UserID" />
-                <ScalarProperty Name="UserName" ColumnName="UserName" />
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="IsAdmin" ColumnName="IsAdmin" />
-                <ScalarProperty Name="Enable" ColumnName="Enable" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="WebPages_Pages">
-            <EntityTypeMapping TypeName="MyClubModel.WebPages_Pages">
-              <MappingFragment StoreEntitySet="WebPages_Pages">
-                <ScalarProperty Name="PageID" ColumnName="PageID" />
-                <ScalarProperty Name="PageName" ColumnName="PageName" />
-                <ScalarProperty Name="PageTitle" ColumnName="PageTitle" />
-                <ScalarProperty Name="RelatedTo" ColumnName="RelatedTo" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="webpages_Roles">
             <EntityTypeMapping TypeName="MyClubModel.webpages_Roles">
               <MappingFragment StoreEntitySet="webpages_Roles">
@@ -2015,13 +1865,11 @@ warning 6002: The table/view 'MyClub.dbo.webpages_UsersInRoles' does not have a 
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="webPages_UserPermessions">
-            <EntityTypeMapping TypeName="MyClubModel.webPages_UserPermessions">
-              <MappingFragment StoreEntitySet="webPages_UserPermessions">
-                <ScalarProperty Name="UserPageID" ColumnName="UserPageID" />
-                <ScalarProperty Name="UserID" ColumnName="UserID" />
-                <ScalarProperty Name="Pageid" ColumnName="Pageid" />
-                <ScalarProperty Name="CanRead" ColumnName="CanRead" />
+          <EntitySetMapping Name="webpages_UsersInRoles">
+            <EntityTypeMapping TypeName="MyClubModel.webpages_UsersInRoles">
+              <MappingFragment StoreEntitySet="webpages_UsersInRoles">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2031,14 +1879,6 @@ warning 6002: The table/view 'MyClub.dbo.webpages_UsersInRoles' does not have a 
             </EndProperty>
             <EndProperty Name="aspnet_Users">
               <ScalarProperty Name="UserId" ColumnName="UserId" />
-            </EndProperty>
-          </AssociationSetMapping>
-          <AssociationSetMapping Name="webpages_UsersInRoles" TypeName="MyClubModel.webpages_UsersInRoles" StoreEntitySet="webpages_UsersInRoles">
-            <EndProperty Name="User_Profile">
-              <ScalarProperty Name="UserID" ColumnName="UserId" />
-            </EndProperty>
-            <EndProperty Name="webpages_Roles">
-              <ScalarProperty Name="RoleId" ColumnName="RoleId" />
             </EndProperty>
           </AssociationSetMapping>
         </EntityContainerMapping>

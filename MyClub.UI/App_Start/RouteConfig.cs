@@ -11,7 +11,7 @@ namespace MyClub.UI
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+                defaults: new { controller = "Account", action = "Login", id = UrlParameter.Optional }
             );
 
             routes.MapRoute(
@@ -21,26 +21,37 @@ namespace MyClub.UI
             );
 
             routes.MapRoute(
-               name: "Login",
-               url: "{controller}/{action}/{id}",
-               defaults: new { controller = "Account", action = "Index", id = UrlParameter.Optional }
-           );
-
-            routes.MapRoute(
            name: "ChangePassword",
            url: "{controller}/{action}/{id}",
            defaults: new { controller = "Account", action = "Index", id = UrlParameter.Optional }
        );
+
+
+
+            routes.MapRoute(
+               name: "Home",
+               url: "{controller}/{action}/{id}",
+               defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+           );
+            routes.MapRoute(
+               name: "Service",
+               url: "{controller}/{action}/{id}",
+               defaults: new { controller = "Service", action = "Index", id = UrlParameter.Optional }
+           );
+
+            routes.MapRoute(
+             name: "Member",
+             url: "{controller}/{action}/{id}",
+             defaults: new { controller = "Member", action = "Index", id = UrlParameter.Optional }
+         );
+
+            routes.MapRoute(
+           name: "Offer",
+           url: "{controller}/{action}/{id}",
+           defaults: new { controller = "MemberOffer", action = "Index", id = UrlParameter.Optional }
+       );
         }
 
-        public static void ServiceRoutes(RouteCollection routes)
-        {
-            routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
-            routes.MapRoute(
-                name: "services",
-                url: "{controller}/{action}/{id}",
-                defaults: new { controller = "sercices", action = "Index", id = UrlParameter.Optional }
-            );
-        }
+       
     }
 }

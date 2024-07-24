@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "login";
     Layout = null;
 }
@@ -26,22 +25,30 @@
             <div class="bg"></div>
             <h1>Welcome Back</h1>
         </div>
-        <form>
+
+        @if (ViewBag.Error != null)
+        {
+            <div class="alert alert-danger">
+                @ViewBag.Error
+            </div>
+        }
+
+        @using (Html.BeginForm("Login", "Account", FormMethod.Post))
+        {
             <h3>Login</h3>
-            <label for="username"><i class="fa-regular fa-envelope"></i>  Email</label>
-            <input type="text" placeholder="info@example.com" id="username" required>
+            <label for="Email"><i class="fa-regular fa-envelope"></i>  Email</label>
+            <input type="text" placeholder="info@example.com" id="Email" name="Email" required>
             <label for="password"><i class="fa-solid fa-lock"></i>  Password</label>
-            <input type="password" placeholder="Password" id="password" required>
-            <button>Login</button>
+            <input type="password" placeholder="Password" id="password" name="password" required>
+            <button type="submit">Login</button>
             <span>Did you forget your password? <a href="https://localhost:44399/Account/forpass"> Reset!</a></span>
             <br />
             <span>Don't you have account?<a href="https://localhost:44399/Account/Signup"> sign up</a></span>
-        </form>
+        }
+
     </div>
 </body>
 <footer>
     <p>All rights reserved &copy; 2024 ICEAlex.</p>
 </footer>
 </html>
-
-

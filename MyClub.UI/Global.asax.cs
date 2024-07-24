@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using WebMatrix.WebData;
 
 namespace MyClub.UI
 {
@@ -12,6 +13,16 @@ namespace MyClub.UI
     {
         protected void Application_Start()
         {
+            if (!WebSecurity.Initialized)
+            {
+                WebSecurity.InitializeDatabaseConnection(
+                    connectionStringName: "MyclubSecurity",
+                    userTableName: "User_Profile",
+                    userIdColumn: "UserId",
+                    userNameColumn: "UserName",
+                    autoCreateTables: true);
+            }
+
             AreaRegistration.RegisterAllAreas();
             FilterConfig.AccountGlobalFilters(GlobalFilters.Filters);
             RouteConfig.AccountRoutes(RouteTable.Routes);

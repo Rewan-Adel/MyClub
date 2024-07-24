@@ -38,9 +38,16 @@ namespace MyClubLib.Repository
        
         public List<T> GetAll<T>() where T : class => _db.Set<T>().ToList();
         public T Find<T>(long id) where T : class => _db.Set<T>().Find(id);
-        public T FindByName<T>(string userName) where T : class => _db.Set<T>().Find(userName);
         public void Delete<T>(T entity) where T : class => _db.Set<T>().Remove(entity);
         public void Edit<T>(T entity) where T : class => _db.Set<T>().AddOrUpdate(entity);
+
+        public Person FindByEmail(string email)=> _db.Set<Person>().SingleOrDefault(p => p.Email == email);
+        public Person FindByUserName(string userName) => _db.Set<Person>().SingleOrDefault(p => p.PersonName == userName);
+
+
+
+
+
         public void CreateAudit(ActionType actionType, Action action, int? userId, MasterEntity entity, string entityRecord)
         {
             try

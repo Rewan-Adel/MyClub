@@ -13,10 +13,10 @@ namespace SecurityLib.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class MyClubSecurity : DbContext
+    public partial class MyclubSecurity : DbContext
     {
-        public MyClubSecurity()
-            : base("name=MyClubSecurity")
+        public MyclubSecurity()
+            : base("name=MyclubSecurity")
         {
         }
     

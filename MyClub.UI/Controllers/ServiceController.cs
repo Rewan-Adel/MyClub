@@ -10,26 +10,27 @@ using MyClubLib.Models;
 using MyClubLib.Repository;
 namespace MyClub.UI.Controllers
 {
-    public class servicesController : Controller
+    public class ServiceController : Controller
     {
         private MyClubEntities db = new MyClubEntities();
 
         private readonly EFClubRepository _db;
-        public servicesController()
+        public ServiceController()
         {
             _db = new EFClubRepository();
         }
         // GET: services
         public ActionResult Index()
         {
-            if (Session["login"]!=null)
-            {
-                return View(db.services.ToList());
-            }
-            else
-            {
-                return RedirectToAction("Login", "Account");
-            }
+           // if (Session["login"]!=null)
+            //{
+              //  return View(db.services.ToList());
+            //}
+            //else
+            //{
+              //  return RedirectToAction("Login", "Account");
+           // }
+           return View();
         }
 
         // GET: services/Details/5
