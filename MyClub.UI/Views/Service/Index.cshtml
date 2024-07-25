@@ -1,4 +1,4 @@
-﻿@model IEnumerable<MyClubLib.Models.service>
+﻿﻿@model IEnumerable<MyClubLib.Models.service>
 
 @{
     ViewBag.Title = "Service";
@@ -20,27 +20,28 @@
         <th>
             @Html.DisplayNameFor(model => model.IsActive)
         </th>
-      
+
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.ServiceName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ServicePrice)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IsActive)
-        </td>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ServiceName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ServicePrice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsActive)
+            </td>
 
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ServiceId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ServiceId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ServiceId })
-        </td>
-    </tr>
-}
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ServiceId }) |
+                @Html.ActionLink("Details", "Details", new { id = item.ServiceId }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ServiceId })
+            </td>
+        </tr>
+    }
 
 </table>

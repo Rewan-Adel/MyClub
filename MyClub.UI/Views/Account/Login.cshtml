@@ -41,9 +41,9 @@
             <label for="password"><i class="fa-solid fa-lock"></i>  Password</label>
             <input type="password" placeholder="Password" id="password" name="password" required>
             <button type="submit">Login</button>
-            <span>Did you forget your password? <a href="https://localhost:44399/Account/forpass"> Reset!</a></span>
+            <span>Did you forget your password? <a href="@Url.Action("forpass", "Account")"> Reset!</a></span>
             <br />
-            <span>Don't you have account?<a href="https://localhost:44399/Account/Signup"> sign up</a></span>
+            <span>Don't you have account? <a href="@Url.Action("Signup", "Account")"> sign up</a></span>
         }
 
     </div>

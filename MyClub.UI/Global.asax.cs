@@ -21,6 +21,8 @@ namespace MyClub.UI
                     userIdColumn: "UserId",
                     userNameColumn: "UserName",
                     autoCreateTables: true);
+
+               
             }
 
             AreaRegistration.RegisterAllAreas();

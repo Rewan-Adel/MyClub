@@ -33,7 +33,7 @@ namespace MyClubLib.Models
         public Nullable<int> UserId { get; set; }
         public Nullable<System.DateTime> RegistrationDate { get; set; }
         public Nullable<bool> isExpected { get; set; }
-        public int MemberOfferId { get; set; }
+        public Nullable<int> MemberOfferId { get; set; }
     
         public virtual Member Member { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -5,6 +5,7 @@ using MyClubLib.Repository;
 using System.Web.Security;
 using SecurityLib.Models;
 using System.Linq;
+using WebMatrix.WebData;
 
 namespace SecurityLib.Repositoty
 {
@@ -27,41 +28,32 @@ namespace SecurityLib.Repositoty
         //    }
 
 
-        public User_Profile FindProfile(string email) => _db.Set<User_Profile>().SingleOrDefault(p => p.UserName == email);
-        public Person Register(int? userId, string PersonName,string Password,string Gender, string address, DateTime BirthDate, string MobileNumber, string HomePhoneNumber,
-                                 string Email, string Address, string Nationality)
+        public User_Profile FindProfile(string username) => _db.Set<User_Profile>().SingleOrDefault(p => p.UserName == username);
+        public Person Register(int? userId, string personName, string password, string gender, string address, DateTime birthDate, string mobileNumber, string homePhoneNumber,
+                          string email, string nationality)
         {
-            try
+            using (var scope = new TransactionScope())
             {
-                // Create the membership user
-                MembershipCreateStatus status;
-                MembershipUser newUser = Membership.CreateUser(Email, Password, Email, null, null, true, out status);
-
-                if (status != MembershipCreateStatus.Success)
+                try
                 {
-                    throw new Exception($"Failed to create user: {status}");
+                    Person person     = _repository.CreatePerson(userId, personName, password, gender, birthDate, mobileNumber, homePhoneNumber, email, address, nationality);
+                    Member member     = _repository.CreateMember(personName, person.PersonId, userId);
+                    MemberOffer offer = _repository.CreateMemberOffer(member.MemberId, "Member Offer", null, null, offerStatus.unctive, userId, null, null, null, null, null);
+
+                    person.MemberOfferId = offer.MemberOfferId;
+                    _repository.UpdatePersonMemberOfferId(person);
+                    CreateUser(person.PersonName, true);
+
+                    _repository.SaveChanges();
+
+                    scope.Complete();
+                    return person;
                 }
-
-                Person person = _repository.CreatePerson(userId,
-                                                     PersonName,
-                                                     Password,
-                                                     Gender,
-                                                     BirthDate,
-                                                     MobileNumber,
-                                                     HomePhoneNumber,
-                                                     Email,
-                                                     Address,
-                                                     Nationality);
-
-
-                _repository.SaveChanges();
-                CreateUser(person.PersonName, true);
-
-                return person;
-            }
-            catch(Exception ex)
-            {
-                throw new Exception( ex.ToString());
+                catch (Exception ex)
+                {
+                    scope.Dispose();
+                    throw new Exception(ex.ToString());
+                }
             }
         }
         public bool IsUserExist(string email , string pass)
@@ -196,9 +188,7 @@ namespace SecurityLib.Repositoty
                 throw new Exception(ex.Message);
             }
         }
-    
-    
-    
+   
     
     }
 }

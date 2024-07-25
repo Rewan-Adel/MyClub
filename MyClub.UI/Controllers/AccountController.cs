@@ -4,6 +4,7 @@ using System.Web.Mvc;
 using WebMatrix.WebData;
 using SecurityLib.Repositoty;
 using System.Net.Mail;
+using System.Web.Security;
 
 namespace MyClub.UI.Controllers
 {
@@ -33,8 +34,6 @@ namespace MyClub.UI.Controllers
         {
             return View();
         }
-
-
 
         [HttpGet]
         [AllowAnonymous]
@@ -69,30 +68,73 @@ namespace MyClub.UI.Controllers
             }
         }
 
-
-
+     
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Signup(string PersonName, string Gender, string Password, DateTime BirthDay, string MobileNumber, string HomePhoneNumber,
-                                 string Email, string Address, string Nationality)
+        public ActionResult Signup(string username, string Gender, string Password, DateTime BirthDay, string MobileNumber, string HomePhoneNumber,
+                 string Email, string Address, string Nationality)
         {
             try
             {
+                if (!WebSecurity.Initialized)
+                {
+                    WebSecurity.InitializeDatabaseConnection(
+                        connectionStringName: "MyclubSecurity",
+                        userTableName: "User_Profile",
+                        userIdColumn: "UserId",
+                        userNameColumn: "UserName",
+                        autoCreateTables: true);
+                }
+
                 if (_security.IsUserExist(Email, null))
                 {
-                    return Json(new { success = false, message = "This email is already exist." }, JsonRequestBehavior.AllowGet);
+                    ViewBag.Error = "This email already exists.";
+                    return View();
                 }
-                _security.Register(null, PersonName, Password, Gender, Address, BirthDay, MobileNumber, HomePhoneNumber, Email, Address, Nationality);      
+
+              // _security.Register(null, username, Password, Gender, Address, BirthDay, MobileNumber, HomePhoneNumber, Email, Nationality);
+                WebSecurity.CreateUserAndAccount(username, Password);
 
                 Session["login"] = true;
-                
-                return RedirectToAction("Index", "Home");
-               // return Json(new { success = true, message = "Signup successfully." }, JsonRequestBehavior.AllowGet);
 
+                return RedirectToAction("Index", "Home");
+            }
+            catch (MembershipCreateUserException e)
+            {
+                ViewBag.Error = ErrorCodeToString(e.StatusCode);
+                return View();
             }
             catch (Exception ex)
             {
-                return Json(new { success = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
+                ViewBag.Error = ex.Message;
+                return View();
+            }
+        }
+
+        private static string ErrorCodeToString(MembershipCreateStatus createStatus)
+        {
+            switch (createStatus)
+            {
+                case MembershipCreateStatus.DuplicateUserName:
+                    return "Username already exists. Please enter a different username.";
+                case MembershipCreateStatus.DuplicateEmail:
+                    return "A username for that email address already exists. Please enter a different email address.";
+                case MembershipCreateStatus.InvalidPassword:
+                    return "The password provided is invalid. Please enter a valid password.";
+                case MembershipCreateStatus.InvalidEmail:
+                    return "The email address provided is invalid. Please check the value and try again.";
+                case MembershipCreateStatus.InvalidAnswer:
+                    return "The password retrieval answer provided is invalid. Please check the value and try again.";
+                case MembershipCreateStatus.InvalidQuestion:
+                    return "The password retrieval question provided is invalid. Please check the value and try again.";
+                case MembershipCreateStatus.InvalidUserName:
+                    return "The username provided is invalid. Please check the value and try again.";
+                case MembershipCreateStatus.ProviderError:
+                    return "The authentication provider returned an error. Please verify your entry and try again. If the problem persists, please contact your system administrator.";
+                case MembershipCreateStatus.UserRejected:
+                    return "The user creation request has been canceled. Please verify your entry and try again. If the problem persists, please contact your system administrator.";
+                default:
+                    return "An unknown error occurred. Please verify your entry and try again. If the problem persists, please contact your system administrator.";
             }
         }
 

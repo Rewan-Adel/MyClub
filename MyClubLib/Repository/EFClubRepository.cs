@@ -1,6 +1,7 @@
 ﻿using MyClubLib.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Data.Entity.Migrations;
 using System.Data.Entity.Validation;
 using System.Diagnostics;
@@ -22,32 +23,33 @@ namespace MyClubLib.Repository
             utilities = new Utilities();
         }
         public void Add<T>(T entity) where T : class => _db.Set<T>().Add(entity);
-
         public void SaveChanges()
         {
             try
             {
                 _db.SaveChanges();
             }
+            catch (DbEntityValidationException ex)
+            {
+                var errorMessages = ex.EntityValidationErrors
+                    .SelectMany(x => x.ValidationErrors)
+                    .Select(x => x.ErrorMessage);
+                var fullErrorMessage = string.Join("; ", errorMessages);
+                var exceptionMessage = string.Concat(ex.Message, " The validation errors are: ", fullErrorMessage);
+
+                throw new Exception(exceptionMessage, ex);
+            }
             catch (Exception ex)
             {
-
                 throw new Exception(ex.ToString());
             }
-            }
-       
+        }
         public List<T> GetAll<T>() where T : class => _db.Set<T>().ToList();
         public T Find<T>(long id) where T : class => _db.Set<T>().Find(id);
         public void Delete<T>(T entity) where T : class => _db.Set<T>().Remove(entity);
         public void Edit<T>(T entity) where T : class => _db.Set<T>().AddOrUpdate(entity);
-
         public Person FindByEmail(string email)=> _db.Set<Person>().SingleOrDefault(p => p.Email == email);
         public Person FindByUserName(string userName) => _db.Set<Person>().SingleOrDefault(p => p.PersonName == userName);
-
-
-
-
-
         public void CreateAudit(ActionType actionType, Action action, int? userId, MasterEntity entity, string entityRecord)
         {
             try
@@ -73,9 +75,6 @@ namespace MyClubLib.Repository
 
             }
         }
-
-
-
         public Person CreatePerson(int? userId, string personName, string password, string gender, DateTime birthDate, string mobileNumber, string homePhoneNumber,
                              string email, string address, string nationality)
         {
@@ -83,7 +82,6 @@ namespace MyClubLib.Repository
             {
                 try
                 {
-                    Console.WriteLine("Starting CreatePerson");
                     var newPerson = new Person()
                     {
                         PersonName = personName,
@@ -96,59 +94,42 @@ namespace MyClubLib.Repository
                         Address = address,
                         Nationality = nationality,
                         RegistrationDate = DateTime.Now,
-                        UserId = userId
+                        UserId = userId,
+                        isExpected = null,
+                        MemberOfferId = null
                     };
 
-                    Console.WriteLine("Adding Person to context");
-                    // Add new person to context
                     Add(newPerson);
                     SaveChanges();
-                    Console.WriteLine("Person added and changes saved");
-
-                    // Create member after person is saved
-                    var member = new Member
-                    {
-                        MemberName = personName,
-                        PersonId = newPerson.PersonId,
-                        UserId = userId,
-                        RegistrationDate = DateTime.Now,
-                        LastModifiedDate = DateTime.Now
-                    };
-                    Add(member);
-                    SaveChanges();
-                    Console.WriteLine("Member added and changes saved");
-
-                    // Create member offer
-                    var memberOffer = new MemberOffer
-                    {
-                        MemberId = member.MemberId,
-                        Note = "Offer",
-                        CurrentStatusId = (int)offerStatus.unctive,
-                        CreatedById = userId,
-                        CreationDate = DateTime.Now
-                    };
-                    Add(memberOffer);
-                    SaveChanges();
-                    Console.WriteLine("MemberOffer added and changes saved");
-
-                    // Assign MemberOfferId to the person
-                    newPerson.MemberOfferId = memberOffer.MemberOfferId;
-                    SaveChanges();
-                    Console.WriteLine("Person updated with MemberOfferId");
-
+                  
                     scope.Complete();
-                    Console.WriteLine("Transaction completed successfully");
                     return newPerson;
                 }
                 catch (Exception ex)
                 {
-                    // Log the exception details
-                    Console.WriteLine("Error: " + ex.ToString());
                     scope.Dispose();
-                    throw new Exception("Error in creating person", ex);
+                    throw new Exception(ex.ToString());
                 }
             }
         }
+
+        public void UpdatePersonMemberOfferId(Person updatedPerson)
+        {
+            using (var scope = new TransactionScope())
+            {
+                // Retrieve the existing entity
+                var existingPerson = Find<Person>(updatedPerson.PersonId);
+
+                if (existingPerson == null)
+                {
+                    throw new Exception("Person not found");
+                }
+
+                existingPerson.MemberOfferId = updatedPerson.MemberOfferId; // If applicable
+                SaveChanges();
+            }
+        }
+
 
         public Member CreateMember(string memberName, int personId, int? userId)
         {
@@ -164,15 +145,16 @@ namespace MyClubLib.Repository
                         RegistrationDate = DateTime.Now,
                         LastModifiedDate = DateTime.Now
                     };
+                    string entityRecord = "";
                     if (userId != null)
                     {
-                        string entityRecord = userId != null
+                          entityRecord = userId != null
                           ? $"{Find<Person>((int)userId).PersonName} added new member {memberName} to the system."
                           : $"{memberName} added to the system.";
                     }
                 
                     Add(Member);
-                //    CreateAudit(ActionType.Add, Action.Create_Member, Member.UserId, MasterEntity.Member, entityRecord);
+                   // CreateAudit(ActionType.Add, Action.Create_Member, Member.UserId, MasterEntity.Member, entityRecord);
                     SaveChanges();
 
                     scope.Complete();
@@ -187,10 +169,9 @@ namespace MyClubLib.Repository
             }
 
         }
-
-        public MemberOffer CreateMemberOffer(int MemberId, string note, int? OfferPriceId, decimal? PaymentAmount, /* DateTime PaymentDate,*/
-                                     offerStatus CurrentStatusId, int? CreatedById,/* DateTime?? CreationDate*/ decimal? MemberPrice, decimal? DiscountPercent, decimal? DiscountValue,
-                                      int? DiscountById,/* DateTime ?? EndDate,*/ int? TrainerId)
+        public MemberOffer CreateMemberOffer(int MemberId, string note, int? OfferPriceId, decimal? PaymentAmount, 
+                                     offerStatus CurrentStatusId, int? CreatedById, decimal? MemberPrice, decimal? DiscountPercent, decimal? DiscountValue,
+                                      int? DiscountById,int? TrainerId)
         {
             using (var scope = new TransactionScope())
             {
@@ -208,7 +189,11 @@ namespace MyClubLib.Repository
                         DiscountValue = DiscountValue,
                         CreationDate = DateTime.Now,
                         TrainerId = TrainerId,
-                        Note = note
+                        Note = note,
+                        PaymentDate = null,
+                        DiscountById = null,
+                        EndDate = null,
+                     
                     };
 
                     Add(offer);
@@ -226,10 +211,6 @@ namespace MyClubLib.Repository
 
             }
         }
-
-
-
-
         public void DeleteMember(int memberId)
 
         {
@@ -280,7 +261,6 @@ namespace MyClubLib.Repository
                 }
             }
         }
-      
         public void DeletePesron(int personId)
         {
             using (var scope = new TransactionScope())
@@ -326,7 +306,6 @@ namespace MyClubLib.Repository
                 }
             }
         }
-
         public void CreateService(int? PersonId, string ServiceName, string ServiceDescription, string ServiceType, int ServicePrice)
         {
             using (var scope = new TransactionScope())
@@ -360,7 +339,6 @@ namespace MyClubLib.Repository
                 }
             }
         }
-
         public void DeleteService(int serviceId)
         {
             using (var scope = new TransactionScope())
@@ -387,7 +365,6 @@ namespace MyClubLib.Repository
                 }
             }
         }
-
         public void EnableService(int serviceId)
         {
             using (var scope = new TransactionScope())
@@ -414,7 +391,6 @@ namespace MyClubLib.Repository
                 }
             }
         }
-
         public void DisableService(int serviceId)
         {
             using (var scope = new TransactionScope())
@@ -467,7 +443,6 @@ namespace MyClubLib.Repository
                 }
             }
         }
-
         public void EditServicePrice(int serviceId, int servicePrice)
         {
             using (var scope = new TransactionScope())
@@ -493,7 +468,6 @@ namespace MyClubLib.Repository
                 }
             }
         }
-
         public List<service> GetAllService()
         {
             using (var scope = new TransactionScope())
@@ -511,7 +485,6 @@ namespace MyClubLib.Repository
                 }
             }
         }
-
         public service GetService(int serviceId)
         {
             using (var scope = new TransactionScope())
@@ -529,7 +502,6 @@ namespace MyClubLib.Repository
                 }
             }
         }
-        
         public void CreateOfferPrice(decimal price, DateTime? StartDate, DateTime? EndDate, int? OfferDurationId,
             bool? IsActive, int? MaxFreezingDays)
         {
@@ -562,7 +534,6 @@ namespace MyClubLib.Repository
 
             }
         }
-
         public void CreateOfferDuration(string OfferDurationName, string Description, bool? IsVisible, int? Days)
 
         {
@@ -593,7 +564,6 @@ namespace MyClubLib.Repository
 
     }
         }
-
         public void CreateOfferDetail(int OfferPriceId, int serviceID,  int serviceLimitNum )
 
         {
@@ -623,8 +593,6 @@ namespace MyClubLib.Repository
 
             }
         }
-
-
         public void CreateAttendance(int userId, int MemberOfferId, int ServiceId)
 
         {

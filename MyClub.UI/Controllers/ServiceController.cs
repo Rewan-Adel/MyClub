@@ -22,15 +22,16 @@ namespace MyClub.UI.Controllers
         // GET: services
         public ActionResult Index()
         {
-           // if (Session["login"]!=null)
-            //{
-              //  return View(db.services.ToList());
+          // if (Session["login"]!=null)
+          //  {
+                return View(db.services.ToList());
             //}
-            //else
+            // else
             //{
-              //  return RedirectToAction("Login", "Account");
-           // }
-           return View();
+            //     return RedirectToAction("Login", "Account");
+            //}
+            var services = _db.GetAllService();
+            return View(services);
         }
 
         // GET: services/Details/5

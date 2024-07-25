@@ -17,7 +17,7 @@ namespace MyClub.UI
             routes.MapRoute(
                 name: "Sigunp",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Account", action = "Index", id = UrlParameter.Optional }
+                defaults: new { controller = "Account", action = "Signup", id = UrlParameter.Optional }
             );
 
             routes.MapRoute(
