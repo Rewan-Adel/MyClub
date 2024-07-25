@@ -1,13 +1,11 @@
-﻿using MyClubLib.Models;
+﻿@using MyClubLib.Models;
 @model MyClubLib.Models.service
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Service";
 }
 
-<h2>Create</h2>
-<a href="~/App_Start/RouteConfig.cs">~/App_Start/RouteConfig.cs</a>
-
+<h2>Create new service</h2>
 
 @using (Html.BeginForm())
 {
@@ -17,6 +15,7 @@
         <h4>service</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
         <div class="form-group">
             @Html.LabelFor(model => model.ServiceName, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -43,13 +42,11 @@
             </div>
         </div>
 
-    </div>
-
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Create" class="btn btn-default" />
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
         </div>
-    </div>
     </div>
 }
 

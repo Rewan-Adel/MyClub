@@ -60,7 +60,7 @@ namespace MyClub.UI.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ServiceId,ServiceName,ServicePrice,IsActive")] service service)
+        public ActionResult Create([Bind(Include = "ServiceName,ServicePrice,IsActive")] service service)
         {
             if (ModelState.IsValid)
             {
