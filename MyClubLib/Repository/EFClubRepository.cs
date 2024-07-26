@@ -14,12 +14,12 @@ namespace MyClubLib.Repository
     //All methods deals with db (add, get, edit, delete)
     public class EFClubRepository
     {
-        private  MyClubEntities _db;
+        private MyClubEntities _db;
         private readonly Utilities utilities;
 
-        public  EFClubRepository()
+        public EFClubRepository()
         {
-             _db = new MyClubEntities();
+            _db = new MyClubEntities();
             utilities = new Utilities();
         }
         public void Add<T>(T entity) where T : class => _db.Set<T>().Add(entity);
@@ -47,9 +47,16 @@ namespace MyClubLib.Repository
         public List<T> GetAll<T>() where T : class => _db.Set<T>().ToList();
         public T Find<T>(long id) where T : class => _db.Set<T>().Find(id);
         public void Delete<T>(T entity) where T : class => _db.Set<T>().Remove(entity);
+        public void DeleteAll<T>() where T : class {
+            var entities = _db.Set<T>().ToList();
+            _db.Set<T>().RemoveRange(entities);
+            _db.SaveChanges();
+        }
         public void Edit<T>(T entity) where T : class => _db.Set<T>().AddOrUpdate(entity);
+        
         public Person FindByEmail(string email)=> _db.Set<Person>().SingleOrDefault(p => p.Email == email);
         public Person FindByUserName(string userName) => _db.Set<Person>().SingleOrDefault(p => p.PersonName == userName);
+       
         public void CreateAudit(ActionType actionType, Action action, int? userId, MasterEntity entity, string entityRecord)
         {
             try
@@ -75,7 +82,7 @@ namespace MyClubLib.Repository
 
             }
         }
-        public Person CreatePerson(int? userId, string personName, string password, string gender, DateTime birthDate, string mobileNumber, string homePhoneNumber,
+        public Person CreatePerson(int? userId, string personName, string password, string gender, DateTime BirthDate, string mobileNumber, string homePhoneNumber,
                              string email, string address, string nationality)
         {
             using (var scope = new TransactionScope())
@@ -87,7 +94,7 @@ namespace MyClubLib.Repository
                         PersonName = personName,
                         Password = password,
                         Gender = gender,
-                        BirthDate = birthDate,
+                        BirthDate = BirthDate,
                         MobileNumber = mobileNumber,
                         HomePhoneNumber = homePhoneNumber,
                         Email = email,
@@ -306,7 +313,7 @@ namespace MyClubLib.Repository
                 }
             }
         }
-        public void CreateService(int? PersonId, string ServiceName, string ServiceDescription, string ServiceType, int ServicePrice)
+        public void CreateService(int? PersonId, string ServiceName,  int ServicePrice,bool IsActive)
         {
             using (var scope = new TransactionScope())
             {
@@ -318,7 +325,7 @@ namespace MyClubLib.Repository
                         ServicePrice = ServicePrice,
                         CreationDate = DateTime.Now,
                         LastModifiedDate = DateTime.Now,
-                        IsActive = true,
+                        IsActive = IsActive,
                         IsDeleted = false,
                     };
                  //   var user = Find<Person>(PersonId);

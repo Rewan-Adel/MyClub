@@ -17,11 +17,9 @@ namespace MyClubLib.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public service()
         {
-            this.MemberAttendances = new HashSet<MemberAttendance>();
             this.OfferDetails = new HashSet<OfferDetail>();
         }
     
-        public int ServiceId { get; set; }
         public string ServiceName { get; set; }
         public decimal ServicePrice { get; set; }
         public Nullable<bool> IsActive { get; set; }
@@ -29,9 +27,8 @@ namespace MyClubLib.Models
         public Nullable<System.DateTime> LastModifiedDate { get; set; }
         public bool IsDeleted { get; set; }
         public Nullable<bool> IsDefault { get; set; }
+        public int ServiceId { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<MemberAttendance> MemberAttendances { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OfferDetail> OfferDetails { get; set; }
     }

@@ -3,20 +3,22 @@ using System.Transactions;
 using MyClubLib.Models;
 using MyClubLib.Repository;
 using System.Web.Security;
-using SecurityLib.Models;
 using System.Linq;
 using WebMatrix.WebData;
+using System.Threading.Tasks;
+using System.Net;
 
 namespace SecurityLib.Repositoty
 {
     public class SecurityRepository 
     {
-        private readonly MyclubSecurity _db;
+        private readonly MyClubEntities _db;
         private readonly EFClubRepository _repository;
         
         public SecurityRepository()
         {
-            _db = new MyclubSecurity();
+           
+            _db = new MyClubEntities();
             _repository = new EFClubRepository();
         }
         //      private void ValidateUser(string user,string userPass, string password)
@@ -29,25 +31,61 @@ namespace SecurityLib.Repositoty
 
 
         public User_Profile FindProfile(string username) => _db.Set<User_Profile>().SingleOrDefault(p => p.UserName == username);
-        public Person Register(int? userId, string personName, string password, string gender, string address, DateTime birthDate, string mobileNumber, string homePhoneNumber,
-                          string email, string nationality)
+        public async Task<bool> Register(int? userId, string PersonName, string Password, string Gender, string Address, DateTime BirthDate, string MobileNumber, string HomePhoneNumber,
+                          string Email, string Nationality)
         {
             using (var scope = new TransactionScope())
             {
                 try
                 {
-                    Person person     = _repository.CreatePerson(userId, personName, password, gender, birthDate, mobileNumber, homePhoneNumber, email, address, nationality);
-                    Member member     = _repository.CreateMember(personName, person.PersonId, userId);
-                    MemberOffer offer = _repository.CreateMemberOffer(member.MemberId, "Member Offer", null, null, offerStatus.unctive, userId, null, null, null, null, null);
+                    //  Person person     = await _repository.CreatePerson(userId, personName, password, gender, BirthDate, mobileNumber, homePhoneNumber, email, address, nationality);
+                     // Member member     = await  _repository.CreateMember(personName, person.PersonId, userId);
 
-                    person.MemberOfferId = offer.MemberOfferId;
-                    _repository.UpdatePersonMemberOfferId(person);
-                    CreateUser(person.PersonName, true);
+                    // await CreateUser(person.PersonName, true);
+                    var person = new Person
+                    {
+                        PersonName = PersonName,
+                        Password = Password,
+                        Gender = Gender,
+                        BirthDate = BirthDate,
+                        MobileNumber = MobileNumber,
+                        HomePhoneNumber = HomePhoneNumber,
+                        Email = Email,
+                        Address = Address,
+                        Nationality = Nationality,
+                        RegistrationDate = DateTime.Now,
+                        isExpected = false,
+                        UserId = userId
+                    };
 
-                    _repository.SaveChanges();
+                    _db.People.Add(person);
+                    await _db.SaveChangesAsync();
 
+                    var member = new Member
+                    {
+                        MemberName = PersonName,
+                        PersonId = person.PersonId,
+                        RegistrationDate = DateTime.Now
+                    };
+                    _db.Members.Add(member);
+                    await _db.SaveChangesAsync();
+
+                    // Optionally, add an audit trail
+                    var audit = new AuditTrail
+                    {
+                        ActionTypeId = 1, // Signup action type id
+                        UserId = person.UserId,
+                        //  IPAddress = personDto.IPAddress,
+                        TransactionTime = DateTime.Now,
+                        EntityId = person.PersonId,
+                        EntityRecord = "Person" // or any other identifier for your entity
+                    };
+
+                   CreateUser(person.Email, true, false);
+                    //_context.AuditTrails.Add(audit);/
+                    //   await _context.SaveChangesAsync();
                     scope.Complete();
-                    return person;
+                    return true;
                 }
                 catch (Exception ex)
                 {
@@ -56,6 +94,7 @@ namespace SecurityLib.Repositoty
                 }
             }
         }
+
         public bool IsUserExist(string email , string pass)
         {
             try
@@ -82,20 +121,21 @@ namespace SecurityLib.Repositoty
           // .// User.Password = BCrypt.Net.BCrypt.HashPassword(password);
             _repository.SaveChanges();
         }
-        public int CreateUser(string userName, bool isActive)
+        public int CreateUser(string PersonName, bool isActive, bool? isAdmin)
         {
             using (var scope = new TransactionScope())
             {
                 try
                 {
-                    var profile = new User_Profile()
+                    var profile = new User_Profile
                     {
-                        UserName = userName,
-                        IsActive = isActive
+                        UserName = PersonName,
+                        IsActive = isActive,
+                        IsAdmin = (bool)isAdmin,
                     };
 
-                    _repository.Add(profile);
-                    _repository.SaveChanges();
+                    _db.User_Profiles.Add(profile);
+                    _db.SaveChanges();
 
                     return profile.UserID;
                 }
@@ -113,7 +153,7 @@ namespace SecurityLib.Repositoty
                 try
                 {
 
-                    var UserName = _repository.FindByUserName(Email);
+                    var UserName = _repository.FindByEmail(Email);
                     var user = FindProfile(UserName.PersonName);
 
                     if (!user.IsActive)
@@ -188,7 +228,72 @@ namespace SecurityLib.Repositoty
                 throw new Exception(ex.Message);
             }
         }
-   
-    
+        public async Task<bool> SignupAsync(PersonDto personDto)
+        {
+            // Create a new Person instance from the provided DTO
+            var person = new Person
+            {
+                PersonName = personDto.PersonName,
+                Password = personDto.Password,
+                Gender = personDto.Gender,
+                BirthDate = personDto.BirthDate,
+                MobileNumber = personDto.MobileNumber,
+                HomePhoneNumber = personDto.HomePhoneNumber,
+                Email = personDto.Email,
+                Address = personDto.Address,
+                Nationality = personDto.Nationality,
+                RegistrationDate = DateTime.Now,
+                isExpected = false // or some default value
+            };
+
+            _db.People.Add(person);
+
+            // Save the person to generate PersonId
+            await _db.SaveChangesAsync();
+
+            // Create a new Member instance if applicable
+            var member = new Member
+            {
+                MemberName = personDto.MemberName,
+                PersonId = person.PersonId,
+                RegistrationDate = DateTime.Now
+            };
+
+            _db.Members.Add(member);
+
+            // Save the member
+            await _db.SaveChangesAsync();
+
+            // Optionally, add an audit trail
+            var audit = new AuditTrail
+            {
+                ActionTypeId = 1, // Signup action type id
+                UserId = person.UserId,
+                IPAddress = personDto.IPAddress,
+                TransactionTime = DateTime.Now,
+                EntityId = person.PersonId,
+                EntityRecord = "Person" // or any other identifier for your entity
+            };
+
+            _db.AuditTrails.Add(audit);
+            await _db.SaveChangesAsync();
+
+            return true;
+        }
+    public class PersonDto
+    {
+        public string PersonName { get; set; }
+        public string Password { get; set; }
+        public string Gender { get; set; }
+        public DateTime BirthDate { get; set; }
+        public string MobileNumber { get; set; }
+        public string HomePhoneNumber { get; set; }
+        public string Email { get; set; }
+        public string Address { get; set; }
+        public string Nationality { get; set; }
+        public string MemberName { get; set; }
+        public string IPAddress { get; set; }
     }
+
+   }
 }

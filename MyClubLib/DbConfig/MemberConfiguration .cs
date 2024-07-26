@@ -12,10 +12,5 @@ public class MemberConfiguration : EntityTypeConfiguration<Member>
         Property(m => m.MemberName).IsRequired().HasMaxLength(100);
         Property(m => m.RegistrationDate).IsRequired();
 
-        // Configure foreign key relationship
-        HasOptional(m => m.Person)
-            .WithOptionalDependent(p => p.Member)
-            .Map(m => m.MapKey("PersonId"))
-            .WillCascadeOnDelete(false);
     }
 }

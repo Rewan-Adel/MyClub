@@ -7,13 +7,19 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SecurityLib.Models
+namespace MyClubLib.Models
 {
     using System;
     using System.Collections.Generic;
     
     public partial class User_Profile
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public User_Profile()
+        {
+            this.webpages_Roles = new HashSet<webpages_Roles>();
+        }
+    
         public int UserID { get; set; }
         public string UserName { get; set; }
         public bool IsActive { get; set; }
@@ -21,5 +27,7 @@ namespace SecurityLib.Models
         public bool Enable { get; set; }
     
         public virtual webPages_UserPermessions webPages_UserPermessions { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<webpages_Roles> webpages_Roles { get; set; }
     }
 }

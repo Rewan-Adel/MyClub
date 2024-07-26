@@ -7,18 +7,15 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SecurityLib.Models
+namespace MyClubLib.Models
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class WebPages_Pages
+    public partial class webpages_OAuthMembership
     {
-        public int PageID { get; set; }
-        public string PageName { get; set; }
-        public string PageTitle { get; set; }
-        public bool RelatedTo { get; set; }
-    
-        public virtual webPages_UserPermessions webPages_UserPermessions { get; set; }
+        public string Provider { get; set; }
+        public string ProviderUserId { get; set; }
+        public int UserId { get; set; }
     }
 }

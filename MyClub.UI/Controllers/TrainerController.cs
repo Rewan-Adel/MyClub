@@ -10,107 +10,112 @@ using MyClubLib.Models;
 
 namespace MyClub.UI.Controllers
 {
-    public class MemberController : Controller
+    public class TrainerController : Controller
     {
         private MyClubEntities db = new MyClubEntities();
 
-        // GET: Member
+        // GET: Trainer
         public ActionResult Index()
         {
-            return View(db.People.ToList());
+            var trainers = db.Trainers.Include(t => t.Person);
+            return View(trainers.ToList());
         }
 
-        // GET: Member/Details/5
+        // GET: Trainer/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Person person = db.People.Find(id);
-            if (person == null)
+            Trainer trainer = db.Trainers.Find(id);
+            if (trainer == null)
             {
                 return HttpNotFound();
             }
-            return View(person);
+            return View(trainer);
         }
 
-        // GET: Member/Create
+        // GET: Trainer/Create
         public ActionResult Create()
         {
+            ViewBag.PersonId = new SelectList(db.People, "PersonId", "PersonName");
             return View();
         }
 
-        // POST: Member/Create
+        // POST: Trainer/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "PersonId,PersonName,Password,Gender,BirthDate,MobileNumber,HomePhoneNumber,Email,Address,Nationality,UserId,RegistrationDate,isExpected,MemberOfferId")] Person person)
+        public ActionResult Create([Bind(Include = "TrainerId,PersonId,IsActive")] Trainer trainer)
         {
             if (ModelState.IsValid)
             {
-                db.People.Add(person);
+                db.Trainers.Add(trainer);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(person);
+            ViewBag.PersonId = new SelectList(db.People, "PersonId", "PersonName", trainer.PersonId);
+            return View(trainer);
         }
 
-        // GET: Member/Edit/5
+        // GET: Trainer/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Person person = db.People.Find(id);
-            if (person == null)
+            Trainer trainer = db.Trainers.Find(id);
+            if (trainer == null)
             {
                 return HttpNotFound();
             }
-            return View(person);
+            ViewBag.PersonId = new SelectList(db.People, "PersonId", "PersonName", trainer.PersonId);
+            return View(trainer);
         }
 
-        // POST: Member/Edit/5
+        // POST: Trainer/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "PersonId,PersonName,Password,Gender,BirthDate,MobileNumber,HomePhoneNumber,Email,Address,Nationality,UserId,RegistrationDate,isExpected,MemberOfferId")] Person person)
+        public ActionResult Edit([Bind(Include = "TrainerId,PersonId,IsActive")] Trainer trainer)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(person).State = EntityState.Modified;
+                db.Entry(trainer).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(person);
+            ViewBag.PersonId = new SelectList(db.People, "PersonId", "PersonName", trainer.PersonId);
+            return View(trainer);
         }
 
-        // GET: Member/Delete/5
+        // GET: Trainer/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Person person = db.People.Find(id);
-            if (person == null)
+            Trainer trainer = db.Trainers.Find(id);
+            if (trainer == null)
             {
                 return HttpNotFound();
             }
-            return View(person);
+            return View(trainer);
         }
 
-        // POST: Member/Delete/5
+        // POST: Trainer/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Person person = db.People.Find(id);
-            db.People.Remove(person);
+            Trainer trainer = db.Trainers.Find(id);
+            db.Trainers.Remove(trainer);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

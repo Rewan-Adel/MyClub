@@ -60,18 +60,18 @@ nextBtnThird.addEventListener("click", function(event){
   }
 });
 
-submitBtn.addEventListener("click", function(){
-  if (validateStep(4)) {
-    bullet[current - 1].classList.add("active");
-    progressCheck[current - 1].classList.add("active");
-    progressText[current - 1].classList.add("active");
-    current += 1;
-    setTimeout(function(){
-      alert("Your Form Successfully Signed up");
-      location.reload();
-    }, 800);
-  }
-});
+//submitBtn.addEventListener("click", function(){
+  //if (validateStep(4)) {
+  //  bullet[current - 1].classList.add("active");
+  //  progressCheck[current - 1].classList.add("active");
+  //  progressText[current - 1].classList.add("active");
+  //  current += 1;
+//setTimeout(function(){
+  //    alert("Your Form Successfully Signed up");
+  //    location.reload();
+  //  }, 800);
+ // }
+//});
 
 prevBtnSec.addEventListener("click", function(event){
   event.preventDefault();

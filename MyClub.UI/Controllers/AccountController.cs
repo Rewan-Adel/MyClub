@@ -5,15 +5,20 @@ using WebMatrix.WebData;
 using SecurityLib.Repositoty;
 using System.Net.Mail;
 using System.Web.Security;
+using MyClubLib.Models;
+using static SecurityLib.Repositoty.SecurityRepository;
+using System.Threading.Tasks;
 
 namespace MyClub.UI.Controllers
 {
     public class AccountController : Controller
     {
         private readonly SecurityRepository _security;
+        private readonly MyClubEntities _context;
         private readonly int _userId;
         public AccountController()
         {
+            _context = new MyClubEntities();
             _security = new SecurityRepository();
             _userId   = WebSecurity.CurrentUserId;
         }
@@ -58,6 +63,7 @@ namespace MyClub.UI.Controllers
                 else
                 {
                     Session["login"] = true;
+                    WebSecurity.Login(Email, password);
                     return RedirectToAction("Index", "Home");
                 }
             }
@@ -68,77 +74,77 @@ namespace MyClub.UI.Controllers
             }
         }
 
-     
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Signup(string username, string Gender, string Password, DateTime BirthDay, string MobileNumber, string HomePhoneNumber,
+        public async Task<ActionResult> Signup(string PersonName, string Gender, string Password, DateTime BirthDate, string MobileNumber, string HomePhoneNumber,
                  string Email, string Address, string Nationality)
         {
-            try
-            {
-                if (!WebSecurity.Initialized)
+            try {
+                var User = _security.IsUserExist(Email, Password);
+                if (User)
                 {
-                    WebSecurity.InitializeDatabaseConnection(
-                        connectionStringName: "MyclubSecurity",
-                        userTableName: "User_Profile",
-                        userIdColumn: "UserId",
-                        userNameColumn: "UserName",
-                        autoCreateTables: true);
-                }
-
-                if (_security.IsUserExist(Email, null))
-                {
-                    ViewBag.Error = "This email already exists.";
+                    ViewBag.Error = "This email or username already exists.";
                     return View();
                 }
+                else
+                {
+                    var person = new Person
+                    {
+                        PersonName = PersonName,
+                        Password = Password,
+                        Gender = Gender,
+                        BirthDate = BirthDate,
+                        MobileNumber = MobileNumber,
+                        HomePhoneNumber = HomePhoneNumber,
+                        Email = Email,
+                        Address = Address,
+                        Nationality = Nationality,
+                        RegistrationDate = DateTime.Now,
+                        isExpected = false
+                    };
+                    _context.People.Add(person);
+                    await _context.SaveChangesAsync();
+                    // Create a new Member instance if applicable
+                    var member = new Member
+                    {
+                        MemberName = PersonName,
+                        PersonId = person.PersonId,
+                        RegistrationDate = DateTime.Now
+                    };
 
-              // _security.Register(null, username, Password, Gender, Address, BirthDay, MobileNumber, HomePhoneNumber, Email, Nationality);
-                WebSecurity.CreateUserAndAccount(username, Password);
+                    _context.Members.Add(member);
+                    await _context.SaveChangesAsync();
 
-                Session["login"] = true;
+                    // Optionally, add an audit trail
+                    var audit = new AuditTrail
+                    {
+                        ActionTypeId = 1, // Signup action type id
+                        UserId = person.UserId,
+                        //  IPAddress = personDto.IPAddress,
+                        TransactionTime = DateTime.Now,
+                        EntityId = person.PersonId,
+                        EntityRecord = "Person" // or any other identifier for your entity
+                    };
 
-                return RedirectToAction("Index", "Home");
+                    
+                    // _context.AuditTrails.Add(audit);
+                    //await _context.SaveChangesAsync();
+                    _security.CreateUser(person.Email, true, false);
+
+                    Session["login"] = true;
+                    WebSecurity.CreateUserAndAccount(PersonName, Password);
+                    return RedirectToAction("Index", "Home"); ;
+                }
             }
-            catch (MembershipCreateUserException e)
+            catch(Exception ex)
             {
-                ViewBag.Error = ErrorCodeToString(e.StatusCode);
+                ViewBag.Error = ex.ToString();
                 return View();
             }
-            catch (Exception ex)
-            {
-                ViewBag.Error = ex.Message;
-                return View();
-            }
-        }
+            
+    }
 
-        private static string ErrorCodeToString(MembershipCreateStatus createStatus)
-        {
-            switch (createStatus)
-            {
-                case MembershipCreateStatus.DuplicateUserName:
-                    return "Username already exists. Please enter a different username.";
-                case MembershipCreateStatus.DuplicateEmail:
-                    return "A username for that email address already exists. Please enter a different email address.";
-                case MembershipCreateStatus.InvalidPassword:
-                    return "The password provided is invalid. Please enter a valid password.";
-                case MembershipCreateStatus.InvalidEmail:
-                    return "The email address provided is invalid. Please check the value and try again.";
-                case MembershipCreateStatus.InvalidAnswer:
-                    return "The password retrieval answer provided is invalid. Please check the value and try again.";
-                case MembershipCreateStatus.InvalidQuestion:
-                    return "The password retrieval question provided is invalid. Please check the value and try again.";
-                case MembershipCreateStatus.InvalidUserName:
-                    return "The username provided is invalid. Please check the value and try again.";
-                case MembershipCreateStatus.ProviderError:
-                    return "The authentication provider returned an error. Please verify your entry and try again. If the problem persists, please contact your system administrator.";
-                case MembershipCreateStatus.UserRejected:
-                    return "The user creation request has been canceled. Please verify your entry and try again. If the problem persists, please contact your system administrator.";
-                default:
-                    return "An unknown error occurred. Please verify your entry and try again. If the problem persists, please contact your system administrator.";
-            }
-        }
-
-        public ActionResult Logout()
+         public ActionResult Logout()
         {
             WebSecurity.Logout();
             Session["login"] = null;

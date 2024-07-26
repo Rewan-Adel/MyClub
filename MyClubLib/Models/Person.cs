@@ -11,7 +11,8 @@ namespace MyClubLib.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Person
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -19,24 +20,41 @@ namespace MyClubLib.Models
         {
             this.Trainers = new HashSet<Trainer>();
         }
-    
+
+        [Display(Name = "Number")]
         public int PersonId { get; set; }
+        [Display(Name = "Name")]
         public string PersonName { get; set; }
         public string Password { get; set; }
         public string Gender { get; set; }
         public System.DateTime BirthDate { get; set; }
+        [Display(Name = "Mobile")]
         public string MobileNumber { get; set; }
+        [Display(Name = "Home Phone")]
         public string HomePhoneNumber { get; set; }
         public string Email { get; set; }
         public string Address { get; set; }
         public string Nationality { get; set; }
         public Nullable<int> UserId { get; set; }
+        [Display(Name = " Registration Date ")]
         public Nullable<System.DateTime> RegistrationDate { get; set; }
         public Nullable<bool> isExpected { get; set; }
         public Nullable<int> MemberOfferId { get; set; }
-    
-        public virtual Member Member { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Trainer> Trainers { get; set; }
+
+        public int Age
+        {
+            get
+            {
+                var today = DateTime.Today;
+                var age = today.Year - BirthDate.Year;
+                if (BirthDate.Date > today.AddYears(-age)) age--;
+                return age;
+            }
+        }
+
     }
+
 }

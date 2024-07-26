@@ -140,6 +140,7 @@
     <Compile Include="Controllers\MemberController.cs" />
     <Compile Include="Controllers\MemberOfferController.cs" />
     <Compile Include="Controllers\ServiceController.cs" />
+    <Compile Include="Controllers\TrainerController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -222,17 +223,24 @@
     <Content Include="Views\Account\Signup.cshtml" />
     <Content Include="Views\Account\forpass.cshtml" />
     <Content Include="Views\Account\ResetPassword.cshtml" />
-    <Content Include="Views\Account\VerificationCodeSent.cshtml" />
-    <Content Include="Views\Member\Index.cshtml" />
-    <Content Include="Views\Member\Create.cshtml" />
-    <Content Include="Views\Member\Delete.cshtml" />
-    <Content Include="Views\Member\Edit.cshtml" />
-    <Content Include="Views\Member\Details.cshtml" />
+    <Content Include="Views\Account\SendVerificationCode.cshtml" />
+    <Content Include="Views\Account\verify.cshtml" />
     <Content Include="Views\MemberOffer\Create.cshtml" />
     <Content Include="Views\MemberOffer\Delete.cshtml" />
     <Content Include="Views\MemberOffer\Details.cshtml" />
     <Content Include="Views\MemberOffer\Edit.cshtml" />
     <Content Include="Views\MemberOffer\Index.cshtml" />
+    <Content Include="Views\Trainer\Create.cshtml" />
+    <Content Include="Views\Trainer\Delete.cshtml" />
+    <Content Include="Views\Trainer\Details.cshtml" />
+    <Content Include="Views\Trainer\Edit.cshtml" />
+    <Content Include="Views\Trainer\Index.cshtml" />
+    <Content Include="Views\Member\Create.cshtml" />
+    <Content Include="Views\Member\Delete.cshtml" />
+    <Content Include="Views\Member\Details.cshtml" />
+    <Content Include="Views\Member\Edit.cshtml" />
+    <Content Include="Views\Member\Index.cshtml" />
+    <Content Include="Views\Home\logout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

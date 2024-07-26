@@ -49,7 +49,12 @@ namespace MyClubLib.Models
         public virtual DbSet<Person> People { get; set; }
         public virtual DbSet<service> services { get; set; }
         public virtual DbSet<Trainer> Trainers { get; set; }
+        public virtual DbSet<User_Profile> User_Profiles { get; set; }
+        public virtual DbSet<User_Profile1> User_Profile { get; set; }
+        public virtual DbSet<webpages_Membership> webpages_Membership { get; set; }
+        public virtual DbSet<webpages_OAuthMembership> webpages_OAuthMembership { get; set; }
+        public virtual DbSet<WebPages_Pages> WebPages_Pages { get; set; }
         public virtual DbSet<webpages_Roles> webpages_Roles { get; set; }
-        public virtual DbSet<webpages_UsersInRoles> webpages_UsersInRoles { get; set; }
+        public virtual DbSet<webPages_UserPermessions> webPages_UserPermessions { get; set; }
     }
 }

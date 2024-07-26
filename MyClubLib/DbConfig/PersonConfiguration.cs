@@ -18,9 +18,5 @@ public class PersonConfiguration : EntityTypeConfiguration<Person>
         Property(p => p.Address).HasMaxLength(200);
         Property(p => p.Nationality).HasMaxLength(50);
 
-        // Configure foreign key relationship
-        HasOptional(p => p.Member)
-            .WithRequired(m => m.Person)
-            .WillCascadeOnDelete(false);
     }
 }

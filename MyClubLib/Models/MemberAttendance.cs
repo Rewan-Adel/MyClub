@@ -21,6 +21,5 @@ namespace MyClubLib.Models
         public string ReplacedBy { get; set; }
     
         public virtual MemberOffer MemberOffer { get; set; }
-        public virtual service service { get; set; }
     }
 }

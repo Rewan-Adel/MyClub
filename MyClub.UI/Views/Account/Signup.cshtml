@@ -1,4 +1,4 @@
-﻿@model MyClubLib.Models.Person
+﻿﻿@model MyClubLib.Models.Person
 
 @{
     ViewBag.Title = "Signup";
@@ -11,6 +11,14 @@
 <script src="https://kit.fontawesome.com/a076d05399.js"></script>
 <link rel="stylesheet" href="~/Content/signup.css" />
 <body>
+   
+    @if (ViewBag.Error != null)
+    {
+        <div class="alert alert-danger">
+            @ViewBag.Error
+        </div>
+    }
+
     <div class="container">
         <header>Sign up</header>
         <div class="progress-bar">
@@ -43,6 +51,7 @@
                 <div class="check fas fa-check" style="position:relative;top:-14px"></div>
             </div>
         </div>
+
         <div class="form-outer">
             @using (Html.BeginForm("Signup", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {
@@ -57,7 +66,13 @@
                             @Html.ValidationMessageFor(model => model.PersonName, "", new { @class = "text-danger" })
                         </div>
                     </div>
-
+                    <div class="field">
+                        @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
                     <div class="field">
                         @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
@@ -79,7 +94,7 @@
                             Next
                         </button>
                     </div>
-                    <span>Already have an account? <a href="https://localhost:44399/Account/login">login</a></span>
+                    <span>Already have an account? <a href="@Url.Action("Login","Account")">login</a></span>
                 </div>
 
                 <div class="page">
@@ -154,30 +169,3 @@
 <footer style="display:flex; justify-content:center;color:grey; margin-top:5px;">
     <p>All rights reserved &copy; @DateTime.Now.Year ICEAlex.</p>
 </footer>
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-    <script>
-        $(document).ready(function() {
-            $('#signupForm').submit(function(event) {
-                event.preventDefault();
-                $.ajax({
-                    url: '@Url.Action("Signup", "Account")',
-                    type: 'POST',
-                    data: $(this).serialize(),
-                    success: function (response) {
-                        console.log(response);
-                        if (response.success) {
-                            alert(response.message);
-                        } else {
-                            alert(response.message);
-                        }
-                    },
-                    error: function() {
-                        alert('An error occurred. Please try again.');
-                    }
-                });
-            });
-        });
-    </script>
-}

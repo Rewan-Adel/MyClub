@@ -17,13 +17,13 @@ namespace MyClubLib.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public webpages_Roles()
         {
-            this.webpages_UsersInRoles = new HashSet<webpages_UsersInRoles>();
+            this.User_Profile = new HashSet<User_Profile>();
         }
     
         public int RoleId { get; set; }
         public string RoleName { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<webpages_UsersInRoles> webpages_UsersInRoles { get; set; }
+        public virtual ICollection<User_Profile> User_Profile { get; set; }
     }
 }

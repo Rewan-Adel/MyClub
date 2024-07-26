@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SecurityLib.Models
+namespace MyClubLib.Models
 {
     using System;
     using System.Collections.Generic;

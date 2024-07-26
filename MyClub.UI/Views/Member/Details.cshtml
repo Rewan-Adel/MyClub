@@ -1,4 +1,4 @@
-﻿@model MyClubLib.Models.Member
+﻿@model MyClubLib.Models.Person
 
 @{
     Layout = null;
@@ -13,23 +13,79 @@
 </head>
 <body>
     <div>
-        <h4>Member</h4>
+        <h4>Person</h4>
         <hr />
         <dl class="dl-horizontal">
             <dt>
-                @Html.DisplayNameFor(model => model.MemberName)
+                @Html.DisplayNameFor(model => model.PersonName)
             </dt>
     
             <dd>
-                @Html.DisplayFor(model => model.MemberName)
+                @Html.DisplayFor(model => model.PersonName)
             </dd>
     
             <dt>
-                @Html.DisplayNameFor(model => model.PersonId)
+                @Html.DisplayNameFor(model => model.Password)
             </dt>
     
             <dd>
-                @Html.DisplayFor(model => model.PersonId)
+                @Html.DisplayFor(model => model.Password)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Gender)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Gender)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.BirthDate)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.BirthDate)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.MobileNumber)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.MobileNumber)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.HomePhoneNumber)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.HomePhoneNumber)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Email)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Email)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Address)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Address)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Nationality)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Nationality)
             </dd>
     
             <dt>
@@ -41,14 +97,6 @@
             </dd>
     
             <dt>
-                @Html.DisplayNameFor(model => model.RegisteredById)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.RegisteredById)
-            </dd>
-    
-            <dt>
                 @Html.DisplayNameFor(model => model.RegistrationDate)
             </dt>
     
@@ -57,25 +105,25 @@
             </dd>
     
             <dt>
-                @Html.DisplayNameFor(model => model.LastModifiedDate)
+                @Html.DisplayNameFor(model => model.isExpected)
             </dt>
     
             <dd>
-                @Html.DisplayFor(model => model.LastModifiedDate)
+                @Html.DisplayFor(model => model.isExpected)
             </dd>
     
             <dt>
-                @Html.DisplayNameFor(model => model.Person.PersonName)
+                @Html.DisplayNameFor(model => model.MemberOfferId)
             </dt>
     
             <dd>
-                @Html.DisplayFor(model => model.Person.PersonName)
+                @Html.DisplayFor(model => model.MemberOfferId)
             </dd>
     
         </dl>
     </div>
     <p>
-        @Html.ActionLink("Edit", "Edit", new { id = Model.MemberId }) |
+        @Html.ActionLink("Edit", "Edit", new { id = Model.PersonId }) |
         @Html.ActionLink("Back to List", "Index")
     </p>
 </body>
