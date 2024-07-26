@@ -1,6 +1,7 @@
 ﻿@{
-    ViewBag.Title = "login";
+    ViewBag.Title = "Login";
     Layout = null;
+    var errorMessage = ViewBag.Error as string;
 }
 
 <!DOCTYPE html>
@@ -26,26 +27,24 @@
             <h1>Welcome Back</h1>
         </div>
 
-        @if (ViewBag.Error != null)
-        {
-            <div class="alert alert-danger">
-                @ViewBag.Error
-            </div>
-        }
-
         @using (Html.BeginForm("Login", "Account", FormMethod.Post))
         {
             <h3>Login</h3>
-            <label for="Email"><i class="fa-regular fa-envelope"></i>  Email</label>
+
+            if (!string.IsNullOrEmpty(errorMessage))
+            {
+                <p style="color:red;font-size:13px;margin-top:6px;">*@errorMessage*</p>
+            }
+
+            <label for="Email"><i class="fa-regular fa-envelope"></i> Email</label>
             <input type="text" placeholder="info@example.com" id="Email" name="Email" required>
-            <label for="password"><i class="fa-solid fa-lock"></i>  Password</label>
+            <label for="password"><i class="fa-solid fa-lock"></i> Password</label>
             <input type="password" placeholder="Password" id="password" name="password" required>
             <button type="submit">Login</button>
-            <span>Did you forget your password? <a href="@Url.Action("forpass", "Account")"> Reset!</a></span>
+            <span>Did you forget your password? <a href="@Url.Action("forpass","Account")">Reset!</a></span>
             <br />
-            <span>Don't you have account? <a href="@Url.Action("Signup", "Account")"> sign up</a></span>
+            <span>Don't have an account? <a href="@Url.Action("Signup","Account")">Sign up</a></span>
         }
-
     </div>
 </body>
 <footer>

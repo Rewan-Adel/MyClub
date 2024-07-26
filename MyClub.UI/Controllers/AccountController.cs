@@ -145,6 +145,7 @@ namespace MyClub.UI.Controllers
             return RedirectToAction("Login");
         }
 
+
         private string GenerateVerificationCode()
         {
             return new Random().Next(100000, 999999).ToString();
@@ -169,42 +170,50 @@ namespace MyClub.UI.Controllers
             }
             catch (Exception ex)
             {
-                ViewBag.Error = $"Failed to send verification code. Error: {ex.Message}";
+                ViewBag.Error = "Failed to send verification code";
                 return View("forpass");
             }
 
-            return View("SendVerificationCode");
+            return View("VerificationCodeSent");
         }
 
         [HttpPost]
-        public ActionResult verify(string code)
+        public ActionResult VerifyCode(string code)
         {
-            var storedCode = Session["VerificationCode"] as string;
+            var sessionCode = Session["VerificationCode"]?.ToString();
 
-            if (string.IsNullOrEmpty(storedCode) || storedCode != code)
+            if (sessionCode == null || code != sessionCode)
             {
-                ViewBag.Error = "Invalid verification code. Please try again.";
-                return View("verify");
+                ViewBag.Error = "Invalid verification code.";
+                return View("VerificationCodeSent");
             }
 
-            ViewBag.Message = "Verification code is correct!";
-            return Redirect("ResetPassword");
+            ViewBag.Message = "Verification successful. You can now reset your password.";
+            return View("ResetPassword");
         }
 
         [HttpPost]
-        public ActionResult ResetPassword(string newPassword)
+        public ActionResult ResetPassword(string newPassword, string confirmPassword)
         {
-            ViewBag.Message = "Password has been successfully reset.";
-            return View("ResetPassword");
+            if (newPassword != confirmPassword)
+            {
+                ViewBag.Error = "Passwords do not match.";
+                return View();
+            }
+
+            // Add your logic to reset the password here
+
+            ViewBag.Message = "Password has been reset successfully.";
+            return View();
         }
 
         private void SendEmail(string email, string verificationCode)
         {
-            var fromAddress = new MailAddress("myclubverificationsender@outlook.com", "MY club");
+            var fromAddress = new MailAddress("myclubverificationsender2@outlook.com", "MY club");
             var toAddress = new MailAddress(email);
-            const string fromPassword = "myclub1Sender";
+            const string fromPassword = "myclub2Sender";
             const string subject = "Verification Code";
-            string body = $"Your verification code is {verificationCode}";
+            string body = $"Your verification code is {verificationCode} please don't share it with anyone";
 
             var smtp = new SmtpClient
             {
@@ -224,7 +233,6 @@ namespace MyClub.UI.Controllers
                 smtp.Send(message);
             }
         }
-
 
     }
 }

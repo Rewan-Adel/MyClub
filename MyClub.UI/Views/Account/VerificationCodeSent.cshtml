@@ -1,0 +1,55 @@
+﻿@{
+    ViewBag.Title = "Verification Code Sent";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="icon" href="~/images/freepik-export-20240715061812u1zF.png" />
+    <link rel="stylesheet" href="@Url.Content("~/Content/verify.css")" />
+    <script src="@Url.Content("~/Scripts/verify.js")" defer></script>
+</head>
+<body>
+    <div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+    <div id="dialog">
+        <h3>Please enter the 6-digit verification code<br> Check your email</h3>
+        <form method="post" action="@Url.Action("VerifyCode", "Account")">
+            <div id="form">
+                <input class="digit-input" type="text" maxLength="1" size="1" min="0" max="9" pattern="[0-9]{1}" />
+                <input class="digit-input" type="text" maxLength="1" size="1" min="0" max="9" pattern="[0-9]{1}" />
+                <input class="digit-input" type="text" maxLength="1" size="1" min="0" max="9" pattern="[0-9]{1}" />
+                <input class="digit-input" type="text" maxLength="1" size="1" min="0" max="9" pattern="[0-9]{1}" />
+                <input class="digit-input" type="text" maxLength="1" size="1" min="0" max="9" pattern="[0-9]{1}" />
+                <input class="digit-input" type="text" maxLength="1" size="1" min="0" max="9" pattern="[0-9]{1}" />
+            </div>
+            <div class="bh">
+                <input class="submit" type="submit" value="Verify" />
+            </div>
+            @if (ViewBag.Message != null)
+            {
+                <div class="info">
+                    <p>@ViewBag.Message</p>
+                </div>
+            }
+            @if (ViewBag.Error != null)
+            {
+                <div class="info" style="color: red;">
+                    <p>@ViewBag.Error</p>
+                </div>
+            }
+        </form>
+        <div class="info">
+            Didn't receive the code?<br />
+            <a href="@Url.Action("SendVerificationCode", "Account")" style="text-decoration: none; color: rgb(209, 209, 209); text-align: center;">Send code again</a>
+        </div>
+    </div>
+</body>
+</html>
+<footer style="display:flex; justify-content:center;color:lightgray; margin-top:5px;">
+    <p>All rights reserved &copy; @DateTime.Now.Year ICEAlex.</p>
+</footer>
+

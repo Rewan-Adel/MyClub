@@ -166,7 +166,9 @@
     <Content Include="Content\contact.css" />
     <Content Include="Content\forpass.css" />
     <Content Include="Content\login.css" />
+    <Content Include="Content\reset.css" />
     <Content Include="Content\signup.css" />
+    <Content Include="Content\verify.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -195,6 +197,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\signup.js" />
+    <Content Include="Scripts\verify.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -219,8 +222,7 @@
     <Content Include="Views\Account\Signup.cshtml" />
     <Content Include="Views\Account\forpass.cshtml" />
     <Content Include="Views\Account\ResetPassword.cshtml" />
-    <Content Include="Views\Account\SendVerificationCode.cshtml" />
-    <Content Include="Views\Account\verify.cshtml" />
+    <Content Include="Views\Account\VerificationCodeSent.cshtml" />
     <Content Include="Views\Member\Index.cshtml" />
     <Content Include="Views\Member\Create.cshtml" />
     <Content Include="Views\Member\Delete.cshtml" />
