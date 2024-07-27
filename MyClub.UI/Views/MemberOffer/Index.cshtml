@@ -1,9 +1,9 @@
 ﻿@model IEnumerable<MyClubLib.Models.MemberOffer>
 
-@{
-    Layout = null;
-}
 
+@{
+    ViewBag.Title = "Offer";
+}
 <!DOCTYPE html>
 
 <html>
@@ -18,108 +18,77 @@
     <table class="table">
         <tr>
             <th>
+                @Html.DisplayNameFor(model => model.Member.MemberName)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.PaymentAmount)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.PaymentDate)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CurrentStatusId)
-            </th>
+
             <th>
                 @Html.DisplayNameFor(model => model.CreatedById)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.CreationDate)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.LastModifiedDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.MemberPrice)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DiscountPercent)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DiscountValue)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DiscountById)
-            </th>
+
             <th>
                 @Html.DisplayNameFor(model => model.EndDate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Note)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.TrainerId)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Member.MemberName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.OfferPrice.OfferPriceId)
-            </th>
+            <td>
+                @Html.DisplayNameFor(model => model.CurrentStatusId)
+            </td>
+
             <th></th>
         </tr>
-    
-    @foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.PaymentAmount)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PaymentDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CurrentStatusId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreatedById)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreationDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LastModifiedDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MemberPrice)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DiscountPercent)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DiscountValue)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DiscountById)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EndDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Note)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TrainerId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Member.MemberName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.OfferPrice.OfferPriceId)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id=item.MemberOfferId }) |
-                @Html.ActionLink("Details", "Details", new { id=item.MemberOfferId }) |
-                @Html.ActionLink("Delete", "Delete", new { id=item.MemberOfferId })
-            </td>
-        </tr>
-    }
-    
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Member.MemberName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PaymentAmount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PaymentDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CurrentStatusId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreatedById)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreationDate)
+                </td>
+
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.EndDate)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.TrainerId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CurrentStatusId)
+                </td>
+
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.MemberOfferId }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.MemberOfferId }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.MemberOfferId })
+                </td>
+            </tr>
+        }
+
     </table>
 </body>
 </html>

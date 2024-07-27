@@ -56,30 +56,33 @@ namespace MyClubLib.Repository
         
         public Person FindByEmail(string email)=> _db.Set<Person>().SingleOrDefault(p => p.Email == email);
         public Person FindByUserName(string userName) => _db.Set<Person>().SingleOrDefault(p => p.PersonName == userName);
-       
+
         public void CreateAudit(ActionType actionType, Action action, int? userId, MasterEntity entity, string entityRecord)
         {
-            try
+            using (var scope = new TransactionScope())
             {
-
-                var Audit = new AuditTrail
+                try
                 {
-                    ActionTypeId = (int)actionType,
-                    ActionId = (int)action,
-                    UserId = userId,
-                    EntityId = (int)entity,
-                    EntityRecord = entityRecord,
-                    TransactionTime = DateTime.Now,
-                    IPAddress = utilities.GetIpAddress()
-                };
+                    var Audit = new AuditTrail
+                    {
+                        ActionTypeId = (int)actionType,
+                        ActionId = (int)action,
+                        UserId = userId,
+                        EntityId = (int)entity,
+                        EntityRecord = entityRecord,
+                        TransactionTime = DateTime.Now,
+                        IPAddress = utilities.GetIpAddress()
+                    };
 
-                Add(Audit);
-                SaveChanges();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-
+                    Add(Audit);
+                    SaveChanges();
+                    scope.Complete();
+                }
+                catch (Exception ex)
+                {
+                    scope.Dispose();
+                    throw new Exception(ex.Message);
+                }
             }
         }
         public Person CreatePerson(int? userId, string personName, string password, string gender, DateTime BirthDate, string mobileNumber, string homePhoneNumber,

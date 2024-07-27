@@ -17,7 +17,6 @@ namespace MyClubLib.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public aspnet_Applications()
         {
-            this.aspnet_Membership = new HashSet<aspnet_Membership>();
             this.aspnet_Paths = new HashSet<aspnet_Paths>();
             this.aspnet_Roles = new HashSet<aspnet_Roles>();
             this.aspnet_Users = new HashSet<aspnet_Users>();
@@ -28,8 +27,6 @@ namespace MyClubLib.Models
         public System.Guid ApplicationId { get; set; }
         public string Description { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<aspnet_Membership> aspnet_Membership { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<aspnet_Paths> aspnet_Paths { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

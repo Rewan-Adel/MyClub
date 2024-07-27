@@ -69,7 +69,7 @@ namespace MyClubLib.Repository
     public enum offerStatus
     {
         Active  = 1,
-        unctive = 2,
+        Inactive = 2,
 
     }
     public class Utilities

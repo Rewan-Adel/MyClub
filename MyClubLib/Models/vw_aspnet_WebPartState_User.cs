@@ -11,14 +11,12 @@ namespace MyClubLib.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
-    public partial class Trainer
-    {
-        public int TrainerId { get; set; }
-        public Nullable<int> PersonId { get; set; }
-        public Nullable<bool> IsActive { get; set; }
     
-        public virtual Person Person { get; set; }
+    public partial class vw_aspnet_WebPartState_User
+    {
+        public Nullable<System.Guid> PathId { get; set; }
+        public Nullable<System.Guid> UserId { get; set; }
+        public Nullable<int> DataSize { get; set; }
+        public System.DateTime LastUpdatedDate { get; set; }
     }
 }

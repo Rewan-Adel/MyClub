@@ -7,61 +7,102 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using MyClubLib.Models;
+using MyClubLib.Repository;
+using WebMatrix.WebData;
 
 namespace MyClub.UI.Controllers
 {
     public class MemberOfferController : Controller
     {
         private MyClubEntities db = new MyClubEntities();
+        private readonly EFClubRepository _db;
 
-        // GET: MemberOffer
+        private readonly int userId;
+
+        public MemberOfferController()
+        {
+            _db = new EFClubRepository();
+            userId = WebSecurity.CurrentUserId;
+        }
         public ActionResult Index()
         {
-            var memberOffers = db.MemberOffers.Include(m => m.Member).Include(m => m.OfferPrice);
-            return View(memberOffers.ToList());
+            if (Session["Login"] != null)
+            {
+                var memberOffers = _db.GetAll<MemberOffer>();
+                return View(memberOffers);
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
         }
 
-        // GET: MemberOffer/Details/5
         public ActionResult Details(int? id)
         {
-            if (id == null)
+            if (Session["Login"] != null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                MemberOffer memberOffer = _db.Find<MemberOffer>((int)id);
+                if (memberOffer == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(memberOffer);
             }
-            MemberOffer memberOffer = db.MemberOffers.Find(id);
-            if (memberOffer == null)
+            else
             {
-                return HttpNotFound();
+                return RedirectToAction("Login", "Account");
             }
-            return View(memberOffer);
-        }
 
-        // GET: MemberOffer/Create
+        }
         public ActionResult Create()
         {
-            ViewBag.MemberId = new SelectList(db.Members, "MemberId", "MemberName");
-            ViewBag.OfferPriceId = new SelectList(db.OfferPrices, "OfferPriceId", "OfferPriceId");
-            return View();
+            if (Session["Login"] != null)
+            {
+                ViewBag.MemberId = new SelectList(db.Members, "MemberId", "MemberName");
+                ViewBag.OfferPriceId = new SelectList(db.OfferPrices, "OfferPriceId", "OfferPriceId");
+                ViewBag.TrainerId = new SelectList(db.People, "PersonId", "PersonName");
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
         }
 
-        // POST: MemberOffer/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "MemberOfferId,MemberId,OfferPriceId,PaymentAmount,PaymentDate,CurrentStatusId,CreatedById,CreationDate,LastModifiedDate,MemberPrice,DiscountPercent,DiscountValue,DiscountById,EndDate,Note,TrainerId")] MemberOffer memberOffer)
         {
-            if (ModelState.IsValid)
+            if (Session["Login"] != null)
             {
-                db.MemberOffers.Add(memberOffer);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+
+                    MemberOffer newMemberOffer = _db.CreateMemberOffer((int)memberOffer.MemberId, memberOffer.Note, memberOffer.OfferPriceId, memberOffer.PaymentAmount,
+                        offerStatus.Active, userId, memberOffer.MemberPrice, memberOffer.DiscountPercent, memberOffer.DiscountValue, memberOffer.DiscountById, memberOffer.TrainerId);
+               
+                    //db.MemberOffers.Add(memberOffer);
+                    //db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+
+                ViewBag.MemberId = new SelectList(db.Members, "MemberId", "MemberName", memberOffer.MemberId);
+                ViewBag.OfferPriceId = new SelectList(db.OfferPrices, "OfferPriceId", "OfferPriceId", memberOffer.OfferPriceId);
+                return View(memberOffer);
             }
 
-            ViewBag.MemberId = new SelectList(db.Members, "MemberId", "MemberName", memberOffer.MemberId);
-            ViewBag.OfferPriceId = new SelectList(db.OfferPrices, "OfferPriceId", "OfferPriceId", memberOffer.OfferPriceId);
-            return View(memberOffer);
-        }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
+        } 
+   
 
         // GET: MemberOffer/Edit/5
         public ActionResult Edit(int? id)
@@ -70,7 +111,7 @@ namespace MyClub.UI.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            MemberOffer memberOffer = db.MemberOffers.Find(id);
+            MemberOffer memberOffer = _db.Find<MemberOffer>((int)id);
             if (memberOffer == null)
             {
                 return HttpNotFound();

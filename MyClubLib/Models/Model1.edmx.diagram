@@ -4,21 +4,20 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="d69ef3e7d438468da2b01a087f1b9b3b" Name="Diagram1">
+      <Diagram DiagramId="d7cc3826fd8144908dcc3437ec208b2c" Name="Diagram1">
         <EntityTypeShape EntityType="MyClubModel.Action" Width="1.5" PointX="8.75" PointY="2.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="MyClubModel.ActionType" Width="1.5" PointX="8.75" PointY="13.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="MyClubModel.aspnet_Applications" Width="1.5" PointX="9.75" PointY="16.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="MyClubModel.aspnet_Membership" Width="1.5" PointX="15" PointY="18.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="MyClubModel.aspnet_Paths" Width="1.5" PointX="12" PointY="15" IsExpanded="true" />
-        <EntityTypeShape EntityType="MyClubModel.aspnet_PersonalizationAllUsers" Width="1.5" PointX="14.25" PointY="15.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="MyClubModel.aspnet_PersonalizationPerUser" Width="1.5" PointX="14.25" PointY="12" IsExpanded="true" />
-        <EntityTypeShape EntityType="MyClubModel.aspnet_Profile" Width="1.5" PointX="19.5" PointY="20.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="MyClubModel.aspnet_Roles" Width="1.5" PointX="12" PointY="24.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MyClubModel.ActionType" Width="1.5" PointX="8.75" PointY="16.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MyClubModel.aspnet_Applications" Width="1.5" PointX="9.75" PointY="13.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="MyClubModel.aspnet_Paths" Width="1.5" PointX="12" PointY="11.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="MyClubModel.aspnet_PersonalizationAllUsers" Width="1.5" PointX="14.25" PointY="11.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="MyClubModel.aspnet_PersonalizationPerUser" Width="1.5" PointX="14.25" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="MyClubModel.aspnet_Profile" Width="1.5" PointX="16.5" PointY="15" IsExpanded="true" />
+        <EntityTypeShape EntityType="MyClubModel.aspnet_Roles" Width="1.5" PointX="12" PointY="14.625" IsExpanded="true" />
         <EntityTypeShape EntityType="MyClubModel.aspnet_SchemaVersions" Width="1.5" PointX="0.75" PointY="10.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="MyClubModel.aspnet_Users" Width="1.5" PointX="17.25" PointY="20" IsExpanded="true" />
+        <EntityTypeShape EntityType="MyClubModel.aspnet_Users" Width="1.5" PointX="14.25" PointY="14.5" IsExpanded="true" />
         <EntityTypeShape EntityType="MyClubModel.aspnet_WebEvent_Events" Width="1.5" PointX="10.75" PointY="6.375" IsExpanded="true" />
         <EntityTypeShape EntityType="MyClubModel.AuditTrail" Width="1.5" PointX="11" PointY="1.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="MyClubModel.MasterEntity" Width="1.5" PointX="8.75" PointY="20.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="MyClubModel.MasterEntity" Width="1.5" PointX="8.75" PointY="19.25" IsExpanded="true" />
         <EntityTypeShape EntityType="MyClubModel.Member" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
         <EntityTypeShape EntityType="MyClubModel.MemberAttendance" Width="1.5" PointX="7.5" PointY="10" IsExpanded="true" />
         <EntityTypeShape EntityType="MyClubModel.MemberOffer" Width="1.5" PointX="5.25" PointY="4.75" IsExpanded="true" />
@@ -32,17 +31,26 @@
         <EntityTypeShape EntityType="MyClubModel.User_Profile" Width="1.5" PointX="13.75" PointY="2.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MyClubModel.User_Profile1" Width="1.5" PointX="2.75" PointY="10.375" IsExpanded="true" />
         <EntityTypeShape EntityType="MyClubModel.webpages_Membership" Width="1.5" PointX="4.75" PointY="10.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="MyClubModel.webpages_OAuthMembership" Width="1.5" PointX="10.75" PointY="11.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MyClubModel.webpages_OAuthMembership" Width="1.5" PointX="0.75" PointY="13.375" IsExpanded="true" />
         <EntityTypeShape EntityType="MyClubModel.WebPages_Pages" Width="1.5" PointX="18.25" PointY="4.125" IsExpanded="true" />
         <EntityTypeShape EntityType="MyClubModel.webpages_Roles" Width="1.5" PointX="16" PointY="1.625" IsExpanded="true" />
         <EntityTypeShape EntityType="MyClubModel.webPages_UserPermessions" Width="1.5" PointX="16" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="MyClubModel.MemberDetail" Width="1.5" PointX="5.75" PointY="17.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MyClubModel.MemberOfferDetail" Width="1.5" PointX="16.75" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MyClubModel.vw_aspnet_Applications" Width="1.5" PointX="16.75" PointY="11.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MyClubModel.vw_aspnet_MembershipUsers" Width="1.5" PointX="10.75" PointY="18.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MyClubModel.vw_aspnet_Profiles" Width="1.5" PointX="16.75" PointY="18.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MyClubModel.vw_aspnet_Roles" Width="1.5" PointX="18.75" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MyClubModel.vw_aspnet_Users" Width="1.5" PointX="18.75" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MyClubModel.vw_aspnet_UsersInRoles" Width="1.5" PointX="12.75" PointY="6.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MyClubModel.vw_aspnet_WebPartState_Paths" Width="1.5" PointX="18.75" PointY="11.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MyClubModel.vw_aspnet_WebPartState_Shared" Width="1.5" PointX="12.75" PointY="19.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MyClubModel.vw_aspnet_WebPartState_User" Width="1.5" PointX="18.75" PointY="14.375" IsExpanded="true" />
         <AssociationConnector Association="MyClubModel.FK__AuditTrai__Actio__14270015" ManuallyRouted="false" />
         <AssociationConnector Association="MyClubModel.FK__AuditTrai__Actio__1332DBDC" ManuallyRouted="false" />
-        <AssociationConnector Association="MyClubModel.FK__aspnet_Me__Appli__08B54D69" ManuallyRouted="false" />
         <AssociationConnector Association="MyClubModel.FK__aspnet_Pa__Appli__0A9D95DB" ManuallyRouted="false" />
         <AssociationConnector Association="MyClubModel.FK__aspnet_Ro__Appli__0F624AF8" ManuallyRouted="false" />
         <AssociationConnector Association="MyClubModel.FK__aspnet_Us__Appli__10566F31" ManuallyRouted="false" />
-        <AssociationConnector Association="MyClubModel.FK__aspnet_Me__UserI__09A971A2" ManuallyRouted="false" />
         <AssociationConnector Association="MyClubModel.FK__aspnet_Pe__PathI__0B91BA14" ManuallyRouted="false" />
         <AssociationConnector Association="MyClubModel.FK__aspnet_Pe__PathI__0C85DE4D" ManuallyRouted="false" />
         <AssociationConnector Association="MyClubModel.FK__aspnet_Pe__UserI__0D7A0286" ManuallyRouted="false" />

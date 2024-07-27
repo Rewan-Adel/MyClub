@@ -29,6 +29,7 @@
 
         @using (Html.BeginForm("Login", "Account", FormMethod.Post))
         {
+            @Html.AntiForgeryToken() <!-- Ensure this line is included -->
             <h3>Login</h3>
 
             if (!string.IsNullOrEmpty(errorMessage))
@@ -41,9 +42,9 @@
             <label for="password"><i class="fa-solid fa-lock"></i> Password</label>
             <input type="password" placeholder="Password" id="password" name="password" required>
             <button type="submit">Login</button>
-            <span>Did you forget your password? <a href="@Url.Action("forpass","Account")">Reset!</a></span>
+            <span>Did you forget your password? <a href="@Url.Action("forpass", "Account")">Reset!</a></span>
             <br />
-            <span>Don't have an account? <a href="@Url.Action("Signup","Account")">Sign up</a></span>
+            <span>Don't have an account? <a href="@Url.Action("Signup", "Account")">Sign up</a></span>
         }
     </div>
 </body>

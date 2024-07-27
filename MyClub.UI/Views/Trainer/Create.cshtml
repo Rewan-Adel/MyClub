@@ -1,7 +1,7 @@
 ﻿@model MyClubLib.Models.Trainer
 
 @{
-    Layout = null;
+    Layout = null
 }
 
 <!DOCTYPE html>
@@ -20,18 +20,11 @@
             <h4>Trainer</h4>
             <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            <div class="form-group">
-                @Html.LabelFor(model => model.TrainerId, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.TrainerId, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.TrainerId, "", new { @class = "text-danger" })
-                </div>
-            </div>
+            
     
             <div class="form-group">
-                @Html.LabelFor(model => model.PersonId, "PersonId", htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.LabelFor(model => model.PersonId, "Trainer Name", htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.DropDownList("PersonId", null, htmlAttributes: new { @class = "form-control" })
                     @Html.ValidationMessageFor(model => model.PersonId, "", new { @class = "text-danger" })
                 </div>
             </div>

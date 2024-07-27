@@ -12,13 +12,10 @@ namespace MyClubLib.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class aspnet_Membership
+    public partial class vw_aspnet_MembershipUsers
     {
-        public System.Guid ApplicationId { get; set; }
         public System.Guid UserId { get; set; }
-        public string Password { get; set; }
         public int PasswordFormat { get; set; }
-        public string PasswordSalt { get; set; }
         public string MobilePIN { get; set; }
         public string Email { get; set; }
         public string LoweredEmail { get; set; }
@@ -35,8 +32,10 @@ namespace MyClubLib.Models
         public int FailedPasswordAnswerAttemptCount { get; set; }
         public System.DateTime FailedPasswordAnswerAttemptWindowStart { get; set; }
         public string Comment { get; set; }
-    
-        public virtual aspnet_Applications aspnet_Applications { get; set; }
-        public virtual aspnet_Users aspnet_Users { get; set; }
+        public System.Guid ApplicationId { get; set; }
+        public string UserName { get; set; }
+        public string MobileAlias { get; set; }
+        public bool IsAnonymous { get; set; }
+        public System.DateTime LastActivityDate { get; set; }
     }
 }

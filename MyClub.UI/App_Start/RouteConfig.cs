@@ -50,6 +50,12 @@ namespace MyClub.UI
            url: "{controller}/{action}/{id}",
            defaults: new { controller = "MemberOffer", action = "Index", id = UrlParameter.Optional }
        );
+            routes.MapRoute(
+             name: "Log",
+             url: "{controller}/{action}/{id}",
+             defaults: new { controller = "Logs", action = "Index", id = UrlParameter.Optional }
+             );
+
         }
 
        

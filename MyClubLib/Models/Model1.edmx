@@ -30,32 +30,6 @@
           <Property Name="ApplicationId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Description" Type="nvarchar" MaxLength="256" />
         </EntityType>
-        <EntityType Name="aspnet_Membership">
-          <Key>
-            <PropertyRef Name="UserId" />
-          </Key>
-          <Property Name="ApplicationId" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="Password" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="PasswordFormat" Type="int" Nullable="false" />
-          <Property Name="PasswordSalt" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="MobilePIN" Type="nvarchar" MaxLength="16" />
-          <Property Name="Email" Type="nvarchar" MaxLength="256" />
-          <Property Name="LoweredEmail" Type="nvarchar" MaxLength="256" />
-          <Property Name="PasswordQuestion" Type="nvarchar" MaxLength="256" />
-          <Property Name="PasswordAnswer" Type="nvarchar" MaxLength="128" />
-          <Property Name="IsApproved" Type="bit" Nullable="false" />
-          <Property Name="IsLockedOut" Type="bit" Nullable="false" />
-          <Property Name="CreateDate" Type="datetime" Nullable="false" />
-          <Property Name="LastLoginDate" Type="datetime" Nullable="false" />
-          <Property Name="LastPasswordChangedDate" Type="datetime" Nullable="false" />
-          <Property Name="LastLockoutDate" Type="datetime" Nullable="false" />
-          <Property Name="FailedPasswordAttemptCount" Type="int" Nullable="false" />
-          <Property Name="FailedPasswordAttemptWindowStart" Type="datetime" Nullable="false" />
-          <Property Name="FailedPasswordAnswerAttemptCount" Type="int" Nullable="false" />
-          <Property Name="FailedPasswordAnswerAttemptWindowStart" Type="datetime" Nullable="false" />
-          <Property Name="Comment" Type="ntext" />
-        </EntityType>
         <EntityType Name="aspnet_Paths">
           <Key>
             <PropertyRef Name="PathId" />
@@ -376,30 +350,200 @@ warning 6002: The table/view 'MyClub.dbo.webpages_UsersInRoles' does not have a 
           <Property Name="UserId" Type="int" Nullable="false" />
           <Property Name="RoleId" Type="int" Nullable="false" />
         </EntityType>
-        <Association Name="FK__aspnet_Me__Appli__08B54D69">
-          <End Role="aspnet_Applications" Type="Self.aspnet_Applications" Multiplicity="1" />
-          <End Role="aspnet_Membership" Type="Self.aspnet_Membership" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="aspnet_Applications">
-              <PropertyRef Name="ApplicationId" />
-            </Principal>
-            <Dependent Role="aspnet_Membership">
-              <PropertyRef Name="ApplicationId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__aspnet_Me__UserI__09A971A2">
-          <End Role="aspnet_Users" Type="Self.aspnet_Users" Multiplicity="1" />
-          <End Role="aspnet_Membership" Type="Self.aspnet_Membership" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="aspnet_Users">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="aspnet_Membership">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'MyClub.dbo.MemberDetails' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="MemberDetails">
+          <Key>
+            <PropertyRef Name="Number" />
+            <PropertyRef Name="Name" />
+            <PropertyRef Name="Address" />
+            <PropertyRef Name="Email" />
+            <PropertyRef Name="Mobile" />
+            <PropertyRef Name="BirthDate" />
+            <PropertyRef Name="Gender" />
+            <PropertyRef Name="Enable" />
+            <PropertyRef Name="IsAdmin" />
+            <PropertyRef Name="IsActive" />
+          </Key>
+          <Property Name="Number" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Nationality" Type="nvarchar" MaxLength="50" />
+          <Property Name="Address" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Home Phone" Type="nvarchar" MaxLength="50" />
+          <Property Name="Mobile" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="BirthDate" Type="date" Nullable="false" />
+          <Property Name="Gender" Type="char" MaxLength="10" Nullable="false" />
+          <Property Name="RegistrationDate" Type="date" />
+          <Property Name="Enable" Type="bit" Nullable="false" />
+          <Property Name="IsAdmin" Type="bit" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'MyClub.dbo.MemberOfferDetails' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="MemberOfferDetails">
+          <Key>
+            <PropertyRef Name="ServiceName" />
+            <PropertyRef Name="ServicePrice" />
+          </Key>
+          <Property Name="MemberName" Type="varchar" MaxLength="255" />
+          <Property Name="ServiceName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="ServicePrice" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="PaymentAmount" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="PaymentDate" Type="date" />
+          <Property Name="StartDate" Type="date" />
+          <Property Name="EndDate" Type="date" />
+          <Property Name="Days" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'MyClub.dbo.vw_aspnet_Applications' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vw_aspnet_Applications">
+          <Key>
+            <PropertyRef Name="ApplicationName" />
+            <PropertyRef Name="LoweredApplicationName" />
+            <PropertyRef Name="ApplicationId" />
+          </Key>
+          <Property Name="ApplicationName" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="LoweredApplicationName" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="ApplicationId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="256" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'MyClub.dbo.vw_aspnet_MembershipUsers' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vw_aspnet_MembershipUsers">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="PasswordFormat" />
+            <PropertyRef Name="IsApproved" />
+            <PropertyRef Name="IsLockedOut" />
+            <PropertyRef Name="CreateDate" />
+            <PropertyRef Name="LastLoginDate" />
+            <PropertyRef Name="LastPasswordChangedDate" />
+            <PropertyRef Name="LastLockoutDate" />
+            <PropertyRef Name="FailedPasswordAttemptCount" />
+            <PropertyRef Name="FailedPasswordAttemptWindowStart" />
+            <PropertyRef Name="FailedPasswordAnswerAttemptCount" />
+            <PropertyRef Name="FailedPasswordAnswerAttemptWindowStart" />
+            <PropertyRef Name="ApplicationId" />
+            <PropertyRef Name="UserName" />
+            <PropertyRef Name="IsAnonymous" />
+            <PropertyRef Name="LastActivityDate" />
+          </Key>
+          <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PasswordFormat" Type="int" Nullable="false" />
+          <Property Name="MobilePIN" Type="nvarchar" MaxLength="16" />
+          <Property Name="Email" Type="nvarchar" MaxLength="256" />
+          <Property Name="LoweredEmail" Type="nvarchar" MaxLength="256" />
+          <Property Name="PasswordQuestion" Type="nvarchar" MaxLength="256" />
+          <Property Name="PasswordAnswer" Type="nvarchar" MaxLength="128" />
+          <Property Name="IsApproved" Type="bit" Nullable="false" />
+          <Property Name="IsLockedOut" Type="bit" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="LastLoginDate" Type="datetime" Nullable="false" />
+          <Property Name="LastPasswordChangedDate" Type="datetime" Nullable="false" />
+          <Property Name="LastLockoutDate" Type="datetime" Nullable="false" />
+          <Property Name="FailedPasswordAttemptCount" Type="int" Nullable="false" />
+          <Property Name="FailedPasswordAttemptWindowStart" Type="datetime" Nullable="false" />
+          <Property Name="FailedPasswordAnswerAttemptCount" Type="int" Nullable="false" />
+          <Property Name="FailedPasswordAnswerAttemptWindowStart" Type="datetime" Nullable="false" />
+          <Property Name="Comment" Type="ntext" />
+          <Property Name="ApplicationId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="MobileAlias" Type="nvarchar" MaxLength="16" />
+          <Property Name="IsAnonymous" Type="bit" Nullable="false" />
+          <Property Name="LastActivityDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'MyClub.dbo.vw_aspnet_Profiles' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vw_aspnet_Profiles">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="LastUpdatedDate" />
+          </Key>
+          <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="LastUpdatedDate" Type="datetime" Nullable="false" />
+          <Property Name="DataSize" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'MyClub.dbo.vw_aspnet_Roles' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vw_aspnet_Roles">
+          <Key>
+            <PropertyRef Name="ApplicationId" />
+            <PropertyRef Name="RoleId" />
+            <PropertyRef Name="RoleName" />
+            <PropertyRef Name="LoweredRoleName" />
+          </Key>
+          <Property Name="ApplicationId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="RoleId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="RoleName" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="LoweredRoleName" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="256" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'MyClub.dbo.vw_aspnet_Users' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vw_aspnet_Users">
+          <Key>
+            <PropertyRef Name="ApplicationId" />
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="UserName" />
+            <PropertyRef Name="LoweredUserName" />
+            <PropertyRef Name="IsAnonymous" />
+            <PropertyRef Name="LastActivityDate" />
+          </Key>
+          <Property Name="ApplicationId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="LoweredUserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="MobileAlias" Type="nvarchar" MaxLength="16" />
+          <Property Name="IsAnonymous" Type="bit" Nullable="false" />
+          <Property Name="LastActivityDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'MyClub.dbo.vw_aspnet_UsersInRoles' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vw_aspnet_UsersInRoles">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="RoleId" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'MyClub.dbo.vw_aspnet_WebPartState_Paths' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vw_aspnet_WebPartState_Paths">
+          <Key>
+            <PropertyRef Name="ApplicationId" />
+            <PropertyRef Name="PathId" />
+            <PropertyRef Name="Path" />
+            <PropertyRef Name="LoweredPath" />
+          </Key>
+          <Property Name="ApplicationId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PathId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Path" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="LoweredPath" Type="nvarchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'MyClub.dbo.vw_aspnet_WebPartState_Shared' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vw_aspnet_WebPartState_Shared">
+          <Key>
+            <PropertyRef Name="PathId" />
+            <PropertyRef Name="LastUpdatedDate" />
+          </Key>
+          <Property Name="PathId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="DataSize" Type="int" />
+          <Property Name="LastUpdatedDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'MyClub.dbo.vw_aspnet_WebPartState_User' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vw_aspnet_WebPartState_User">
+          <Key>
+            <PropertyRef Name="LastUpdatedDate" />
+          </Key>
+          <Property Name="PathId" Type="uniqueidentifier" />
+          <Property Name="UserId" Type="uniqueidentifier" />
+          <Property Name="DataSize" Type="int" />
+          <Property Name="LastUpdatedDate" Type="datetime" Nullable="false" />
+        </EntityType>
         <Association Name="FK__aspnet_Pa__Appli__0A9D95DB">
           <End Role="aspnet_Applications" Type="Self.aspnet_Applications" Multiplicity="1" />
           <End Role="aspnet_Paths" Type="Self.aspnet_Paths" Multiplicity="*" />
@@ -704,7 +848,6 @@ warning 6002: The table/view 'MyClub.dbo.webpages_UsersInRoles' does not have a 
           <EntitySet Name="Action" EntityType="Self.Action" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ActionType" EntityType="Self.ActionType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="aspnet_Applications" EntityType="Self.aspnet_Applications" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="aspnet_Membership" EntityType="Self.aspnet_Membership" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="aspnet_Paths" EntityType="Self.aspnet_Paths" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="aspnet_PersonalizationAllUsers" EntityType="Self.aspnet_PersonalizationAllUsers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="aspnet_PersonalizationPerUser" EntityType="Self.aspnet_PersonalizationPerUser" Schema="dbo" store:Type="Tables" />
@@ -739,14 +882,126 @@ warning 6002: The table/view 'MyClub.dbo.webpages_UsersInRoles' does not have a 
     [webpages_UsersInRoles].[RoleId] AS [RoleId]
     FROM [dbo].[webpages_UsersInRoles] AS [webpages_UsersInRoles]</DefiningQuery>
           </EntitySet>
-          <AssociationSet Name="FK__aspnet_Me__Appli__08B54D69" Association="Self.FK__aspnet_Me__Appli__08B54D69">
-            <End Role="aspnet_Applications" EntitySet="aspnet_Applications" />
-            <End Role="aspnet_Membership" EntitySet="aspnet_Membership" />
-          </AssociationSet>
-          <AssociationSet Name="FK__aspnet_Me__UserI__09A971A2" Association="Self.FK__aspnet_Me__UserI__09A971A2">
-            <End Role="aspnet_Users" EntitySet="aspnet_Users" />
-            <End Role="aspnet_Membership" EntitySet="aspnet_Membership" />
-          </AssociationSet>
+          <EntitySet Name="MemberDetails" EntityType="Self.MemberDetails" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [MemberDetails].[Number] AS [Number], 
+    [MemberDetails].[Name] AS [Name], 
+    [MemberDetails].[Nationality] AS [Nationality], 
+    [MemberDetails].[Address] AS [Address], 
+    [MemberDetails].[Email] AS [Email], 
+    [MemberDetails].[Home Phone] AS [Home Phone], 
+    [MemberDetails].[Mobile] AS [Mobile], 
+    [MemberDetails].[BirthDate] AS [BirthDate], 
+    [MemberDetails].[Gender] AS [Gender], 
+    [MemberDetails].[RegistrationDate] AS [RegistrationDate], 
+    [MemberDetails].[Enable] AS [Enable], 
+    [MemberDetails].[IsAdmin] AS [IsAdmin], 
+    [MemberDetails].[IsActive] AS [IsActive]
+    FROM [dbo].[MemberDetails] AS [MemberDetails]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="MemberOfferDetails" EntityType="Self.MemberOfferDetails" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [MemberOfferDetails].[MemberName] AS [MemberName], 
+    [MemberOfferDetails].[ServiceName] AS [ServiceName], 
+    [MemberOfferDetails].[ServicePrice] AS [ServicePrice], 
+    [MemberOfferDetails].[PaymentAmount] AS [PaymentAmount], 
+    [MemberOfferDetails].[PaymentDate] AS [PaymentDate], 
+    [MemberOfferDetails].[StartDate] AS [StartDate], 
+    [MemberOfferDetails].[EndDate] AS [EndDate], 
+    [MemberOfferDetails].[Days] AS [Days]
+    FROM [dbo].[MemberOfferDetails] AS [MemberOfferDetails]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vw_aspnet_Applications" EntityType="Self.vw_aspnet_Applications" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vw_aspnet_Applications].[ApplicationName] AS [ApplicationName], 
+    [vw_aspnet_Applications].[LoweredApplicationName] AS [LoweredApplicationName], 
+    [vw_aspnet_Applications].[ApplicationId] AS [ApplicationId], 
+    [vw_aspnet_Applications].[Description] AS [Description]
+    FROM [dbo].[vw_aspnet_Applications] AS [vw_aspnet_Applications]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vw_aspnet_MembershipUsers" EntityType="Self.vw_aspnet_MembershipUsers" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vw_aspnet_MembershipUsers].[UserId] AS [UserId], 
+    [vw_aspnet_MembershipUsers].[PasswordFormat] AS [PasswordFormat], 
+    [vw_aspnet_MembershipUsers].[MobilePIN] AS [MobilePIN], 
+    [vw_aspnet_MembershipUsers].[Email] AS [Email], 
+    [vw_aspnet_MembershipUsers].[LoweredEmail] AS [LoweredEmail], 
+    [vw_aspnet_MembershipUsers].[PasswordQuestion] AS [PasswordQuestion], 
+    [vw_aspnet_MembershipUsers].[PasswordAnswer] AS [PasswordAnswer], 
+    [vw_aspnet_MembershipUsers].[IsApproved] AS [IsApproved], 
+    [vw_aspnet_MembershipUsers].[IsLockedOut] AS [IsLockedOut], 
+    [vw_aspnet_MembershipUsers].[CreateDate] AS [CreateDate], 
+    [vw_aspnet_MembershipUsers].[LastLoginDate] AS [LastLoginDate], 
+    [vw_aspnet_MembershipUsers].[LastPasswordChangedDate] AS [LastPasswordChangedDate], 
+    [vw_aspnet_MembershipUsers].[LastLockoutDate] AS [LastLockoutDate], 
+    [vw_aspnet_MembershipUsers].[FailedPasswordAttemptCount] AS [FailedPasswordAttemptCount], 
+    [vw_aspnet_MembershipUsers].[FailedPasswordAttemptWindowStart] AS [FailedPasswordAttemptWindowStart], 
+    [vw_aspnet_MembershipUsers].[FailedPasswordAnswerAttemptCount] AS [FailedPasswordAnswerAttemptCount], 
+    [vw_aspnet_MembershipUsers].[FailedPasswordAnswerAttemptWindowStart] AS [FailedPasswordAnswerAttemptWindowStart], 
+    [vw_aspnet_MembershipUsers].[Comment] AS [Comment], 
+    [vw_aspnet_MembershipUsers].[ApplicationId] AS [ApplicationId], 
+    [vw_aspnet_MembershipUsers].[UserName] AS [UserName], 
+    [vw_aspnet_MembershipUsers].[MobileAlias] AS [MobileAlias], 
+    [vw_aspnet_MembershipUsers].[IsAnonymous] AS [IsAnonymous], 
+    [vw_aspnet_MembershipUsers].[LastActivityDate] AS [LastActivityDate]
+    FROM [dbo].[vw_aspnet_MembershipUsers] AS [vw_aspnet_MembershipUsers]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vw_aspnet_Profiles" EntityType="Self.vw_aspnet_Profiles" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vw_aspnet_Profiles].[UserId] AS [UserId], 
+    [vw_aspnet_Profiles].[LastUpdatedDate] AS [LastUpdatedDate], 
+    [vw_aspnet_Profiles].[DataSize] AS [DataSize]
+    FROM [dbo].[vw_aspnet_Profiles] AS [vw_aspnet_Profiles]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vw_aspnet_Roles" EntityType="Self.vw_aspnet_Roles" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vw_aspnet_Roles].[ApplicationId] AS [ApplicationId], 
+    [vw_aspnet_Roles].[RoleId] AS [RoleId], 
+    [vw_aspnet_Roles].[RoleName] AS [RoleName], 
+    [vw_aspnet_Roles].[LoweredRoleName] AS [LoweredRoleName], 
+    [vw_aspnet_Roles].[Description] AS [Description]
+    FROM [dbo].[vw_aspnet_Roles] AS [vw_aspnet_Roles]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vw_aspnet_Users" EntityType="Self.vw_aspnet_Users" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vw_aspnet_Users].[ApplicationId] AS [ApplicationId], 
+    [vw_aspnet_Users].[UserId] AS [UserId], 
+    [vw_aspnet_Users].[UserName] AS [UserName], 
+    [vw_aspnet_Users].[LoweredUserName] AS [LoweredUserName], 
+    [vw_aspnet_Users].[MobileAlias] AS [MobileAlias], 
+    [vw_aspnet_Users].[IsAnonymous] AS [IsAnonymous], 
+    [vw_aspnet_Users].[LastActivityDate] AS [LastActivityDate]
+    FROM [dbo].[vw_aspnet_Users] AS [vw_aspnet_Users]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vw_aspnet_UsersInRoles" EntityType="Self.vw_aspnet_UsersInRoles" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vw_aspnet_UsersInRoles].[UserId] AS [UserId], 
+    [vw_aspnet_UsersInRoles].[RoleId] AS [RoleId]
+    FROM [dbo].[vw_aspnet_UsersInRoles] AS [vw_aspnet_UsersInRoles]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vw_aspnet_WebPartState_Paths" EntityType="Self.vw_aspnet_WebPartState_Paths" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vw_aspnet_WebPartState_Paths].[ApplicationId] AS [ApplicationId], 
+    [vw_aspnet_WebPartState_Paths].[PathId] AS [PathId], 
+    [vw_aspnet_WebPartState_Paths].[Path] AS [Path], 
+    [vw_aspnet_WebPartState_Paths].[LoweredPath] AS [LoweredPath]
+    FROM [dbo].[vw_aspnet_WebPartState_Paths] AS [vw_aspnet_WebPartState_Paths]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vw_aspnet_WebPartState_Shared" EntityType="Self.vw_aspnet_WebPartState_Shared" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vw_aspnet_WebPartState_Shared].[PathId] AS [PathId], 
+    [vw_aspnet_WebPartState_Shared].[DataSize] AS [DataSize], 
+    [vw_aspnet_WebPartState_Shared].[LastUpdatedDate] AS [LastUpdatedDate]
+    FROM [dbo].[vw_aspnet_WebPartState_Shared] AS [vw_aspnet_WebPartState_Shared]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vw_aspnet_WebPartState_User" EntityType="Self.vw_aspnet_WebPartState_User" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vw_aspnet_WebPartState_User].[PathId] AS [PathId], 
+    [vw_aspnet_WebPartState_User].[UserId] AS [UserId], 
+    [vw_aspnet_WebPartState_User].[DataSize] AS [DataSize], 
+    [vw_aspnet_WebPartState_User].[LastUpdatedDate] AS [LastUpdatedDate]
+    FROM [dbo].[vw_aspnet_WebPartState_User] AS [vw_aspnet_WebPartState_User]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK__aspnet_Pa__Appli__0A9D95DB" Association="Self.FK__aspnet_Pa__Appli__0A9D95DB">
             <End Role="aspnet_Applications" EntitySet="aspnet_Applications" />
             <End Role="aspnet_Paths" EntitySet="aspnet_Paths" />
@@ -879,38 +1134,9 @@ warning 6002: The table/view 'MyClub.dbo.webpages_UsersInRoles' does not have a 
           <Property Name="LoweredApplicationName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="ApplicationId" Type="Guid" Nullable="false" />
           <Property Name="Description" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="aspnet_Membership" Relationship="Self.FK__aspnet_Me__Appli__08B54D69" FromRole="aspnet_Applications" ToRole="aspnet_Membership" />
           <NavigationProperty Name="aspnet_Paths" Relationship="Self.FK__aspnet_Pa__Appli__0A9D95DB" FromRole="aspnet_Applications" ToRole="aspnet_Paths" />
           <NavigationProperty Name="aspnet_Roles" Relationship="Self.FK__aspnet_Ro__Appli__0F624AF8" FromRole="aspnet_Applications" ToRole="aspnet_Roles" />
           <NavigationProperty Name="aspnet_Users" Relationship="Self.FK__aspnet_Us__Appli__10566F31" FromRole="aspnet_Applications" ToRole="aspnet_Users" />
-        </EntityType>
-        <EntityType Name="aspnet_Membership">
-          <Key>
-            <PropertyRef Name="UserId" />
-          </Key>
-          <Property Name="ApplicationId" Type="Guid" Nullable="false" />
-          <Property Name="UserId" Type="Guid" Nullable="false" />
-          <Property Name="Password" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="PasswordFormat" Type="Int32" Nullable="false" />
-          <Property Name="PasswordSalt" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="MobilePIN" Type="String" MaxLength="16" FixedLength="false" Unicode="true" />
-          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
-          <Property Name="LoweredEmail" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
-          <Property Name="PasswordQuestion" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
-          <Property Name="PasswordAnswer" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="IsApproved" Type="Boolean" Nullable="false" />
-          <Property Name="IsLockedOut" Type="Boolean" Nullable="false" />
-          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="LastLoginDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="LastPasswordChangedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="LastLockoutDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="FailedPasswordAttemptCount" Type="Int32" Nullable="false" />
-          <Property Name="FailedPasswordAttemptWindowStart" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="FailedPasswordAnswerAttemptCount" Type="Int32" Nullable="false" />
-          <Property Name="FailedPasswordAnswerAttemptWindowStart" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="aspnet_Applications" Relationship="Self.FK__aspnet_Me__Appli__08B54D69" FromRole="aspnet_Membership" ToRole="aspnet_Applications" />
-          <NavigationProperty Name="aspnet_Users" Relationship="Self.FK__aspnet_Me__UserI__09A971A2" FromRole="aspnet_Membership" ToRole="aspnet_Users" />
         </EntityType>
         <EntityType Name="aspnet_Paths">
           <Key>
@@ -989,7 +1215,6 @@ warning 6002: The table/view 'MyClub.dbo.webpages_UsersInRoles' does not have a 
           <Property Name="IsAnonymous" Type="Boolean" Nullable="false" />
           <Property Name="LastActivityDate" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="aspnet_Applications" Relationship="Self.FK__aspnet_Us__Appli__10566F31" FromRole="aspnet_Users" ToRole="aspnet_Applications" />
-          <NavigationProperty Name="aspnet_Membership" Relationship="Self.FK__aspnet_Me__UserI__09A971A2" FromRole="aspnet_Users" ToRole="aspnet_Membership" />
           <NavigationProperty Name="aspnet_PersonalizationPerUser" Relationship="Self.FK__aspnet_Pe__UserI__0D7A0286" FromRole="aspnet_Users" ToRole="aspnet_PersonalizationPerUser" />
           <NavigationProperty Name="aspnet_Profile" Relationship="Self.FK__aspnet_Pr__UserI__0E6E26BF" FromRole="aspnet_Users" ToRole="aspnet_Profile" />
           <NavigationProperty Name="aspnet_Roles" Relationship="Self.aspnet_UsersInRoles" FromRole="aspnet_Users" ToRole="aspnet_Roles" />
@@ -1256,6 +1481,178 @@ warning 6002: The table/view 'MyClub.dbo.webpages_UsersInRoles' does not have a 
           <NavigationProperty Name="User_Profile" Relationship="Self.FK_webPages_UserPermessions_User_Profile" FromRole="webPages_UserPermessions" ToRole="User_Profile" />
           <NavigationProperty Name="WebPages_Pages" Relationship="Self.FK_WebPages_Pages_webPages_UserPermessions" FromRole="webPages_UserPermessions" ToRole="WebPages_Pages" />
         </EntityType>
+        <EntityType Name="MemberDetail">
+          <Key>
+            <PropertyRef Name="Number" />
+            <PropertyRef Name="Name" />
+            <PropertyRef Name="Address" />
+            <PropertyRef Name="Email" />
+            <PropertyRef Name="Mobile" />
+            <PropertyRef Name="BirthDate" />
+            <PropertyRef Name="Gender" />
+            <PropertyRef Name="Enable" />
+            <PropertyRef Name="IsAdmin" />
+            <PropertyRef Name="IsActive" />
+          </Key>
+          <Property Name="Number" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Nationality" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Home_Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Mobile" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="BirthDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Gender" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="RegistrationDate" Type="DateTime" Precision="0" />
+          <Property Name="Enable" Type="Boolean" Nullable="false" />
+          <Property Name="IsAdmin" Type="Boolean" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MemberOfferDetail">
+          <Key>
+            <PropertyRef Name="ServiceName" />
+            <PropertyRef Name="ServicePrice" />
+          </Key>
+          <Property Name="MemberName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ServiceName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ServicePrice" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="PaymentAmount" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="PaymentDate" Type="DateTime" Precision="0" />
+          <Property Name="StartDate" Type="DateTime" Precision="0" />
+          <Property Name="EndDate" Type="DateTime" Precision="0" />
+          <Property Name="Days" Type="Int32" />
+        </EntityType>
+        <EntityType Name="vw_aspnet_Applications">
+          <Key>
+            <PropertyRef Name="ApplicationName" />
+            <PropertyRef Name="LoweredApplicationName" />
+            <PropertyRef Name="ApplicationId" />
+          </Key>
+          <Property Name="ApplicationName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LoweredApplicationName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ApplicationId" Type="Guid" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="vw_aspnet_MembershipUsers">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="PasswordFormat" />
+            <PropertyRef Name="IsApproved" />
+            <PropertyRef Name="IsLockedOut" />
+            <PropertyRef Name="CreateDate" />
+            <PropertyRef Name="LastLoginDate" />
+            <PropertyRef Name="LastPasswordChangedDate" />
+            <PropertyRef Name="LastLockoutDate" />
+            <PropertyRef Name="FailedPasswordAttemptCount" />
+            <PropertyRef Name="FailedPasswordAttemptWindowStart" />
+            <PropertyRef Name="FailedPasswordAnswerAttemptCount" />
+            <PropertyRef Name="FailedPasswordAnswerAttemptWindowStart" />
+            <PropertyRef Name="ApplicationId" />
+            <PropertyRef Name="UserName" />
+            <PropertyRef Name="IsAnonymous" />
+            <PropertyRef Name="LastActivityDate" />
+          </Key>
+          <Property Name="UserId" Type="Guid" Nullable="false" />
+          <Property Name="PasswordFormat" Type="Int32" Nullable="false" />
+          <Property Name="MobilePIN" Type="String" MaxLength="16" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="LoweredEmail" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="PasswordQuestion" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="PasswordAnswer" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="IsApproved" Type="Boolean" Nullable="false" />
+          <Property Name="IsLockedOut" Type="Boolean" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="LastLoginDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="LastPasswordChangedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="LastLockoutDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="FailedPasswordAttemptCount" Type="Int32" Nullable="false" />
+          <Property Name="FailedPasswordAttemptWindowStart" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="FailedPasswordAnswerAttemptCount" Type="Int32" Nullable="false" />
+          <Property Name="FailedPasswordAnswerAttemptWindowStart" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ApplicationId" Type="Guid" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MobileAlias" Type="String" MaxLength="16" FixedLength="false" Unicode="true" />
+          <Property Name="IsAnonymous" Type="Boolean" Nullable="false" />
+          <Property Name="LastActivityDate" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="vw_aspnet_Profiles">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="LastUpdatedDate" />
+          </Key>
+          <Property Name="UserId" Type="Guid" Nullable="false" />
+          <Property Name="LastUpdatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DataSize" Type="Int32" />
+        </EntityType>
+        <EntityType Name="vw_aspnet_Roles">
+          <Key>
+            <PropertyRef Name="ApplicationId" />
+            <PropertyRef Name="RoleId" />
+            <PropertyRef Name="RoleName" />
+            <PropertyRef Name="LoweredRoleName" />
+          </Key>
+          <Property Name="ApplicationId" Type="Guid" Nullable="false" />
+          <Property Name="RoleId" Type="Guid" Nullable="false" />
+          <Property Name="RoleName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LoweredRoleName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="vw_aspnet_Users">
+          <Key>
+            <PropertyRef Name="ApplicationId" />
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="UserName" />
+            <PropertyRef Name="LoweredUserName" />
+            <PropertyRef Name="IsAnonymous" />
+            <PropertyRef Name="LastActivityDate" />
+          </Key>
+          <Property Name="ApplicationId" Type="Guid" Nullable="false" />
+          <Property Name="UserId" Type="Guid" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LoweredUserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MobileAlias" Type="String" MaxLength="16" FixedLength="false" Unicode="true" />
+          <Property Name="IsAnonymous" Type="Boolean" Nullable="false" />
+          <Property Name="LastActivityDate" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="vw_aspnet_UsersInRoles">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="UserId" Type="Guid" Nullable="false" />
+          <Property Name="RoleId" Type="Guid" Nullable="false" />
+        </EntityType>
+        <EntityType Name="vw_aspnet_WebPartState_Paths">
+          <Key>
+            <PropertyRef Name="ApplicationId" />
+            <PropertyRef Name="PathId" />
+            <PropertyRef Name="Path" />
+            <PropertyRef Name="LoweredPath" />
+          </Key>
+          <Property Name="ApplicationId" Type="Guid" Nullable="false" />
+          <Property Name="PathId" Type="Guid" Nullable="false" />
+          <Property Name="Path" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LoweredPath" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="vw_aspnet_WebPartState_Shared">
+          <Key>
+            <PropertyRef Name="PathId" />
+            <PropertyRef Name="LastUpdatedDate" />
+          </Key>
+          <Property Name="PathId" Type="Guid" Nullable="false" />
+          <Property Name="DataSize" Type="Int32" />
+          <Property Name="LastUpdatedDate" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="vw_aspnet_WebPartState_User">
+          <Key>
+            <PropertyRef Name="LastUpdatedDate" />
+          </Key>
+          <Property Name="PathId" Type="Guid" />
+          <Property Name="UserId" Type="Guid" />
+          <Property Name="DataSize" Type="Int32" />
+          <Property Name="LastUpdatedDate" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
         <Association Name="FK__AuditTrai__Actio__14270015">
           <End Role="Action" Type="Self.Action" Multiplicity="0..1" />
           <End Role="AuditTrail" Type="Self.AuditTrail" Multiplicity="*" />
@@ -1277,18 +1674,6 @@ warning 6002: The table/view 'MyClub.dbo.webpages_UsersInRoles' does not have a 
             </Principal>
             <Dependent Role="AuditTrail">
               <PropertyRef Name="ActionTypeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__aspnet_Me__Appli__08B54D69">
-          <End Role="aspnet_Applications" Type="Self.aspnet_Applications" Multiplicity="1" />
-          <End Role="aspnet_Membership" Type="Self.aspnet_Membership" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="aspnet_Applications">
-              <PropertyRef Name="ApplicationId" />
-            </Principal>
-            <Dependent Role="aspnet_Membership">
-              <PropertyRef Name="ApplicationId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1325,18 +1710,6 @@ warning 6002: The table/view 'MyClub.dbo.webpages_UsersInRoles' does not have a 
             </Principal>
             <Dependent Role="aspnet_Users">
               <PropertyRef Name="ApplicationId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__aspnet_Me__UserI__09A971A2">
-          <End Role="aspnet_Users" Type="Self.aspnet_Users" Multiplicity="1" />
-          <End Role="aspnet_Membership" Type="Self.aspnet_Membership" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="aspnet_Users">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="aspnet_Membership">
-              <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1544,7 +1917,6 @@ warning 6002: The table/view 'MyClub.dbo.webpages_UsersInRoles' does not have a 
           <EntitySet Name="Actions" EntityType="Self.Action" />
           <EntitySet Name="ActionTypes" EntityType="Self.ActionType" />
           <EntitySet Name="aspnet_Applications" EntityType="Self.aspnet_Applications" />
-          <EntitySet Name="aspnet_Membership" EntityType="Self.aspnet_Membership" />
           <EntitySet Name="aspnet_Paths" EntityType="Self.aspnet_Paths" />
           <EntitySet Name="aspnet_PersonalizationAllUsers" EntityType="Self.aspnet_PersonalizationAllUsers" />
           <EntitySet Name="aspnet_PersonalizationPerUser" EntityType="Self.aspnet_PersonalizationPerUser" />
@@ -1572,6 +1944,17 @@ warning 6002: The table/view 'MyClub.dbo.webpages_UsersInRoles' does not have a 
           <EntitySet Name="WebPages_Pages" EntityType="Self.WebPages_Pages" />
           <EntitySet Name="webpages_Roles" EntityType="Self.webpages_Roles" />
           <EntitySet Name="webPages_UserPermessions" EntityType="Self.webPages_UserPermessions" />
+          <EntitySet Name="MemberDetails" EntityType="Self.MemberDetail" />
+          <EntitySet Name="MemberOfferDetails" EntityType="Self.MemberOfferDetail" />
+          <EntitySet Name="vw_aspnet_Applications" EntityType="Self.vw_aspnet_Applications" />
+          <EntitySet Name="vw_aspnet_MembershipUsers" EntityType="Self.vw_aspnet_MembershipUsers" />
+          <EntitySet Name="vw_aspnet_Profiles" EntityType="Self.vw_aspnet_Profiles" />
+          <EntitySet Name="vw_aspnet_Roles" EntityType="Self.vw_aspnet_Roles" />
+          <EntitySet Name="vw_aspnet_Users" EntityType="Self.vw_aspnet_Users" />
+          <EntitySet Name="vw_aspnet_UsersInRoles" EntityType="Self.vw_aspnet_UsersInRoles" />
+          <EntitySet Name="vw_aspnet_WebPartState_Paths" EntityType="Self.vw_aspnet_WebPartState_Paths" />
+          <EntitySet Name="vw_aspnet_WebPartState_Shared" EntityType="Self.vw_aspnet_WebPartState_Shared" />
+          <EntitySet Name="vw_aspnet_WebPartState_User" EntityType="Self.vw_aspnet_WebPartState_User" />
           <AssociationSet Name="FK__AuditTrai__Actio__14270015" Association="Self.FK__AuditTrai__Actio__14270015">
             <End Role="Action" EntitySet="Actions" />
             <End Role="AuditTrail" EntitySet="AuditTrails" />
@@ -1579,10 +1962,6 @@ warning 6002: The table/view 'MyClub.dbo.webpages_UsersInRoles' does not have a 
           <AssociationSet Name="FK__AuditTrai__Actio__1332DBDC" Association="Self.FK__AuditTrai__Actio__1332DBDC">
             <End Role="ActionType" EntitySet="ActionTypes" />
             <End Role="AuditTrail" EntitySet="AuditTrails" />
-          </AssociationSet>
-          <AssociationSet Name="FK__aspnet_Me__Appli__08B54D69" Association="Self.FK__aspnet_Me__Appli__08B54D69">
-            <End Role="aspnet_Applications" EntitySet="aspnet_Applications" />
-            <End Role="aspnet_Membership" EntitySet="aspnet_Membership" />
           </AssociationSet>
           <AssociationSet Name="FK__aspnet_Pa__Appli__0A9D95DB" Association="Self.FK__aspnet_Pa__Appli__0A9D95DB">
             <End Role="aspnet_Applications" EntitySet="aspnet_Applications" />
@@ -1595,10 +1974,6 @@ warning 6002: The table/view 'MyClub.dbo.webpages_UsersInRoles' does not have a 
           <AssociationSet Name="FK__aspnet_Us__Appli__10566F31" Association="Self.FK__aspnet_Us__Appli__10566F31">
             <End Role="aspnet_Applications" EntitySet="aspnet_Applications" />
             <End Role="aspnet_Users" EntitySet="aspnet_Users" />
-          </AssociationSet>
-          <AssociationSet Name="FK__aspnet_Me__UserI__09A971A2" Association="Self.FK__aspnet_Me__UserI__09A971A2">
-            <End Role="aspnet_Users" EntitySet="aspnet_Users" />
-            <End Role="aspnet_Membership" EntitySet="aspnet_Membership" />
           </AssociationSet>
           <AssociationSet Name="FK__aspnet_Pe__PathI__0B91BA14" Association="Self.FK__aspnet_Pe__PathI__0B91BA14">
             <End Role="aspnet_Paths" EntitySet="aspnet_Paths" />
@@ -1704,33 +2079,6 @@ warning 6002: The table/view 'MyClub.dbo.webpages_UsersInRoles' does not have a 
                 <ScalarProperty Name="LoweredApplicationName" ColumnName="LoweredApplicationName" />
                 <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="aspnet_Membership">
-            <EntityTypeMapping TypeName="MyClubModel.aspnet_Membership">
-              <MappingFragment StoreEntitySet="aspnet_Membership">
-                <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="PasswordFormat" ColumnName="PasswordFormat" />
-                <ScalarProperty Name="PasswordSalt" ColumnName="PasswordSalt" />
-                <ScalarProperty Name="MobilePIN" ColumnName="MobilePIN" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="LoweredEmail" ColumnName="LoweredEmail" />
-                <ScalarProperty Name="PasswordQuestion" ColumnName="PasswordQuestion" />
-                <ScalarProperty Name="PasswordAnswer" ColumnName="PasswordAnswer" />
-                <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
-                <ScalarProperty Name="IsLockedOut" ColumnName="IsLockedOut" />
-                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-                <ScalarProperty Name="LastLoginDate" ColumnName="LastLoginDate" />
-                <ScalarProperty Name="LastPasswordChangedDate" ColumnName="LastPasswordChangedDate" />
-                <ScalarProperty Name="LastLockoutDate" ColumnName="LastLockoutDate" />
-                <ScalarProperty Name="FailedPasswordAttemptCount" ColumnName="FailedPasswordAttemptCount" />
-                <ScalarProperty Name="FailedPasswordAttemptWindowStart" ColumnName="FailedPasswordAttemptWindowStart" />
-                <ScalarProperty Name="FailedPasswordAnswerAttemptCount" ColumnName="FailedPasswordAnswerAttemptCount" />
-                <ScalarProperty Name="FailedPasswordAnswerAttemptWindowStart" ColumnName="FailedPasswordAnswerAttemptWindowStart" />
-                <ScalarProperty Name="Comment" ColumnName="Comment" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2058,6 +2406,148 @@ warning 6002: The table/view 'MyClub.dbo.webpages_UsersInRoles' does not have a 
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="Pageid" ColumnName="Pageid" />
                 <ScalarProperty Name="CanRead" ColumnName="CanRead" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MemberDetails">
+            <EntityTypeMapping TypeName="MyClubModel.MemberDetail">
+              <MappingFragment StoreEntitySet="MemberDetails">
+                <ScalarProperty Name="Number" ColumnName="Number" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Nationality" ColumnName="Nationality" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Home_Phone" ColumnName="Home Phone" />
+                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+                <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="RegistrationDate" ColumnName="RegistrationDate" />
+                <ScalarProperty Name="Enable" ColumnName="Enable" />
+                <ScalarProperty Name="IsAdmin" ColumnName="IsAdmin" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MemberOfferDetails">
+            <EntityTypeMapping TypeName="MyClubModel.MemberOfferDetail">
+              <MappingFragment StoreEntitySet="MemberOfferDetails">
+                <ScalarProperty Name="MemberName" ColumnName="MemberName" />
+                <ScalarProperty Name="ServiceName" ColumnName="ServiceName" />
+                <ScalarProperty Name="ServicePrice" ColumnName="ServicePrice" />
+                <ScalarProperty Name="PaymentAmount" ColumnName="PaymentAmount" />
+                <ScalarProperty Name="PaymentDate" ColumnName="PaymentDate" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="Days" ColumnName="Days" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vw_aspnet_Applications">
+            <EntityTypeMapping TypeName="MyClubModel.vw_aspnet_Applications">
+              <MappingFragment StoreEntitySet="vw_aspnet_Applications">
+                <ScalarProperty Name="ApplicationName" ColumnName="ApplicationName" />
+                <ScalarProperty Name="LoweredApplicationName" ColumnName="LoweredApplicationName" />
+                <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vw_aspnet_MembershipUsers">
+            <EntityTypeMapping TypeName="MyClubModel.vw_aspnet_MembershipUsers">
+              <MappingFragment StoreEntitySet="vw_aspnet_MembershipUsers">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="PasswordFormat" ColumnName="PasswordFormat" />
+                <ScalarProperty Name="MobilePIN" ColumnName="MobilePIN" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="LoweredEmail" ColumnName="LoweredEmail" />
+                <ScalarProperty Name="PasswordQuestion" ColumnName="PasswordQuestion" />
+                <ScalarProperty Name="PasswordAnswer" ColumnName="PasswordAnswer" />
+                <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
+                <ScalarProperty Name="IsLockedOut" ColumnName="IsLockedOut" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="LastLoginDate" ColumnName="LastLoginDate" />
+                <ScalarProperty Name="LastPasswordChangedDate" ColumnName="LastPasswordChangedDate" />
+                <ScalarProperty Name="LastLockoutDate" ColumnName="LastLockoutDate" />
+                <ScalarProperty Name="FailedPasswordAttemptCount" ColumnName="FailedPasswordAttemptCount" />
+                <ScalarProperty Name="FailedPasswordAttemptWindowStart" ColumnName="FailedPasswordAttemptWindowStart" />
+                <ScalarProperty Name="FailedPasswordAnswerAttemptCount" ColumnName="FailedPasswordAnswerAttemptCount" />
+                <ScalarProperty Name="FailedPasswordAnswerAttemptWindowStart" ColumnName="FailedPasswordAnswerAttemptWindowStart" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="MobileAlias" ColumnName="MobileAlias" />
+                <ScalarProperty Name="IsAnonymous" ColumnName="IsAnonymous" />
+                <ScalarProperty Name="LastActivityDate" ColumnName="LastActivityDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vw_aspnet_Profiles">
+            <EntityTypeMapping TypeName="MyClubModel.vw_aspnet_Profiles">
+              <MappingFragment StoreEntitySet="vw_aspnet_Profiles">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="LastUpdatedDate" ColumnName="LastUpdatedDate" />
+                <ScalarProperty Name="DataSize" ColumnName="DataSize" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vw_aspnet_Roles">
+            <EntityTypeMapping TypeName="MyClubModel.vw_aspnet_Roles">
+              <MappingFragment StoreEntitySet="vw_aspnet_Roles">
+                <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+                <ScalarProperty Name="LoweredRoleName" ColumnName="LoweredRoleName" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vw_aspnet_Users">
+            <EntityTypeMapping TypeName="MyClubModel.vw_aspnet_Users">
+              <MappingFragment StoreEntitySet="vw_aspnet_Users">
+                <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="LoweredUserName" ColumnName="LoweredUserName" />
+                <ScalarProperty Name="MobileAlias" ColumnName="MobileAlias" />
+                <ScalarProperty Name="IsAnonymous" ColumnName="IsAnonymous" />
+                <ScalarProperty Name="LastActivityDate" ColumnName="LastActivityDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vw_aspnet_UsersInRoles">
+            <EntityTypeMapping TypeName="MyClubModel.vw_aspnet_UsersInRoles">
+              <MappingFragment StoreEntitySet="vw_aspnet_UsersInRoles">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vw_aspnet_WebPartState_Paths">
+            <EntityTypeMapping TypeName="MyClubModel.vw_aspnet_WebPartState_Paths">
+              <MappingFragment StoreEntitySet="vw_aspnet_WebPartState_Paths">
+                <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+                <ScalarProperty Name="PathId" ColumnName="PathId" />
+                <ScalarProperty Name="Path" ColumnName="Path" />
+                <ScalarProperty Name="LoweredPath" ColumnName="LoweredPath" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vw_aspnet_WebPartState_Shared">
+            <EntityTypeMapping TypeName="MyClubModel.vw_aspnet_WebPartState_Shared">
+              <MappingFragment StoreEntitySet="vw_aspnet_WebPartState_Shared">
+                <ScalarProperty Name="PathId" ColumnName="PathId" />
+                <ScalarProperty Name="DataSize" ColumnName="DataSize" />
+                <ScalarProperty Name="LastUpdatedDate" ColumnName="LastUpdatedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vw_aspnet_WebPartState_User">
+            <EntityTypeMapping TypeName="MyClubModel.vw_aspnet_WebPartState_User">
+              <MappingFragment StoreEntitySet="vw_aspnet_WebPartState_User">
+                <ScalarProperty Name="PathId" ColumnName="PathId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="DataSize" ColumnName="DataSize" />
+                <ScalarProperty Name="LastUpdatedDate" ColumnName="LastUpdatedDate" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

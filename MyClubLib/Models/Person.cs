@@ -20,7 +20,6 @@ namespace MyClubLib.Models
         {
             this.Trainers = new HashSet<Trainer>();
         }
-
         [Display(Name = "Number")]
         public int PersonId { get; set; }
         [Display(Name = "Name")]
@@ -40,7 +39,7 @@ namespace MyClubLib.Models
         public Nullable<System.DateTime> RegistrationDate { get; set; }
         public Nullable<bool> isExpected { get; set; }
         public Nullable<int> MemberOfferId { get; set; }
-
+    
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Trainer> Trainers { get; set; }
 
@@ -54,7 +53,5 @@ namespace MyClubLib.Models
                 return age;
             }
         }
-
     }
-
 }

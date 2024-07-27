@@ -9,7 +9,6 @@
 
 namespace MyClubLib.Models
 {
-    using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
@@ -28,7 +27,6 @@ namespace MyClubLib.Models
         public virtual DbSet<Action> Actions { get; set; }
         public virtual DbSet<ActionType> ActionTypes { get; set; }
         public virtual DbSet<aspnet_Applications> aspnet_Applications { get; set; }
-        public virtual DbSet<aspnet_Membership> aspnet_Membership { get; set; }
         public virtual DbSet<aspnet_Paths> aspnet_Paths { get; set; }
         public virtual DbSet<aspnet_PersonalizationAllUsers> aspnet_PersonalizationAllUsers { get; set; }
         public virtual DbSet<aspnet_PersonalizationPerUser> aspnet_PersonalizationPerUser { get; set; }
@@ -56,5 +54,16 @@ namespace MyClubLib.Models
         public virtual DbSet<WebPages_Pages> WebPages_Pages { get; set; }
         public virtual DbSet<webpages_Roles> webpages_Roles { get; set; }
         public virtual DbSet<webPages_UserPermessions> webPages_UserPermessions { get; set; }
+        public virtual DbSet<MemberDetail> MemberDetails { get; set; }
+        public virtual DbSet<MemberOfferDetail> MemberOfferDetails { get; set; }
+        public virtual DbSet<vw_aspnet_Applications> vw_aspnet_Applications { get; set; }
+        public virtual DbSet<vw_aspnet_MembershipUsers> vw_aspnet_MembershipUsers { get; set; }
+        public virtual DbSet<vw_aspnet_Profiles> vw_aspnet_Profiles { get; set; }
+        public virtual DbSet<vw_aspnet_Roles> vw_aspnet_Roles { get; set; }
+        public virtual DbSet<vw_aspnet_Users> vw_aspnet_Users { get; set; }
+        public virtual DbSet<vw_aspnet_UsersInRoles> vw_aspnet_UsersInRoles { get; set; }
+        public virtual DbSet<vw_aspnet_WebPartState_Paths> vw_aspnet_WebPartState_Paths { get; set; }
+        public virtual DbSet<vw_aspnet_WebPartState_Shared> vw_aspnet_WebPartState_Shared { get; set; }
+        public virtual DbSet<vw_aspnet_WebPartState_User> vw_aspnet_WebPartState_User { get; set; }
     }
 }

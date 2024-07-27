@@ -95,17 +95,17 @@ namespace SecurityLib.Repositoty
             }
         }
 
-        public bool IsUserExist(string email , string pass)
+        public int? IsUserExist(string email , string pass)
         {
             try
             {
                 var user = _repository.FindByEmail(email);
                 if (user == null)
-                    return false;
+                    return null;
                 if (pass != null && user.Password != pass)
-                    return false;
+                    return null;
               
-                return true;
+                return user.PersonId;
             }
             catch (Exception ex)
             {

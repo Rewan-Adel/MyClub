@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<MyClubLib.Models.Person>
 
 @{
-    Layout = null;
+    ViewBag.Title = "Members";
 }
 
 <!DOCTYPE html>
@@ -14,6 +14,7 @@
 <body>
     <p>
         @Html.ActionLink("Create New", "Create")
+        @Html.ActionLink("Clear", "Clear")
     </p>
     <table class="table">
         <tr>
@@ -37,41 +38,42 @@
                 @Html.DisplayNameFor(model => model.RegistrationDate)
             </th>
         </tr>
-    
-    @foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.PersonId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PersonName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Age)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Gender)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MobileNumber)
-            <td>
 
-            <td>
-                @Html.DisplayFor(modelItem => item.RegistrationDate)
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PersonId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PersonName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Age)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Gender)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MobileNumber)
+                <td>
 
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.PersonId }) |
-                @Html.ActionLink("Details", "Details", new { id = item.PersonId }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.PersonId }) |
-                @Html.ActionLink("Add Offer", "Add Offer", new { id = item.PersonId }) |
-                @Html.ActionLink("Addendence", "Addendence", new { id = item.PersonId })
+                <td>
+                    @Html.DisplayFor(modelItem => item.RegistrationDate)
 
-            </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.PersonId }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.PersonId }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.PersonId }) |
+                    @Html.ActionLink("Add Offer", "Add Offer", new { id = item.PersonId }) |
+                    @Html.ActionLink("Attendence", "Attendence", new { id = item.PersonId })
+
+                </td>
 
 
-        </tr>
-    }
-    
+            </tr>
+        }
+
     </table>
 </body>
 </html>

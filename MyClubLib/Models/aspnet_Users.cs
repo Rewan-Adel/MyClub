@@ -30,7 +30,6 @@ namespace MyClubLib.Models
         public System.DateTime LastActivityDate { get; set; }
     
         public virtual aspnet_Applications aspnet_Applications { get; set; }
-        public virtual aspnet_Membership aspnet_Membership { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<aspnet_PersonalizationPerUser> aspnet_PersonalizationPerUser { get; set; }
         public virtual aspnet_Profile aspnet_Profile { get; set; }

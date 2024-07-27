@@ -21,6 +21,7 @@ namespace MyClub.UI.Controllers
             _context = new MyClubEntities();
             _security = new SecurityRepository();
             _userId   = WebSecurity.CurrentUserId;
+
         }
         public ActionResult Index()
         {
@@ -50,22 +51,20 @@ namespace MyClub.UI.Controllers
 
         [HttpPost]
         [AllowAnonymous]
+        [ValidateAntiForgeryToken]
         public ActionResult Login(string Email, string password)
         {
-            bool IsUser = _security.IsUserExist(Email, password);
-            if (IsUser)
+            int? User = _security.IsUserExist(Email, password);
+            if (User != null)
             {
                 if (!_security.IsActiveUser(Email))
                 {
                     ViewBag.Error = "This account is stopped.";
                     return View();
                 }
-                else
-                {
-                    Session["login"] = true;
-                    WebSecurity.Login(Email, password);
-                    return RedirectToAction("Index", "Home");
-                }
+   
+                Session["login"] = User;
+                return RedirectToAction("Index", "Home");
             }
             else
             {
@@ -81,7 +80,7 @@ namespace MyClub.UI.Controllers
         {
             try {
                 var User = _security.IsUserExist(Email, Password);
-                if (User)
+                if (User != null) 
                 {
                     ViewBag.Error = "This email or username already exists.";
                     return View();
@@ -91,8 +90,7 @@ namespace MyClub.UI.Controllers
                     var person = new Person
                     {
                         PersonName = PersonName,
-                        Password = Password,
-                        Gender = Gender,
+                        Password =  Password,                        Gender = Gender,
                         BirthDate = BirthDate,
                         MobileNumber = MobileNumber,
                         HomePhoneNumber = HomePhoneNumber,
@@ -104,7 +102,6 @@ namespace MyClub.UI.Controllers
                     };
                     _context.People.Add(person);
                     await _context.SaveChangesAsync();
-                    // Create a new Member instance if applicable
                     var member = new Member
                     {
                         MemberName = PersonName,
@@ -115,23 +112,10 @@ namespace MyClub.UI.Controllers
                     _context.Members.Add(member);
                     await _context.SaveChangesAsync();
 
-                    // Optionally, add an audit trail
-                    var audit = new AuditTrail
-                    {
-                        ActionTypeId = 1, // Signup action type id
-                        UserId = person.UserId,
-                        //  IPAddress = personDto.IPAddress,
-                        TransactionTime = DateTime.Now,
-                        EntityId = person.PersonId,
-                        EntityRecord = "Person" // or any other identifier for your entity
-                    };
-
-                    
-                    // _context.AuditTrails.Add(audit);
-                    //await _context.SaveChangesAsync();
+                   
                     _security.CreateUser(person.Email, true, false);
 
-                    Session["login"] = true;
+                    Session["login"] = User;
                     WebSecurity.CreateUserAndAccount(PersonName, Password);
                     return RedirectToAction("Index", "Home"); ;
                 }

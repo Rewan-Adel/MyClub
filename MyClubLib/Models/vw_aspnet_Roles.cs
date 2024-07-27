@@ -11,14 +11,13 @@ namespace MyClubLib.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
-    public partial class Trainer
-    {
-        public int TrainerId { get; set; }
-        public Nullable<int> PersonId { get; set; }
-        public Nullable<bool> IsActive { get; set; }
     
-        public virtual Person Person { get; set; }
+    public partial class vw_aspnet_Roles
+    {
+        public System.Guid ApplicationId { get; set; }
+        public System.Guid RoleId { get; set; }
+        public string RoleName { get; set; }
+        public string LoweredRoleName { get; set; }
+        public string Description { get; set; }
     }
 }

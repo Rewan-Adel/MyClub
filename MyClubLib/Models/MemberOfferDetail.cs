@@ -11,14 +11,16 @@ namespace MyClubLib.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
-    public partial class Trainer
-    {
-        public int TrainerId { get; set; }
-        public Nullable<int> PersonId { get; set; }
-        public Nullable<bool> IsActive { get; set; }
     
-        public virtual Person Person { get; set; }
+    public partial class MemberOfferDetail
+    {
+        public string MemberName { get; set; }
+        public string ServiceName { get; set; }
+        public decimal ServicePrice { get; set; }
+        public Nullable<decimal> PaymentAmount { get; set; }
+        public Nullable<System.DateTime> PaymentDate { get; set; }
+        public Nullable<System.DateTime> StartDate { get; set; }
+        public Nullable<System.DateTime> EndDate { get; set; }
+        public Nullable<int> Days { get; set; }
     }
 }
