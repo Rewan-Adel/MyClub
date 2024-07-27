@@ -1,101 +1,55 @@
 const slidePage = document.querySelector(".slide-page");
-const nextBtnFirst = document.querySelector(".firstNext");
-const prevBtnSec = document.querySelector(".prev-1");
-const nextBtnSec = document.querySelector(".next-1");
-const prevBtnThird = document.querySelector(".prev-2");
-const nextBtnThird = document.querySelector(".next-2");
-const prevBtnFourth = document.querySelector(".prev-3");
-const submitBtn = document.querySelector(".submit");
+const nextBtns = document.querySelectorAll(".next");
+const prevBtns = document.querySelectorAll(".prev");
 const progressText = document.querySelectorAll(".step p");
 const progressCheck = document.querySelectorAll(".step .check");
 const bullet = document.querySelectorAll(".step .bullet");
 let current = 1;
 
 function validateStep(step) {
-  let isValid = true;
-  const inputs = document.querySelectorAll(`.page:nth-child(${step}) input`);
+    let isValid = true;
+    const inputs = document.querySelectorAll(`.page:nth-child(${step}) input`);
 
-  inputs.forEach(input => {
-    if (input.value.trim() === "") {
-      isValid = false;
-      input.style.borderColor = "red"; 
-    } else {
-      input.style.borderColor = "#e6e6e6"; 
-    }
-  });
+    inputs.forEach(input => {
+        if (input.value.trim() === "") {
+            isValid = false;
+            input.style.borderColor = "red";
+        } else {
+            input.style.borderColor = "#e6e6e6";
+        }
+    });
 
-  return isValid;
+    return isValid;
 }
 
-nextBtnFirst.addEventListener("click", function(event){
-  event.preventDefault();
-  if (validateStep(1)) {
-    slidePage.style.marginLeft = "-25%";
-    bullet[current - 1].classList.add("active");
-    progressCheck[current - 1].classList.add("active");
-    progressText[current - 1].classList.add("active");
-    current += 1;
-  }
+function navigate(direction) {
+    if (direction === "next") {
+        if (validateStep(current)) {
+            slidePage.style.marginLeft = `${-25 * current}%`;
+            bullet[current - 1].classList.add("active");
+            progressCheck[current - 1].classList.add("active");
+            progressText[current - 1].classList.add("active");
+            current += 1;
+        }
+    } else if (direction === "prev") {
+        slidePage.style.marginLeft = `${-25 * (current - 2)}%`;
+        bullet[current - 2].classList.remove("active");
+        progressCheck[current - 2].classList.remove("active");
+        progressText[current - 2].classList.remove("active");
+        current -= 1;
+    }
+}
+
+nextBtns.forEach((btn, index) => {
+    btn.addEventListener("click", (event) => {
+        event.preventDefault();
+        navigate("next");
+    });
 });
 
-nextBtnSec.addEventListener("click", function(event){
-  event.preventDefault();
-  if (validateStep(2)) {
-    slidePage.style.marginLeft = "-50%";
-    bullet[current - 1].classList.add("active");
-    progressCheck[current - 1].classList.add("active");
-    progressText[current - 1].classList.add("active");
-    current += 1;
-  }
-});
-
-nextBtnThird.addEventListener("click", function(event){
-  event.preventDefault();
-  if (validateStep(3)) {
-    slidePage.style.marginLeft = "-75%";
-    bullet[current - 1].classList.add("active");
-    progressCheck[current - 1].classList.add("active");
-    progressText[current - 1].classList.add("active");
-    current += 1;
-  }
-});
-
-//submitBtn.addEventListener("click", function(){
-  //if (validateStep(4)) {
-  //  bullet[current - 1].classList.add("active");
-  //  progressCheck[current - 1].classList.add("active");
-  //  progressText[current - 1].classList.add("active");
-  //  current += 1;
-//setTimeout(function(){
-  //    alert("Your Form Successfully Signed up");
-  //    location.reload();
-  //  }, 800);
- // }
-//});
-
-prevBtnSec.addEventListener("click", function(event){
-  event.preventDefault();
-  slidePage.style.marginLeft = "0%";
-  bullet[current - 2].classList.remove("active");
-  progressCheck[current - 2].classList.remove("active");
-  progressText[current - 2].classList.remove("active");
-  current -= 1;
-});
-
-prevBtnThird.addEventListener("click", function(event){
-  event.preventDefault();
-  slidePage.style.marginLeft = "-25%";
-  bullet[current - 2].classList.remove("active");
-  progressCheck[current - 2].classList.remove("active");
-  progressText[current - 2].classList.remove("active");
-  current -= 1;
-});
-
-prevBtnFourth.addEventListener("click", function(event){
-  event.preventDefault();
-  slidePage.style.marginLeft = "-50%";
-  bullet[current - 2].classList.remove("active");
-  progressCheck[current - 2].classList.remove("active");
-  progressText[current - 2].classList.remove("active");
-  current -= 1;
+prevBtns.forEach((btn, index) => {
+    btn.addEventListener("click", (event) => {
+        event.preventDefault();
+        navigate("prev");
+    });
 });

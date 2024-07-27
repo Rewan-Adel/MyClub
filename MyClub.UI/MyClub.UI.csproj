@@ -223,8 +223,6 @@
     <Content Include="Views\Account\Signup.cshtml" />
     <Content Include="Views\Account\forpass.cshtml" />
     <Content Include="Views\Account\ResetPassword.cshtml" />
-    <Content Include="Views\Account\SendVerificationCode.cshtml" />
-    <Content Include="Views\Account\verify.cshtml" />
     <Content Include="Views\MemberOffer\Create.cshtml" />
     <Content Include="Views\MemberOffer\Delete.cshtml" />
     <Content Include="Views\MemberOffer\Details.cshtml" />
