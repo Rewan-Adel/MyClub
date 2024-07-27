@@ -1,17 +1,21 @@
-﻿﻿@model MyClubLib.Models.Person
+﻿@model MyClubLib.Models.Person
 
 @{
     ViewBag.Title = "Signup";
     Layout = null;
 }
 
-<title>Registration</title>
-<link rel="icon" href="~/images/freepik-export-20240715061812u1zF.png" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-<script src="https://kit.fontawesome.com/a076d05399.js"></script>
-<link rel="stylesheet" href="~/Content/signup.css" />
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Registration</title>
+    <link rel="icon" href="~/images/freepik-export-20240715061812u1zF.png" />
+    <link rel="stylesheet" href="~/Content/signup.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+</head>
 <body>
-   
     @if (ViewBag.Error != null)
     {
         <div class="alert alert-danger">
@@ -25,30 +29,30 @@
             <div class="step">
                 <p>Name</p>
                 <div class="bullet">
-                    <span><i class="fa-solid fa-user" style="position:relative;top:3px"></i></span>
+                    <span><i class="fa-solid fa-user"></i></span>
                 </div>
-                <div class="check fas fa-check" style="position:relative;top:-14px"></div>
+                <div class="check fas fa-check"></div>
             </div>
             <div class="step">
                 <p>Contact</p>
                 <div class="bullet">
-                    <span><i class="fa-solid fa-id-card" style="position:relative;top:3px"></i></span>
+                    <span><i class="fa-solid fa-id-card"></i></span>
                 </div>
-                <div class="check fas fa-check" style="position:relative;top:-14px"></div>
+                <div class="check fas fa-check"></div>
             </div>
             <div class="step">
                 <p>Birth</p>
                 <div class="bullet">
-                    <span><i class="fa-solid fa-cake-candles" style="position:relative;top:3px"></i></span>
+                    <span><i class="fa-solid fa-cake-candles"></i></span>
                 </div>
-                <div class="check fas fa-check" style="position:relative;top:-14px"></div>
+                <div class="check fas fa-check"></div>
             </div>
             <div class="step">
                 <p>Submit</p>
                 <div class="bullet">
-                    <span><i class="fa-solid fa-clipboard-check" style="position:relative;top:3px"></i></span>
+                    <span><i class="fa-solid fa-clipboard-check"></i></span>
                 </div>
-                <div class="check fas fa-check" style="position:relative;top:-14px"></div>
+                <div class="check fas fa-check"></div>
             </div>
         </div>
 
@@ -60,69 +64,42 @@
                 <div class="page slide-page">
                     <div class="title">Basic Info:</div>
                     <div class="field">
-                        @Html.LabelFor(model => model.PersonName, htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-10">
-                            @Html.EditorFor(model => model.PersonName, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.PersonName, "", new { @class = "text-danger" })
-                        </div>
+                        <div class="label">@Html.LabelFor(model => model.PersonName)</div>
+                        @Html.EditorFor(model => model.PersonName, new { htmlAttributes = new { @class = "form-control", id = "PersonName", required = "required" } })
+                        @Html.ValidationMessageFor(model => model.PersonName, "", new { @class = "text-danger" })
                     </div>
                     <div class="field">
-                        @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-10">
-                            @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
-                        </div>
+                        <div class="label">@Html.LabelFor(model => model.Address)</div>
+                        @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control", id = "Address", required = "required" } })
+                        @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
                     </div>
                     <div class="field">
-                        @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-10">
-                            @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
-                        </div>
+                        <div class="label">@Html.LabelFor(model => model.Nationality)</div>
+                        @Html.EditorFor(model => model.Nationality, new { htmlAttributes = new { @class = "form-control", id = "Nationality", required = "required" } })
+                        @Html.ValidationMessageFor(model => model.Nationality, "", new { @class = "text-danger" })
                     </div>
-
                     <div class="field">
-                        @Html.LabelFor(model => model.Nationality, htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-10">
-                            @Html.EditorFor(model => model.Nationality, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Nationality, "", new { @class = "text-danger" })
-                        </div>
+                        <button class="firstNext next">Next</button>
                     </div>
-
-                    <div class="field">
-                        <button class="firstNext next">
-                            Next
-                        </button>
-                    </div>
-                    <span>Already have an account? <a href="@Url.Action("Login","Account")">login</a></span>
                 </div>
 
                 <div class="page">
                     <div class="title">Contact Info:</div>
                     <div class="field">
-                        @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-10">
-                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
-                        </div>
+                        <div class="label">@Html.LabelFor(model => model.Email)</div>
+                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", id = "Email", required = "required" } })
+                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
                     </div>
-
                     <div class="field">
-                        @Html.LabelFor(model => model.MobileNumber, htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-10">
-                            @Html.EditorFor(model => model.MobileNumber, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.MobileNumber, "", new { @class = "text-danger" })
-                        </div>
+                        <div class="label">@Html.LabelFor(model => model.MobileNumber)</div>
+                        @Html.EditorFor(model => model.MobileNumber, new { htmlAttributes = new { @class = "form-control", id = "MobileNumber", required = "required" } })
+                        @Html.ValidationMessageFor(model => model.MobileNumber, "", new { @class = "text-danger" })
                     </div>
-
                     <div class="field">
-                        @Html.LabelFor(model => model.HomePhoneNumber, htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-10">
-                            @Html.EditorFor(model => model.HomePhoneNumber, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.HomePhoneNumber, "", new { @class = "text-danger" })
-                        </div>
+                        <div class="label">@Html.LabelFor(model => model.HomePhoneNumber)</div>
+                        @Html.EditorFor(model => model.HomePhoneNumber, new { htmlAttributes = new { @class = "form-control", id = "HomePhoneNumber", required = "required" } })
+                        @Html.ValidationMessageFor(model => model.HomePhoneNumber, "", new { @class = "text-danger" })
                     </div>
-
                     <div class="field btns">
                         <button class="prev-1 prev">Previous</button>
                         <button class="next-1 next">Next</button>
@@ -132,21 +109,15 @@
                 <div class="page">
                     <div class="title">Date of Birth:</div>
                     <div class="field">
-                        @Html.LabelFor(model => model.BirthDate, htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-10">
-                            @Html.EditorFor(model => model.BirthDate, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.BirthDate, "", new { @class = "text-danger" })
-                        </div>
+                        <div class="label">@Html.LabelFor(model => model.BirthDate)</div>
+                        @Html.EditorFor(model => model.BirthDate, new { htmlAttributes = new { @class = "form-control", id = "BirthDate", required = "required", type = "date" } })
+                        @Html.ValidationMessageFor(model => model.BirthDate, "", new { @class = "text-danger" })
                     </div>
-
                     <div class="field">
-                        @Html.LabelFor(model => model.Gender, htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-10">
-                            @Html.EditorFor(model => model.Gender, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
-                        </div>
+                        <div class="label">@Html.LabelFor(model => model.Gender)</div>
+                        @Html.EditorFor(model => model.Gender, new { htmlAttributes = new { @class = "form-control", id = "Gender", required = "required" } })
+                        @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
                     </div>
-
                     <div class="field btns">
                         <button class="prev-2 prev">Previous</button>
                         <button class="next-2 next">Next</button>
@@ -156,8 +127,13 @@
                 <div class="page">
                     <div class="title">Login Details:</div>
                     <div class="field">
+                        <div class="label">@Html.LabelFor(model => model.Password)</div>
+                        @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", id = "Password", required = "required", type = "password" } })
+                        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="field btns">
                         <button class="prev-3 prev">Previous</button>
-                        <input type="submit" value="Signup" class="btn btn-default submit" />
+                        <button class="submit">Submit</button>
                     </div>
                 </div>
             }
@@ -165,7 +141,7 @@
     </div>
     <script src="~/Scripts/signup.js"></script>
 </body>
-
 <footer style="display:flex; justify-content:center;color:grey; margin-top:5px;">
     <p>All rights reserved &copy; @DateTime.Now.Year ICEAlex.</p>
 </footer>
+</html>

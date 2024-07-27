@@ -137,7 +137,6 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\LogsController.cs" />
     <Compile Include="Controllers\MemberController.cs" />
     <Compile Include="Controllers\MemberOfferController.cs" />
     <Compile Include="Controllers\ServiceController.cs" />
@@ -145,7 +144,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\MembersDetails.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -168,6 +166,7 @@
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="Content\contact.css" />
     <Content Include="Content\forpass.css" />
+    <Content Include="Content\home.css" />
     <Content Include="Content\login.css" />
     <Content Include="Content\reset.css" />
     <Content Include="Content\signup.css" />
@@ -179,6 +178,7 @@
     <Content Include="images\bg.png" />
     <Content Include="images\freepik-export-20240715061812u1zF.png" />
     <Content Include="images\freepik-export-20240718164554cFM6.png" />
+    <Content Include="images\load-8510.gif" />
     <Content Include="images\sports-sportsmanias.gif" />
     <Content Include="images\young-fitness-man-studio.jpg" />
     <Content Include="Scripts\bootstrap.bundle.js" />
@@ -189,6 +189,7 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="libman.json" />
     <None Include="Scripts\jquery-3.7.0.intellisense.js" />
+    <Content Include="Scripts\home.js" />
     <Content Include="Scripts\jquery-3.7.0.js" />
     <Content Include="Scripts\jquery-3.7.0.min.js" />
     <Content Include="Scripts\jquery-3.7.0.slim.js" />
@@ -200,9 +201,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\signup.js" />
-    <Content Include="Content\style.css" />
     <Content Include="Scripts\verify.js" />
-    <Content Include="Scripts\mm.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -227,8 +226,6 @@
     <Content Include="Views\Account\Signup.cshtml" />
     <Content Include="Views\Account\forpass.cshtml" />
     <Content Include="Views\Account\ResetPassword.cshtml" />
-    <Content Include="Views\Account\SendVerificationCode.cshtml" />
-    <Content Include="Views\Account\verify.cshtml" />
     <Content Include="Views\MemberOffer\Create.cshtml" />
     <Content Include="Views\MemberOffer\Delete.cshtml" />
     <Content Include="Views\MemberOffer\Details.cshtml" />
@@ -245,7 +242,7 @@
     <Content Include="Views\Member\Edit.cshtml" />
     <Content Include="Views\Member\Index.cshtml" />
     <Content Include="Views\Home\logout.cshtml" />
-    <Content Include="Views\logs\Logs.cshtml" />
+    <Content Include="Views\Account\VerificationCodeSent.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

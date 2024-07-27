@@ -1,41 +1,150 @@
 ﻿@{
     ViewBag.Title = "Home";
+    Layout = null;
 }
 
-<main>
-    <section class="row" aria-labelledby="aspnetTitle">
-    </section>
 
-    <div class="row">
-        <section class="col-md-4" aria-labelledby="librariesTitle">
-            <h2 id="librariesTitle">Members</h2>
-            <p></p>
-            <p>@Html.ActionLink("Show »", "Index", "Member", null, new { @class = "btn btn-outline-dark" })</p>
-        </section>
-        <section class="col-md-4" aria-labelledby="librariesTitle">
-            <h2 id="librariesTitle">Services</h2>
-            <p></p>
-            <p>@Html.ActionLink("Show »", "Index", "Service", null, new { @class = "btn btn-outline-dark" })</p>
-        </section>
-        <section class="col-md-4" aria-labelledby="librariesTitle">
-            <h2 id="librariesTitle">Offers</h2>
-            <p></p>
-            <p>@Html.ActionLink("Show »", "Index", "MemberOffer", null, new { @class = "btn btn-outline-dark" })</p>
-        </section>
-        <section class="col-md-4" aria-labelledby="librariesTitle">
-            <h2 id="librariesTitle">Trainer</h2>
-            <p></p>
-            <p>@Html.ActionLink("Show »", "Index", "Trainer", null, new { @class = "btn btn-outline-dark" })</p>
-        </section>
-        <section class="col-md-4" aria-labelledby="librariesTitle">
-            <h2 id="librariesTitle">Reports</h2>
-            <p></p>
-            <p>@Html.ActionLink("Show »", "Index", "Report", null, new { @class = "btn btn-outline-dark" })</p>
-        </section>
-        <section class="col-md-4" aria-labelledby="librariesTitle">
-            <h2 id="librariesTitle">Actions</h2>
-            <p></p>
-            <p>@Html.ActionLink("Show »", "Index", "Logs" ,null, new { @class = "btn btn-outline-dark" })</p>
-        </section>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>MyClub-Home</title>
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css'>
+    <link rel="stylesheet" href="~/Content/home.css">
+    <link rel="icon" href="~/images/freepik-export-20240715061812u1zF.png" />
+</head>
+
+<body>
+    <!-- navbar -->
+    <div id="nav-bar">
+        <input id="nav-toggle" type="checkbox" />
+        <div id="nav-header">
+            <label for="nav-toggle"><span id="nav-toggle-burger"></span></label>
+            <a id="nav-title" href="#" target="_blank"><i class="fas fa-home"></i>MyClub</a>
+            <hr />
+        </div>
+        <div id="nav-content">
+            <div class="nav-button" id="members-btn"><i class="fas fa-users"></i><span>Members</span></div>
+            <div class="nav-button" id="trainers-btn"><i class="fas fa-dumbbell"></i><span>Trainers</span></div>
+            <hr />
+            <div class="nav-button" id="offers-btn"><i class="fas fa-tags"></i><span>Offers</span></div>
+            <div class="nav-button" id="services-btn"><i class="fas fa-concierge-bell"></i><span>Services</span></div>
+            <div class="nav-button" id="actions-btn"><i class="fas fa-tasks"></i><span>Actions</span></div>
+            <hr />
+            <div class="nav-button" id="reports-btn"><i class="fas fa-file-alt"></i><span>Reports</span></div>
+            <div id="nav-content-highlight"></div>
+        </div>
+        <input id="nav-footer-toggle" type="checkbox" />
+        <div id="nav-footer">
+            <div id="nav-footer-heading">
+                <div id="nav-footer-avatar"><img src="https://gravatar.com/avatar/4474ca42d303761c2901fa819c4f2547" /></div>
+                <div id="nav-footer-titlebox">
+                    <a id="nav-footer-title" href="#"
+                       target="_blank"></a><span id="nav-footer-subtitle"></span>
+                </div>
+                <label for="nav-footer-toggle"><i class="fas fa-caret-up"></i></label>
+            </div>
+        </div>
     </div>
-</main>
+    <!-- end of the nav bar-->
+    <!-- main content area -->
+    <div id="main-content">
+        <div id="members-content" class="content-section">
+            <!-- members content here -->
+            <div class="bg">
+                <h1></h1>members</h1>
+            </div>
+            <div class="upper">
+                <h1 class="header">Members</h1>
+                <h3 class="soon"> Comming Soon</h3>
+                <div class="img-container">
+                    <img src="~/images/load-8510.gif" />
+                </div>
+                <p class="des">please follow this button for mor info about our Members</p>
+                <div class="button"><button class="go">@Html.ActionLink("Members", "Index", "Member", null, new { @class = "btn btn-outline-dark" })</button></div>
+            </div>
+        </div>
+        <div id="trainers-content" class="content-section">
+            <!-- trainers content here -->
+            <h1 class="bg">Trainer</h1>
+            <div class="upper">
+                <h1 class="header">Trainers</h1>
+                <h3 class="soon"> Comming Soon</h3>
+                <div class="img-container">
+                    <img src="~/images/load-8510.gif" />
+                </div>
+                <p class="des">please follow this button for mor info about our Trainers</p>
+                <div class="button"><button class="go">@Html.ActionLink("Trainers", "Index", "Trainer", null, new { @class = "btn btn-outline-dark" })</button></div>
+            </div>
+        </div>
+        <div id="offers-content" class="content-section">
+            <!-- offers content here -->
+            <h1 class="bg">Offer</h1>
+            <div class="upper">
+                <h1 class="header">Offers</h1>
+                <h3 class="soon"> Comming Soon</h3>
+                <div class="img-container">
+                    <img src="~/images/load-8510.gif" />
+                </div>
+                <p class="des">please follow this button for mor info about our Offers</p>
+                <div class="button"><button class="go">@Html.ActionLink("Offers", "Index", "MemberOffer", null, new { @class = "btn btn-outline-dark" })</button></div>
+            </div>
+        </div>
+        <div id="services-content" class="content-section">
+            <!-- services content here -->
+            <h1 class="bg">Service</h1>
+            <div class="upper">
+                <h1 class="header">Services</h1>
+                <h3 class="soon"> Comming Soon</h3>
+                <div class="img-container">
+                    <img src="~/images/load-8510.gif" />
+                </div>
+                <p class="des">please follow this button for mor info about our Services</p>
+                <div class="button"><button class="go">@Html.ActionLink("Services", "Index", "Service", null, new { @class = "btn btn-outline-dark" })</button></div>
+            </div>
+        </div>
+        <div id="actions-content" class="content-section">
+            <!-- actions content here -->
+            <h1 class="bg">Action</h1>
+            <div class="upper">
+                <h1 class="header">Actions</h1>
+                <h3 class="soon"> Comming Soon</h3>
+                <div class="img-container">
+                    <img src="~/images/load-8510.gif" />
+                </div>
+                <p class="des">please follow this button for mor info about Actions</p>
+                <div class="button"><button class="go">@Html.ActionLink("Actions", "Index", "Logs", null, new { @class = "btn btn-outline-dark" })</button></div>
+            </div>
+        </div>
+        <div id="reports-content" class="content-section">
+            <!-- reports content here -->
+            <h1 class="bg">Report</h1>
+            <div class="upper">
+                <h1 class="header">Reports</h1>
+                <h3 class="soon"> Comming Soon</h3>
+                <div class="img-container">
+                    <img src="~/images/load-8510.gif" />
+                </div>
+                <p class="des">please follow this button for mor info about the Reports</p>
+                <div class="button"><button class="go">@Html.ActionLink("Reports", "Index", "Report", null, new { @class = "btn btn-outline-dark" })</button></div>
+            </div>
+        </div>
+    </div>
+    <script src="~/Scripts/home.js"></script>
+</body>
+<footer style="display:flex; justify-content:center;color:lightgrey; margin-top:5px;">
+    <p>All rights reserved &copy; @DateTime.Now.Year ICEAlex.</p>
+</footer>
+
+</html>
+
+
+
+
+
+
+
+
+
